@@ -8,20 +8,20 @@
 \IfFileExists{images/logo.pdf}{
   \begin{minipage}[b]{0.5\linewidth}
     \begin{flushleft}
-      \includegraphics[height=3.5cm]{logo}
+      \includegraphics[scale=0.5]{logo}
     \end{flushleft}
   \end{minipage}%
   \begin{minipage}[b]{0.5\linewidth}
     \begin{flushright}
-      На правах рукописи\\
-%      \textsl {УДК \thesisUdk}
+%      На правах рукописи\\
+      \textsl {УДК \thesisUdk}
     \end{flushright}
   \end{minipage}
 }{
 \begin{flushright}
-На правах рукописи
+%На правах рукописи
 
-%\textsl {УДК \thesisUdk}
+\textsl {УДК \thesisUdk}
 \end{flushright}
 }
 %
@@ -44,14 +44,14 @@
 
 \ifdefined\thesisSpecialtyTwoNumber
 {%\small
-Специальность \thesisSpecialtyTwoNumber\ "---
+Специальность \thesisSpecialtyTwoNumber\ "--- 
 
 <<\thesisSpecialtyTwoTitle>>
 }
 \fi
 
 \vspace{0pt plus2fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-Диссертация на соискание учёной степени
+Выпускная квалификационная работа
 
 \thesisDegree
 \end{center}
