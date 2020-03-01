@@ -1,5 +1,5 @@
 %%% Шаблон %%%
-\DeclareRobustCommand{\todo}{\textcolor{red}}       % решаем проблему превращения названия цвета в результате \MakeUppercase, http://tex.stackexchange.com/a/187930, \DeclareRobustCommand protects \todo from expanding inside \MakeUppercase
+\DeclareRobustCommand{\todo}{\textcolor{black}}       % решаем проблему превращения названия цвета в результате \MakeUppercase, http://tex.stackexchange.com/a/187930, \DeclareRobustCommand protects \todo from expanding inside \MakeUppercase
 \AtBeginDocument{%
     \setlength{\parindent}{2.5em}                   % Абзацный отступ. Должен быть одинаковым по всему тексту и равен пяти знакам (ГОСТ Р 7.0.11-2011, 5.3.7).
 }
@@ -81,9 +81,9 @@
 %    pdfpagelabels=false,        % set PDF page labels (true|false)
     plainpages=false,           % Forces page anchors to be named by the Arabic form  of the page number, rather than the formatted form
     colorlinks,                 % ссылки отображаются раскрашенным текстом, а не раскрашенным прямоугольником, вокруг текста
-    linkcolor={linkcolor},      % цвет ссылок типа ref, eqref и подобных
-    citecolor={citecolor},      % цвет ссылок-цитат
-    urlcolor={urlcolor},        % цвет гиперссылок
+    linkcolor={black}, %{linkcolor},      % цвет ссылок типа ref, eqref и подобных
+    citecolor={black}, %{citecolor},      % цвет ссылок-цитат
+    urlcolor={black}, %{urlcolor},        % цвет гиперссылок
 %    hidelinks,                  % Hide links (removing color and border)
     pdftitle={\thesisTitle},    % Заголовок
     pdfauthor={\thesisAuthor},  % Автор
