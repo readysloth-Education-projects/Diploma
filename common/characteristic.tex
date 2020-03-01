@@ -5,16 +5,17 @@
 которые описаны в её функционале. 
 
 Но существуют ненапрасные опасения, что на любом из этапов сборки программы из
-исходных кодов в ней может появиться программная закладка \autocite{compileavirus}
+исходных кодов в ней может появиться программная закладка \autocite{compile-a-virus}
+\autocite{kenthompsonhack}
 
 Чтобы подобные ситуации исключить, применяется техника статичического 
 анализа исходных кодов, динамического анализа -- анализа пройденных 
 программой трасс и последующее сравнение результатов обоих анализов.
 
-Существуют достойные \autocite{cstaticanalysis} разработки в области 
+Существуют достойные \autocite{c-static-analysis} разработки в области 
 открытого программного обеспечения по проведению, например статического 
-анализа кода или получению динамических трасс, но существующих решений в том, 
-что не сущестует \footnote{А кто его знает, надо проверить} комбинированных решений, 
+анализа кода или получению динамических трасс, но не существует 
+\footnote{А кто его знает, надо проверить} комбинированных решений, 
 позволяющих провести данный процесс валидации ПО. Для каждого конкретного 
 проекта приходится использовать различные статические анализаторы кода и 
 динамические анализаторы исполнения программ, что приводит к переписыванию, 
@@ -47,131 +48,129 @@
 Для~достижения поставленной цели необходимо было решить следующие {\tasks}:
 \begin{enumerate}
   \item Разбор зависимостей файлов, используемых в проекте (Makefile'ы)
-  \item Статический анализ исходных текстов
-  \item Динамический анализ исходных текстов
-  \item Сравненительный анализ
+  \item Анализ исходных текстов
+  \item Анализ работы программы
+  \item Сравненительный анализ результатов статического и динамического анализа
 \end{enumerate}
 
 
-{\novelty}
-\begin{enumerate}
-  \item Впервые \ldots
-  \item Впервые \ldots
-  \item Было выполнено оригинальное исследование \ldots
-\end{enumerate}
+% {\novelty}
+% \begin{enumerate}
+%   \item Впервые \ldots
+%   \item Впервые \ldots
+%   \item Было выполнено оригинальное исследование \ldots
+% \end{enumerate}
 
-{\influence} \ldots
+{\influence} проекта состоит в максимальной автоматизации, а следовательно ускорении
+процесса сертификации ПО на отсутствие НДВ.
 
-{\methods} \ldots
+%{\methods} \ldots
 
-{\defpositions}
-\begin{enumerate}
-  \item Первое положение
-  \item Второе положение
-  \item Третье положение
-  \item Четвертое положение
-\end{enumerate}
-В папке Documents можно ознакомиться в решением совета из Томского ГУ
-в~файле \verb+Def_positions.pdf+, где обоснованно даются рекомендации
-по~формулировкам защищаемых положений.
+%{\defpositions}
+%\begin{enumerate}
+%  \item Первое положение
+%\end{enumerate}
+%В папке Documents можно ознакомиться в решением совета из Томского ГУ
+%в~файле \verb+Def_positions.pdf+, где обоснованно даются рекомендации
+%по~формулировкам защищаемых положений.
 
-{\reliability} полученных результатов обеспечивается \ldots \ Результаты находятся в соответствии с результатами, полученными другими авторами.
-
-
-{\probation}
-Основные результаты работы докладывались~на:
-перечисление основных конференций, симпозиумов и~т.\:п.
-
-{\contribution} Автор принимал активное участие \ldots
-
-\ifnumequal{\value{bibliosel}}{0}
-{%%% Встроенная реализация с загрузкой файла через движок bibtex8. (При желании, внутри можно использовать обычные ссылки, наподобие `\cite{vakbib1,vakbib2}`).
-    {\publications} Основные результаты по теме диссертации изложены в XX печатных изданиях,
-    X из которых изданы в журналах, рекомендованных ВАК,
-    X "--- в тезисах докладов.
-}%
-{%%% Реализация пакетом biblatex через движок biber
-    \begin{refsection}[bl-author]
-        % Это refsection=1.
-        % Процитированные здесь работы:
-        %  * подсчитываются, для автоматического составления фразы "Основные результаты ..."
-        %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthor` или `\insertbiblioauthorgrouped`
-        %  * нумеруются там в зависимости от порядка команд `\printbibliography` в этом разделе.
-        %  * при использовании `\insertbiblioauthorgrouped`, порядок команд `\printbibliography` в нём должен быть тем же (см. biblio/biblatex.tex)
-        %
-        % Невидимый библиографический список для подсчёта количества публикаций:
-        \printbibliography[heading=nobibheading, section=1, env=countauthorvak,          keyword=biblioauthorvak]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorwos,          keyword=biblioauthorwos]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorscopus,       keyword=biblioauthorscopus]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorconf,         keyword=biblioauthorconf]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorother,        keyword=biblioauthorother]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthor,             keyword=biblioauthor]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorvakscopuswos, filter=vakscopuswos]%
-        \printbibliography[heading=nobibheading, section=1, env=countauthorscopuswos,    filter=scopuswos]%
-        %
-        \nocite{*}%
-        %
-        {\publications} Основные результаты по теме диссертации изложены в~\arabic{citeauthor}~печатных изданиях,
-        \arabic{citeauthorvak} из которых изданы в журналах, рекомендованных ВАК\sloppy%
-        \ifnum \value{citeauthorscopuswos}>0%
-            , \arabic{citeauthorscopuswos} "--- в~периодических научных журналах, индексируемых Web of~Science и Scopus\sloppy%
-        \fi%
-        \ifnum \value{citeauthorconf}>0%
-            , \arabic{citeauthorconf} "--- в~тезисах докладов.
-        \else%
-            .
-        \fi
-    \end{refsection}%
-    \begin{refsection}[bl-author]
-        % Это refsection=2.
-        % Процитированные здесь работы:
-        %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthorimportant`.
-        %  * ни на что не влияют в противном случае
-        \nocite{vakbib2}%vak
-        \nocite{bib1}%other
-        \nocite{confbib1}%conf
-    \end{refsection}%
-        %
-        % Всё, что вне этих двух refsection, это refsection=0,
-        %  * для диссертации - это нормальные ссылки, попадающие в обычную библиографию
-        %  * для автореферата:
-        %     * при usefootcite==0, ссылка корректно сработает только для источника из `external.bib`. Для своих работ --- напечатает "[0]" (и даже Warning не вылезет).
-        %     * при usefootcite==1, ссылка сработает нормально. В авторской библиографии будут только процитированные в refsection=0 работы.
-        %
-        % Невидимый библиографический список для подсчёта количества внешних публикаций
-        % Используется, чтобы убрать приставку "А" у работ автора, если в автореферате нет
-        % цитирований внешних источников.
-        % Замедляет компиляцию
-    \ifsynopsis
-    \ifnumequal{\value{draft}}{0}{
-      \printbibliography[heading=nobibheading, section=0, env=countexternal,          keyword=biblioexternal]%
-    }{}
-    \fi
-}
-
-При использовании пакета \verb!biblatex! будут подсчитаны все работы, добавленные
-в файл \verb!biblio/author.bib!. Для правильного подсчёта работ в~различных
-системах цитирования требуется использовать поля:
-\begin{itemize}
-        \item \texttt{authorvak} если публикация индексирована ВАК,
-        \item \texttt{authorscopus} если публикация индексирована Scopus,
-        \item \texttt{authorwos} если публикация индексирована Web of Science,
-        \item \texttt{authorconf} для докладов конференций,
-        \item \texttt{authorother} для других публикаций.
-\end{itemize}
-Для подсчёта используются счётчики:
-\begin{itemize}
-        \item \texttt{citeauthorvak} для работ, индексируемых ВАК,
-        \item \texttt{citeauthorscopus} для работ, индексируемых Scopus,
-        \item \texttt{citeauthorwos} для работ, индексируемых Web of Science,
-        \item \texttt{citeauthorvakscopuswos} для работ, индексируемых одной из трёх баз,
-        \item \texttt{citeauthorscopuswos} для работ, индексируемых Scopus или Web of~Science,
-        \item \texttt{citeauthorconf} для докладов на конференциях,
-        \item \texttt{citeauthorother} для остальных работ,
-        \item \texttt{citeauthor} для суммарного количества работ.
-\end{itemize}
-% Счётчик \texttt{citeexternal} используется для подсчёта процитированных публикаций.
-
-Для добавления в список публикаций автора работ, которые не были процитированы в
-автореферате требуется их~перечислить с использованием команды \verb!\nocite! в
-\verb!Synopsis/content.tex!.
+% {\reliability} полученных результатов обеспечивается \ldots \ Результаты находятся в соответствии с результатами, полученными другими авторами.
+% 
+% 
+% {\probation}
+% Основные результаты работы докладывались~на:
+% перечисление основных конференций, симпозиумов и~т.\:п.
+% 
+% {\contribution} Автор принимал активное участие \ldots
+% 
+% \ifnumequal{\value{bibliosel}}{0}
+% {%%% Встроенная реализация с загрузкой файла через движок bibtex8. (При желании, внутри можно использовать обычные ссылки, наподобие `\cite{vakbib1,vakbib2}`).
+%     {\publications} Основные результаты по теме диссертации изложены в XX печатных изданиях,
+%     X из которых изданы в журналах, рекомендованных ВАК,
+%     X "--- в тезисах докладов.
+% }%
+% {%%% Реализация пакетом biblatex через движок biber
+%     \begin{refsection}[bl-author]
+%         % Это refsection=1.
+%         % Процитированные здесь работы:
+%         %  * подсчитываются, для автоматического составления фразы "Основные результаты ..."
+%         %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthor` или `\insertbiblioauthorgrouped`
+%         %  * нумеруются там в зависимости от порядка команд `\printbibliography` в этом разделе.
+%         %  * при использовании `\insertbiblioauthorgrouped`, порядок команд `\printbibliography` в нём должен быть тем же (см. biblio/biblatex.tex)
+%         %
+%         % Невидимый библиографический список для подсчёта количества публикаций:
+%         \printbibliography[heading=nobibheading, section=1, env=countauthorvak,          keyword=biblioauthorvak]%
+%         \printbibliography[heading=nobibheading, section=1, env=countauthorwos,          keyword=biblioauthorwos]%
+%         \printbibliography[heading=nobibheading, section=1, env=countauthorscopus,       keyword=biblioauthorscopus]%
+%         \printbibliography[heading=nobibheading, section=1, env=countauthorconf,         keyword=biblioauthorconf]%
+%         \printbibliography[heading=nobibheading, section=1, env=countauthorother,        keyword=biblioauthorother]%
+%         \printbibliography[heading=nobibheading, section=1, env=countauthor,             keyword=biblioauthor]%
+%         \printbibliography[heading=nobibheading, section=1, env=countauthorvakscopuswos, filter=vakscopuswos]%
+%         \printbibliography[heading=nobibheading, section=1, env=countauthorscopuswos,    filter=scopuswos]%
+%         %
+%         \nocite{*}%
+%         %
+%         {\publications} Основные результаты по теме диссертации изложены в~\arabic{citeauthor}~печатных изданиях,
+%         \arabic{citeauthorvak} из которых изданы в журналах, рекомендованных ВАК\sloppy%
+%         \ifnum \value{citeauthorscopuswos}>0%
+%             , \arabic{citeauthorscopuswos} "--- в~периодических научных журналах, индексируемых Web of~Science и Scopus\sloppy%
+%         \fi%
+%         \ifnum \value{citeauthorconf}>0%
+%             , \arabic{citeauthorconf} "--- в~тезисах докладов.
+%         \else%
+%             .
+%         \fi
+%     \end{refsection}%
+%     \begin{refsection}[bl-author]
+%         % Это refsection=2.
+%         % Процитированные здесь работы:
+%         %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthorimportant`.
+%         %  * ни на что не влияют в противном случае
+%         \nocite{vakbib2}%vak
+%         \nocite{bib1}%other
+%         \nocite{confbib1}%conf
+%     \end{refsection}%
+%         %
+%         % Всё, что вне этих двух refsection, это refsection=0,
+%         %  * для диссертации - это нормальные ссылки, попадающие в обычную библиографию
+%         %  * для автореферата:
+%         %     * при usefootcite==0, ссылка корректно сработает только для источника из `external.bib`. Для своих работ --- напечатает "[0]" (и даже Warning не вылезет).
+%         %     * при usefootcite==1, ссылка сработает нормально. В авторской библиографии будут только процитированные в refsection=0 работы.
+%         %
+%         % Невидимый библиографический список для подсчёта количества внешних публикаций
+%         % Используется, чтобы убрать приставку "А" у работ автора, если в автореферате нет
+%         % цитирований внешних источников.
+%         % Замедляет компиляцию
+%     \ifsynopsis
+%     \ifnumequal{\value{draft}}{0}{
+%       \printbibliography[heading=nobibheading, section=0, env=countexternal,          keyword=biblioexternal]%
+%     }{}
+%     \fi
+% }
+% 
+% При использовании пакета \verb!biblatex! будут подсчитаны все работы, добавленные
+% в файл \verb!biblio/author.bib!. Для правильного подсчёта работ в~различных
+% системах цитирования требуется использовать поля:
+% \begin{itemize}
+%         \item \texttt{authorvak} если публикация индексирована ВАК,
+%         \item \texttt{authorscopus} если публикация индексирована Scopus,
+%         \item \texttt{authorwos} если публикация индексирована Web of Science,
+%         \item \texttt{authorconf} для докладов конференций,
+%         \item \texttt{authorother} для других публикаций.
+% \end{itemize}
+% Для подсчёта используются счётчики:
+% \begin{itemize}
+%         \item \texttt{citeauthorvak} для работ, индексируемых ВАК,
+%         \item \texttt{citeauthorscopus} для работ, индексируемых Scopus,
+%         \item \texttt{citeauthorwos} для работ, индексируемых Web of Science,
+%         \item \texttt{citeauthorvakscopuswos} для работ, индексируемых одной из трёх баз,
+%         \item \texttt{citeauthorscopuswos} для работ, индексируемых Scopus или Web of~Science,
+%         \item \texttt{citeauthorconf} для докладов на конференциях,
+%         \item \texttt{citeauthorother} для остальных работ,
+%         \item \texttt{citeauthor} для суммарного количества работ.
+% \end{itemize}
+% % Счётчик \texttt{citeexternal} используется для подсчёта процитированных публикаций.
+% 
+% Для добавления в список публикаций автора работ, которые не были процитированы в
+% автореферате требуется их~перечислить с использованием команды \verb!\nocite! в
+% \verb!Synopsis/content.tex!.
