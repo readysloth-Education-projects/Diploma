@@ -82,14 +82,24 @@
 
 \supervisorRegalia
 
+
 \ifdefined\supervisorDead
 \framebox{\supervisorFio}
 \else
 \supervisorFio
+
+\line(1,0){160}
 \fi
 \fi
 
+Студент:
+
+\thesisAuthorLastName\ \thesisAuthorOtherNames
+
+\line(1,0){160}
+
 \end{flushright}
+
 %
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 {\centering\thesisCity\ "--- \thesisYear\par}
