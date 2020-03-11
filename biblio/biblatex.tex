@@ -25,6 +25,8 @@ isbn=false,% Показывать или нет ISBN, ISSN, ISRN
 \usepackage[%
 backend=biber,% движок
 bibencoding=utf8,% кодировка bib файла
+style=gost-numeric,% стиль цитирования и библиографии (по ГОСТ)
+language=autobib,% получение языка из babel/polyglossia, default: autobib % если ставить autocite или auto, то цитаты в тексте с указанием страницы, получат указание страницы на языке оригинала
 sorting=true,% настройка сортировки списка литературы
 defernumbers=true, % откомментируйте, если требуется правильная нумерация ссылок на литературу в режиме черновика. Замедляет сборку
 ]{biblatex}[2016/09/17]%
