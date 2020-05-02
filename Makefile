@@ -34,7 +34,7 @@ TARGET ?= $(SOURCE)
 # -xelatex	= xelatex without dvi
 # -pdflua	= lualatex with dvi  (faster than -lualatex)
 # -lualatex	= lualatex without dvi
-BACKEND ?= -pdfxe
+BACKEND ?= -pdf
 
 # Do not modify the section below. Edit usercfg.mk instead.
 DRAFTON ?= # 1=on;0=off
