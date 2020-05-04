@@ -18,6 +18,8 @@
 %%% Поля и разметка страницы %%%
 \usepackage{pdflscape}                              % Для включения альбомных страниц
 \usepackage{geometry}                               % Для последующего задания полей
+\usepackage{changepage}
+
 %\usepackage{caption}                               % Для подписей
 
 %%% Математические пакеты %%%
@@ -104,6 +106,7 @@
                                  % шириной столбцов (tabu обязательно
                                  % до hyperref вызывать)
 \usepackage{threeparttable}      % автоматический подгон ширины подписи таблицы
+\usepackage{diagbox}             % Диагональные клетки
 
 %%% Общее форматирование
 \usepackage{soulutf8}                               % Поддержка переносоустойчивых подчёркиваний и зачёркиваний
@@ -126,10 +129,11 @@
 %% Векторная графика
 
 \usepackage{tikz}                   % Продвинутый пакет векторной графики
-\usetikzlibrary{chains}             % Для примера tikz рисунка
-\usetikzlibrary{shapes.geometric}   % Для примера tikz рисунка
-\usetikzlibrary{shapes.symbols}     % Для примера tikz рисунка
-\usetikzlibrary{arrows}             % Для примера tikz рисунка
+\usetikzlibrary{chains}             
+\usetikzlibrary{shapes.geometric}   
+\usetikzlibrary{shapes.symbols}     
+\usetikzlibrary{arrows}             
+\usetikzlibrary{positioning,decorations.pathreplacing}
 
 %%% Гиперссылки %%%
 \usepackage{hyperref}[2012/11/06]

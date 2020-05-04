@@ -1,14 +1,56 @@
-\chapter{Длинное название главы, в которой мы смотрим на~примеры того, как будут верстаться изображения и~списки}\label{ch:ch2}
+\chapter{Конструкторский раздел}\label{ch:ch2}
+\section{Обоснование выбора языка программирования и среды разработки}\label{sec:ch2/sec1}
 
-\section{Одиночное изображение}\label{sec:ch2/sec1}
+Для разработки {\ProgModule} понадобится сверхвысокоуровневый язык с кросс-платформенной
+стандартной библиотекой, который позволит точно и лаконично описать этапы анализа,
+а так же имеющий высокую скорость исполнения, для анализа больших объемов исходного кода и
+исполняемых файлов.
 
-\begin{figure}[ht]
-  \centerfloat{
-    \includegraphics[scale=0.27]{latex}
-  }
-  \caption{TeX.}\label{fig:latex}
+{\small
+    \setlength{\tabcolsep}{2pt}
+    \begin{longtable}{*{5}{| c}|}
+        \hline
+        \diagbox[width=8cm]{Свойства}{Язык программирования} &
+            \makecell{Nim \autocite{nim}} &
+            \makecell{Python \autocite{python}} &
+            \makecell{Perl \autocite{perl}} &
+            \makecell{C/C++} &
+        \hline
+            \makecell{Сверхвысокоуровневость} & 
+            \greencell{Да} & 
+            \greencell{Да} &
+            \greencell{Да} &
+            \redcell{Нет} \\
+        \hline
+            \makecell{Компилируется в\\машинный код} & 
+            \greencell{да} & 
+            \greencell{нет} &
+            \redcell{нет} &
+            \redcell{да} \\
+        \hline
+            \makecell{Количество функции в\\стандартной библиотеке} & 
+            {5585} & 
+            {638} &
+            {1338} &
+            {1224} \\
+        \hline
+    \caption{\label{table:languages-comparsion}
+           Сравнительная таблица языков программирования}
+    \end{longtable}
+}
+
+\section{Cхема данных}\label{sec:ch2/sec2}
+
+\begin{figure}[!htbp]
+    \centerfloat{
+        \input{images/dataflow.tikz}
+    }
+    \caption{Схема данных {\ProgModule}\label{fig:dataflow}}
 \end{figure}
 
+
+
+\newpage
 Для выравнивания изображения по-центру используется команда \verb+\centerfloat+, которая является во
 многом улучшенной версией встроенной команды \verb+\centering+.
 
@@ -65,16 +107,6 @@
 файла и~папка расположения таких файлов могут быть отдельно заданы,
 что удобно, если не~для подготовки диссертации,
 то~для подготовки научных публикаций.
-\begin{figure}[ht]
-    \centerfloat{
-        \ifdefmacro{\tikzsetnextfilename}{\tikzsetnextfilename{tikz_example_compiled}}{}% присваиваемое предкомпилированному pdf имя файла (не обязательно)
-        \input{Dissertation/images/tikz_scheme.tikz}
-
-    }
-    \legend{}
-    \caption[Пример \texttt{tikz} схемы]{Пример рисунка, рассчитываемого
-        \texttt{tikz}, который может быть предкомпилирован}\label{fig:tikz_example}
-\end{figure}
 
 Множество программ имеют либо встроенную возможность экспортировать векторную
 графику кодом \verb|tikz|, либо соответствующий пакет расширения.

@@ -45,3 +45,26 @@
 
 % для списка литературы в диссертации и списка чужих работ в автореферате:
 \newcommand{\bibtitlefull}{Список литературы} % (ГОСТ Р 7.0.11-2011, 4)
+
+\newcommand{\ProgModule}{ПМ АПНДВ} % Название программного модуля
+
+\newcommand\diag[4]{%
+    \multicolumn{1}{p{#2}|}{
+        \hskip-\tabcolsep
+        $\vcenter{
+            \begin{tikzpicture}[baseline=0,anchor=south west,inner sep=#1]
+                \path[use as bounding box] (0,0) rectangle (#2+2\tabcolsep,\baselineskip);
+                \node[minimum width={#2+2\tabcolsep},minimum height=\baselineskip+\extrarowheight] (box) {};
+                \draw (box.north west) -- (box.south east);
+                \node[anchor=south west] at (box.south west) {#3};
+                \node[anchor=north east] at (box.north east) {#4};
+            \end{tikzpicture}
+        }$\hskip-\tabcolsep
+   }
+}
+
+\newcommand{\redcell}[1]{
+    \cellcolor{red!30} #1 }
+
+\newcommand{\greencell}[1]{
+    \cellcolor{green!30} #1 }
