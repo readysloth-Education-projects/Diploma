@@ -1,0 +1,240 @@
+% !TEX encoding = UTF-8 Unicode
+% Úτƒ-8 encoded
+% http://www.linux.org.ru/forum/general/10357036
+\tikzset{
+    line/.style={draw, -latex'},
+    every join/.style={line},
+    u/.style={anchor=south},
+    r/.style={anchor=west},
+    fxd/.style={text width = 6em},
+    it/.style={font={\small\itshape}},
+    bf/.style={font={\small\bfseries}}
+
+}
+\tikzstyle{base} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+        text width=5cm
+    ]
+\tikzstyle{coord} =
+    [
+        coordinate,
+        on chain,
+        on grid
+    ]
+\tikzstyle{cloud} =
+    [
+        base,
+        ellipse,
+        node distance = 3cm,
+        minimum height = 2em
+    ]
+\tikzstyle{decision} =
+    [
+        base,
+        diamond,
+        aspect=2,
+        node distance = 2cm,
+        inner sep = 0pt
+    ]
+\tikzstyle{block} =
+    [
+        rectangle,
+        base,
+        rounded corners,
+        minimum height = 2em
+    ]
+\tikzstyle{print_block} =
+    [
+        base,
+        tape,
+        tape bend top=none,
+    ]
+\tikzstyle{io} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 70,
+        trapezium right angle = 110,
+    ]
+\tikzstyle{prompt} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 90,
+        trapezium right angle = 80,
+        shape border rotate = 90
+    ]
+\tikzstyle{disk file} =
+    [
+        base,
+        cylinder,
+        aspect=0.2,
+    ]
+\tikzstyle{process} =
+    [
+        rectangle,
+        base,
+    ]
+\makeatletter
+\pgfkeys{/pgf/.cd,
+    subrtshape w/.initial=2mm,
+    cycleshape w/.initial=2mm
+}
+\pgfdeclareshape{subrtshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/subrtshape w}}
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\ppd@offset}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\ppd@offset}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cyclebegshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cycleendshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\makeatother
+\tikzstyle{subroutine} =
+    [
+        base,
+        subrtshape,
+    ]
+\tikzstyle{cyclebegin} =
+    [
+        base,
+        cyclebegshape,
+    ]
+\tikzstyle{cycleend} =
+    [
+        base,
+        cycleendshape,
+    ]
+\tikzstyle{connector} =
+    [
+        base,
+        circle,
+    ]
+\begin{tikzpicture}[%
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=6mm and 30mm, % Global setup of box spacing
+    scale=0.7, 
+    every node/.style={scale=0.72}
+    ] 
+        \node [prompt   ] (makefile)        [left  = 2cm ]                      {\small Путь до папки с Makefile};
+        \node [process  ] (builder)         [below = 2cm of makefile]           {\small Сборщик};
+        \node [prompt   ] (executable)      [right = 10cm of makefile]          {\small Путь до исполняемого файла};
+        \node [process  ] (breakpointer)                                        {\small Модуль бинарного анализа};
+        \node [disk file] (modified exe)    [below right = 3cm of breakpointer] {\small Модифицированный исполняемый файл};
+        \node [disk file] (build log)       [below right = 3cm of builder]      {\small Файл с информацией о сборке};
+        \node [process  ] (static analyzer) [below = 3cm of build log]          {\small Модуль статического анализа};
+        \node [disk file] (call map)        [below left = 3cm of builder]       {\small Файл с информацией о линковке};
+        \node [disk file] (gdb script)      [below left = 3cm of breakpointer]  {\small Скрипт для GDB};
+        \node [process  ] (gdb manager)     [below = 4cm of breakpointer]       {\small Модуль управления отладчиком};
+        \node [disk file] (dyn result)      [below = 2cm of gdb manager]        {\small Результаты динамического анализа};
+        \node [process  ] (dyn parser)      [below = 2cm of dyn result]         {\small Модуль преобразования результатов динамического анализа};
+        \node [disk file] (dyn json)        [below = 2cm of dyn parser]         {\small Преобразованные результаты динамического анализа};
+        \node [disk file] (stat result)     [below = 2cm of static analyzer]    {\small Результаты статического анализа};
+        \node [process  ] (stat parser)     [below = 2cm of stat result]        {\small Модуль преобразования результатов статического анализа};
+        \node [disk file] (stat json)       [below = 2cm of stat parser]        {\small Преобразованные результаты статического анализа};
+        \node [process  ] (aggregator)      [below = 2cm of stat json]          {\small Модуль агрегирования результатов линковки и статического анализа};
+        \node [disk file] (aggregator file) [below = 2cm of aggregator]         {\small Агрегированные результаты линковки и статического анализа};
+        \node [process  ] (comparer)                                            {\small Модуль сравнительного анализа};
+        \node [disk file] (summary)                                             {\small Результаты сравнительного анализа};
+
+        \draw [line] (makefile)        -- (builder);
+        \draw [line] (builder)         -| (call map);
+        \draw [line] (builder)         -| (build log);
+
+        \draw [line] (executable)      -- (breakpointer);
+        \draw [line] (breakpointer)    -| (modified exe);
+        \draw [line] (breakpointer)    -| (gdb script);
+
+        \draw [line] (modified exe)    |- (gdb manager);
+        \draw [line] (gdb script)      |- (gdb manager);
+        \draw [line] (gdb manager)     -- (dyn result);
+        \draw [line] (dyn result)      -- (dyn parser);
+        \draw [line] (dyn parser)      -- (dyn json);
+
+
+        \draw [line] (build log)       -- (static analyzer);
+        \draw [line] (static analyzer) -- (stat result);
+        \draw [line] (stat result)     -- (stat parser);
+        \draw [line] (stat parser)     -- (stat json);
+        \draw [line] (call map)        |- (aggregator);
+        \draw [line] (stat json)       -- (aggregator);
+        \draw [line] (aggregator)      -- (aggregator file);
+
+        \draw [line] (aggregator file) -- (comparer);
+        \draw [line] (dyn json)        |- (comparer);
+        \draw [line] (comparer)        -- (summary);
+
+\end{tikzpicture}

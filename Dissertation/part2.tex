@@ -78,7 +78,26 @@
     \caption{Схема данных {\ProgModule}\label{fig:dataflow}}
 \end{figure}
 
+Работу {\ProgModule} можно разделить на функциональные этапы:
+\begin{enumerate}
+    \item Сборка анализиуемой программы 
+    \item Статический анализ результатов сборки\label{statical-analysis-stage}
+    \item Динамический анализ собранной программы\label{dynamical-analysis-stage}
+    \item Сравнительный анализ результатов предыдущих шагов
+\end{enumerate}
 
+Причем \autoref{statical-analysis-stage} и \autoref{dynamical-analysis-stage} могут выполняться
+одновременно, так как не имеют зависимости по данным.
+Что отражено в алгоритме решения задачи.
+
+\section{Алгоритм}\label{sec:ch2/sec3}
+
+\begin{figure}[!htbp]
+    \centerfloat{
+        \input{images/algorithm.tikz}
+    }
+    \caption{Алгоритм {\ProgModule}\label{fig:algorithm}}
+\end{figure}
 
 \newpage
 Для выравнивания изображения по-центру используется команда \verb+\centerfloat+, которая является во
