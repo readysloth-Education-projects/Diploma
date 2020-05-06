@@ -2,7 +2,6 @@
 % Úτƒ-8 encoded
 % http://www.linux.org.ru/forum/general/10357036
 \tikzset{
-    pics/.cd,
     line/.style={draw, -latex'},
     every join/.style={line},
     u/.style={anchor=south},
@@ -102,7 +101,6 @@
     \backgroundpath{
         \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
         \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
-        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/subrtshape w}}
         \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
         \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
         \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
@@ -220,7 +218,7 @@
     ] 
         \node [cloud    ] (makefile)        [left  = 4cm ]                   {\small Начало};
         \node [process  ] (builder)         [below = 3cm of makefile]        {\small Сборщик};
-        \node [parallel ] (parallel)        [below of = builder]             {};
+        \node [parallel ] (parallel)        [below of = builder, yscale=0.3]             {};
         \node [process  ] (breakpointer)    [below right = 5cm of builder]   {\small Бинарный анализ};
         \node [process  ] (static analyzer) [below left = 5cm of builder]    {\small Статический анализ};
         \node [process  ] (stat parser)     [below = 4cm of static analyzer] {\small Преобразование результатов статического анализа};
@@ -229,23 +227,23 @@
         \node [process  ] (dyn parser)      [below = 4cm of gdb manager]     {\small Преобразование результатов динамического анализа};
         \node [cloud    ] (end)             [below = 23cm of makefile]     {\small Конец};
         \node [process  ] (comparer)        [above = 3cm of end]             {\small Сравнительный анализ};
-        \node [parallel ] (parallel aggr)   [above = 3cm of comparer]             {};
+        \node [parallel ] (parallel aggr)   [above = 3cm of comparer, yscale=0.3]             {};
 
-        \draw [->] (makefile)        -- (builder);
-        \draw [-] (builder)          -- (parallel);
+        \draw [line] (makefile) -- (builder);
+        \draw [-] (builder)     -- (parallel);
 
-        \draw [-] (parallel)         -- (static analyzer);
-        \draw [-] (parallel)         -- (breakpointer);
+        \draw [-] (parallel)  -- +(-2,-0.140) -- +(-2,-1.9) -- (static analyzer);
+        \draw [-] (parallel)  -- +(+2,-0.140) -- +(+2,-1.9) -- (breakpointer);
 
-        \draw [->] (static analyzer) -- (stat parser);
-        \draw [->] (stat parser)     -- (aggregator);
+        \draw [line] (static analyzer) -- (stat parser);
+        \draw [line] (stat parser)     -- (aggregator);
 
-        \draw [->] (breakpointer)    -- (gdb manager);
-        \draw [->] (gdb manager)     -- (dyn parser);
+        \draw [line] (breakpointer)    -- (gdb manager);
+        \draw [line] (gdb manager)     -- (dyn parser);
 
-        \draw [-] (aggregator)       -- (parallel aggr);
-        \draw [-] (dyn parser)       -- (parallel aggr);
+        \draw [-] (aggregator) -- +(+2,-1.05) -- +(+2,-2.33) -- (parallel aggr);
+        \draw [-] (dyn parser) -- +(-2,-1.09) -- +(-2,-2.33) -- (parallel aggr);
         \draw [-] (parallel aggr)    -- (comparer);
-        \draw [->] (comparer)        -- (end);
+        \draw [line] (comparer)        -- (end);
 
 \end{tikzpicture}

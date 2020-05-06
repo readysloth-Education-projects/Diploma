@@ -8,6 +8,8 @@
 
 {\small
     \setlength{\tabcolsep}{2pt}
+    \caption{\label{table:languages-comparsion}
+           Сравнительная таблица языков программирования}
     \begin{longtable}{*{5}{| c}|}
         \hline
         \diagbox[width=8cm]{Свойства}{Язык программирования} &
@@ -70,8 +72,6 @@
             \redcell{Нет} &
             \greencell{Есть} \\
         \hline
-    \caption{\label{table:languages-comparsion}
-           Сравнительная таблица языков программирования}
     \end{longtable}
 }
 
@@ -163,6 +163,8 @@
 
 {\small
     \setlength{\tabcolsep}{2pt}
+    \caption{\label{table:ide-comparsion}
+           Сравнительная таблица IDE и редакторов кода}
     \begin{longtable}{*{6}{| c}|}
         \hline
         \diagbox[width=8cm]{Свойства}{IDE/Редактор} &
@@ -228,8 +230,6 @@
             \greencell{Есть} &
             \greencell{Есть} \\
         \hline
-    \caption{\label{table:ide-comparsion}
-           Сравнительная таблица IDE и редакторов кода}
     \end{longtable}
 }
 
@@ -265,28 +265,28 @@
 так как он поддерживает добавление плагинов, не требователен к ресурсам и позволяет
 очень быстро редактировать текст.
 
-\newpage
+\section{Концептуальное описание работы модуля}\label{sec:ch2/sec3}
 
-\section{Организация передачи информации между компонентами {\ProgModule}}\label{sec:ch2/sec3}
+\section{Организация передачи информации между компонентами {\ProgModule}}\label{sec:ch2/sec4}
 Передача информации между компонентами {\ProgModule} осуществляется посредством
 сериализации внутренних структур конкретного модуля в формате JSON.
 JSON удобен тем, что является простым для чтения как человеком, так и компьютером,
 что позволяет оператору анализировать так же и промежуточные результаты работы, для
 вынесения вердикта.
 
-\section{Cхема данных}\label{sec:ch2/sec4}
+\section{Cхема данных}\label{sec:ch2/sec5}
 
 \begin{figure}[!htbp]
+    \caption{Схема данных {\ProgModule}\label{fig:dataflow}}
     \centerfloat{
         \input{images/dataflow.tikz}
     }
-    \caption{Схема данных {\ProgModule}\label{fig:dataflow}}
 \end{figure}
 Из схемы данных \autoref{fig:dataflow} видно, что работу {\ProgModule} можно разбить на параллельные 
 задачи.
 
 
-\section{Алгоритм работы программы}\label{sec:ch2/sec5}
+\section{Алгоритм работы программы}\label{sec:ch2/sec6}
 Работу {\ProgModule} можно разделить на функциональные этапы:
 \begin{enumerate}
     \item Сборка анализиуемой программы 
@@ -299,9 +299,9 @@ JSON удобен тем, что является простым для чтен
 одновременно, так как не имеют зависимости по данным.
 
 \begin{figure}[!htbp]
+    \caption{Алгоритм работы {\ProgModule}\label{fig:algorithm}}
     \centerfloat{
         \input{images/algorithm.tikz}
     }
-    \caption{Алгоритм работы {\ProgModule}\label{fig:algorithm}}
 \end{figure}
 

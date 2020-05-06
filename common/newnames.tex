@@ -71,3 +71,8 @@
 
 \newcommand{\yellowcell}[1]{
     \cellcolor{yellow!30} #1 }
+
+\newcommand{\rpt}[2][1]{%
+    \newcounter{loopcntr}
+    \forloop{loopcntr}{0}{\value{loopcntr}<#1}{#2}%
+  }
