@@ -72,7 +72,12 @@
 \newcommand{\yellowcell}[1]{
     \cellcolor{yellow!30} #1 }
 
-\newcommand{\rpt}[2][1]{%
-    \newcounter{loopcntr}
-    \forloop{loopcntr}{0}{\value{loopcntr}<#1}{#2}%
+\newcommand{\rptf}[2][1]{%
+    \newcounter{loopcntr1}
+    \forloop{loopcntr1}{0}{\value{loopcntr1}<#1}{#2}%
+  }
+
+\newcommand{\rpts}[2][1]{%
+    \newcounter{loopcntr2}
+    \forloop{loopcntr2}{0}{\value{loopcntr2}<#1}{#2}%
   }

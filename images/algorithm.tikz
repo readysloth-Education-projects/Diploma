@@ -10,6 +10,17 @@
     it/.style={font={\small\itshape}},
     bf/.style={font={\small\bfseries}},
 }
+\tikzstyle{base_long} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+    ]
 \tikzstyle{base} =
     [
         draw,
@@ -209,7 +220,7 @@
 
 \tikzstyle{parallel} =
     [
-        base,
+        base_long,
         parallelshape,
     ]
 \begin{tikzpicture}[%
@@ -218,22 +229,22 @@
     ] 
         \node [cloud    ] (makefile)        [left  = 4cm ]                   {\small Начало};
         \node [process  ] (builder)         [below = 3cm of makefile]        {\small Сборщик};
-        \node [parallel ] (parallel)        [below of = builder, yscale=0.3]             {};
+        \node [parallel ] (parallel)        [below of = builder, yscale=0.3] {\rptf[75]{\ }};
         \node [process  ] (breakpointer)    [below right = 5cm of builder]   {\small Бинарный анализ};
         \node [process  ] (static analyzer) [below left = 5cm of builder]    {\small Статический анализ};
         \node [process  ] (stat parser)     [below = 4cm of static analyzer] {\small Преобразование результатов статического анализа};
         \node [process  ] (aggregator)      [below = 4cm of stat parser]     {\small Агрегирование результатов линковки и статического анализа};
         \node [process  ] (gdb manager)     [below = 4cm of breakpointer]    {\small Динамический анализ};
         \node [process  ] (dyn parser)      [below = 4cm of gdb manager]     {\small Преобразование результатов динамического анализа};
-        \node [cloud    ] (end)             [below = 23cm of makefile]     {\small Конец};
+        \node [cloud    ] (end)             [below = 23cm of makefile]       {\small Конец};
         \node [process  ] (comparer)        [above = 3cm of end]             {\small Сравнительный анализ};
-        \node [parallel ] (parallel aggr)   [above = 3cm of comparer, yscale=0.3]             {};
+        \node [parallel ] (parallel aggr)   [above = 3cm of comparer, yscale=0.3] {\rpts[75]{\ }};
 
         \draw [line] (makefile) -- (builder);
         \draw [-] (builder)     -- (parallel);
 
-        \draw [-] (parallel)  -- +(-2,-0.140) -- +(-2,-1.9) -- (static analyzer);
-        \draw [-] (parallel)  -- +(+2,-0.140) -- +(+2,-1.9) -- (breakpointer);
+        \draw [-] (parallel)  -- +(-3.55,-0.140) -- +(-3.55,-1.9) -- (static analyzer);
+        \draw [-] (parallel)  -- +(+3.55,-0.140) -- +(+3.55,-1.9) -- (breakpointer);
 
         \draw [line] (static analyzer) -- (stat parser);
         \draw [line] (stat parser)     -- (aggregator);
@@ -241,8 +252,8 @@
         \draw [line] (breakpointer)    -- (gdb manager);
         \draw [line] (gdb manager)     -- (dyn parser);
 
-        \draw [-] (aggregator) -- +(+2,-1.05) -- +(+2,-2.33) -- (parallel aggr);
-        \draw [-] (dyn parser) -- +(-2,-1.09) -- +(-2,-2.33) -- (parallel aggr);
+        \draw [-] (aggregator) -- +(+0,-1.05) -- +(+0,-2.33) -- (parallel aggr);
+        \draw [-] (dyn parser) -- +(-0,-1.09) -- +(-0,-2.33) -- (parallel aggr);
         \draw [-] (parallel aggr)    -- (comparer);
         \draw [line] (comparer)        -- (end);
 
