@@ -17,7 +17,8 @@
 
 %%% Макет страницы %%%
 % Выставляем значения полей (ГОСТ 7.0.11-2011, 5.3.7)
-\geometry{a4paper, top=2cm, bottom=2cm, left=2.5cm, right=1cm, nofoot, nomarginpar} %, heightrounded, showframe
+%\geometry{a4paper, top=2cm, bottom=2cm, left=2.5cm, right=1cm, nofoot, nomarginpar} %, heightrounded, showframe
+\geometry{a4paper, top=2cm, bottom=2cm, left=2cm, right=1cm, nofoot, nomarginpar} %, heightrounded, showframe
 \setlength{\topskip}{0pt}   %размер дополнительного верхнего поля
 \setlength{\footskip}{12.3pt} % снимет warning, согласно https://tex.stackexchange.com/a/334346
 
@@ -101,7 +102,8 @@
 %%% Оформление заголовков глав, разделов, подразделов %%%
 %% Работа должна быть выполнена ... размером шрифта 12-14 пунктов (ГОСТ Р 7.0.11-2011, 5.3.8). То есть не должно быть надписей шрифтом более 14. Так и поставим.
 %% Эти установки будут давать одинаковый результат независимо от выбора базовым шрифтом 12 пт или 14 пт
-\newcommand{\basegostsectionfont}{\fontsize{14pt}{16pt}\selectfont\bfseries}
+%\newcommand{\basegostsectionfont}{\fontsize{14pt}{16pt}\selectfont\bfseries}
+\newcommand{\basegostsectionfont}{\fontsize{13pt}{13pt}\selectfont\bfseries}
 
 \makechapterstyle{thesisgost}{%
     \chapterstyle{default}
@@ -149,12 +151,12 @@
 }{}%
 
 %%% Интервалы между заголовками
-\setbeforesecskip{\theintvl\curtextsize}% Заголовки отделяют от текста сверху и снизу тремя интервалами (ГОСТ Р 7.0.11-2011, 5.3.5).
-\setaftersecskip{\theintvl\curtextsize}
-\setbeforesubsecskip{\theintvl\curtextsize}
-\setaftersubsecskip{\theintvl\curtextsize}
-\setbeforesubsubsecskip{\theintvl\curtextsize}
-\setaftersubsubsecskip{\theintvl\curtextsize}
+%\setbeforesecskip{\theintvl\curtextsize}% Заголовки отделяют от текста сверху и снизу тремя интервалами (ГОСТ Р 7.0.11-2011, 5.3.5).
+%\setaftersecskip{\theintvl\curtextsize}
+%\setbeforesubsecskip{\theintvl\curtextsize}
+%\setaftersubsecskip{\theintvl\curtextsize}
+%\setbeforesubsubsecskip{\theintvl\curtextsize}
+%\setaftersubsubsecskip{\theintvl\curtextsize}
 
 %%% Вертикальные интервалы глав (\chapter) в оглавлении как и у заголовков
 % раскомментировать следующие 2

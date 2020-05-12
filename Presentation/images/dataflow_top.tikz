@@ -183,6 +183,19 @@
         base,
         circle,
     ]
+\tikzstyle{continue} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+        scale=0.5,
+        circle,
+    ]
 \begin{tikzpicture}[%
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
@@ -194,30 +207,27 @@
         \node [prompt   ] (executable)      [right = 10cm of makefile]          {\small Путь до исполняемого файла};
         \node [process  ] (breakpointer)                                        {\small Модуль бинарного анализа};
         \node [disk file] (modified exe)    [below right = 3cm of breakpointer] {\small Модифицированный исполняемый файл};
-        \node [disk file] (build log)       [below right = 4cm of builder]      {\small Файл с информацией о сборке};
+        \node [disk file] (build log)       [below right = 3.5cm of builder]    {\small Файл с информацией о сборке};
         \node [disk file] (sources)         [below = 5cm of builder]            {\small Файлы\\с исходным\\кодом};
         \node [process  ] (static analyzer) [below = 4cm of build log]          {\small Модуль статического анализа};
-        \node [disk file] (call map)        [below left = 4cm of builder]       {\small Файл с информацией о линковке};
+        \node [disk file] (call map)        [below left = 3.5cm of builder]     {\small Файл с информацией о линковке};
         \node [disk file] (gdb script)      [below left = 3cm of breakpointer]  {\small Скрипт для GDB};
         \node [process  ] (gdb manager)     [below = 4cm of breakpointer]       {\small Модуль управления отладчиком};
-        \node [disk file] (dyn result)      [below = 2cm of gdb manager]        {\small Результаты динамического анализа};
-        \node [process  ] (dyn parser)      [below = 2cm of dyn result]         {\small Модуль преобразования результатов динамического анализа};
-        \node [disk file] (dyn json)        [below = 2cm of dyn parser]         {\small Преобразованные результаты динамического анализа};
-        \node [disk file] (stat result)     [below = 2cm of static analyzer]    {\small Результаты статического анализа};
-        \node [process  ] (stat parser)     [below = 2cm of stat result]        {\small Модуль преобразования результатов статического анализа};
-        \node [disk file] (stat json)       [below = 2cm of stat parser]        {\small Преобразованные результаты статического анализа};
-        \node [process  ] (aggregator)      [below = 2cm of stat json]          {\small Модуль агрегирования результатов линковки и статического анализа};
-        \node [disk file] (aggregator file) [below = 2cm of aggregator]         {\small Агрегированные результаты линковки и статического анализа};
-        \node [process  ] (comparer)                                            {\small Модуль сравнительного анализа};
-        \node [disk file] (summary)                                             {\small Результаты сравнительного анализа};
+        \node [disk file] (dyn result)      [below = 1.5cm of gdb manager]      {\small Результаты динамического анализа};
+        \node [process  ] (dyn parser)      [below = 1.5cm of dyn result]       {\small Модуль преобразования результатов динамического анализа};
+        \node [disk file] (dyn json)        [below = 1.5cm of dyn parser]       {\small Преобразованные результаты динамического анализа};
+        \node [disk file] (stat result)     [below = 1.5cm of static analyzer]  {\small Результаты статического анализа};
+        \node [process  ] (stat parser)     [below = 1.5cm of stat result]      {\small Модуль преобразования результатов статического анализа};
         \node [disk file] (file executable) [left = 4.5cm of executable]        {\small Исполняемый\\файл};
+        \node [continue ] (a continue)      [below = 1cm of stat parser]        {\LARGE а};
+        \node [continue ] (b continue)      [below = 1.5cm of dyn json]         {\LARGE б};
 
         \draw [line] (makefile)        -- (builder);
         \draw [line] (builder)         -| (call map);
         \draw [line] (builder)         -| (build log);
 
         \draw [line] (executable)      -- (breakpointer);
-        \draw [line] (file executable) -- +(0,-1.35) -| (breakpointer);
+        \draw [line] (file executable) -- +(0,-1) -| (breakpointer);
         \draw [line] (breakpointer)    -| (modified exe);
         \draw [line] (breakpointer)    -| (gdb script);
 
@@ -231,14 +241,11 @@
         \draw [line] (build log)       -- (static analyzer);
         \draw [line] (static analyzer) -- (stat result);
         \draw [line] (stat result)     -- (stat parser);
-        \draw [line] (stat parser)     -- (stat json);
-        \draw [line] (call map)        |- (aggregator);
-        \draw [line] (stat json)       -- (aggregator);
-        \draw [line] (aggregator)      -- (aggregator file);
         \draw [line] (sources)         |- (static analyzer);
 
-        \draw [line] (aggregator file) -- (comparer);
-        \draw [line] (dyn json)        |- (comparer);
-        \draw [line] (comparer)        -- (summary);
+        \draw [line] (stat parser)     -- (a continue);
+        \draw [line] (call map)        |- (a continue);
+
+        \draw [line] (dyn json)        -- (b continue);
 
 \end{tikzpicture}

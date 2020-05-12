@@ -8,9 +8,19 @@
     r/.style={anchor=west},
     fxd/.style={text width = 6em},
     it/.style={font={\small\itshape}},
-    bf/.style={font={\small\bfseries}}
-
+    bf/.style={font={\small\bfseries}},
 }
+\tikzstyle{base_long} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+    ]
 \tikzstyle{base} =
     [
         draw,
@@ -34,7 +44,8 @@
         base,
         ellipse,
         node distance = 3cm,
-        minimum height = 2em
+        minimum height = 2em,
+        text width=2cm
     ]
 \tikzstyle{decision} =
     [
@@ -87,6 +98,29 @@
 \pgfkeys{/pgf/.cd,
     subrtshape w/.initial=2mm,
     cycleshape w/.initial=2mm
+}
+\pgfdeclareshape{parallelshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
 }
 \pgfdeclareshape{subrtshape}{
     \inheritsavedanchors[from=rectangle]
@@ -183,62 +217,44 @@
         base,
         circle,
     ]
+
+\tikzstyle{parallel} =
+    [
+        base_long,
+        parallelshape,
+    ]
 \begin{tikzpicture}[%
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
-    scale=0.7, 
-    every node/.style={scale=0.72}
     ] 
-        \node [prompt   ] (makefile)        [left  = 2cm ]                      {\small Путь до папки с Makefile};
-        \node [process  ] (builder)         [below = 2cm of makefile]           {\small Сборщик};
-        \node [prompt   ] (executable)      [right = 10cm of makefile]          {\small Путь до исполняемого файла};
-        \node [process  ] (breakpointer)                                        {\small Модуль бинарного анализа};
-        \node [disk file] (modified exe)    [below right = 3cm of breakpointer] {\small Модифицированный исполняемый файл};
-        \node [disk file] (build log)       [below right = 4cm of builder]      {\small Файл с информацией о сборке};
-        \node [disk file] (sources)         [below = 5cm of builder]            {\small Файлы\\с исходным\\кодом};
-        \node [process  ] (static analyzer) [below = 4cm of build log]          {\small Модуль статического анализа};
-        \node [disk file] (call map)        [below left = 4cm of builder]       {\small Файл с информацией о линковке};
-        \node [disk file] (gdb script)      [below left = 3cm of breakpointer]  {\small Скрипт для GDB};
-        \node [process  ] (gdb manager)     [below = 4cm of breakpointer]       {\small Модуль управления отладчиком};
-        \node [disk file] (dyn result)      [below = 2cm of gdb manager]        {\small Результаты динамического анализа};
-        \node [process  ] (dyn parser)      [below = 2cm of dyn result]         {\small Модуль преобразования результатов динамического анализа};
-        \node [disk file] (dyn json)        [below = 2cm of dyn parser]         {\small Преобразованные результаты динамического анализа};
-        \node [disk file] (stat result)     [below = 2cm of static analyzer]    {\small Результаты статического анализа};
-        \node [process  ] (stat parser)     [below = 2cm of stat result]        {\small Модуль преобразования результатов статического анализа};
-        \node [disk file] (stat json)       [below = 2cm of stat parser]        {\small Преобразованные результаты статического анализа};
-        \node [process  ] (aggregator)      [below = 2cm of stat json]          {\small Модуль агрегирования результатов линковки и статического анализа};
-        \node [disk file] (aggregator file) [below = 2cm of aggregator]         {\small Агрегированные результаты линковки и статического анализа};
-        \node [process  ] (comparer)                                            {\small Модуль сравнительного анализа};
-        \node [disk file] (summary)                                             {\small Результаты сравнительного анализа};
-        \node [disk file] (file executable) [left = 4.5cm of executable]        {\small Исполняемый\\файл};
+        \node [cloud    ] (makefile)        [left  = 4cm ]                   {\small Начало};
+        \node [process  ] (builder)         [below = 1cm of makefile]        {\small Сборщик};
+        \node [parallel ] (parallel)        [below of = builder, yscale=0.3] {\rptf[105]{\ }};
+        \node [process  ] (breakpointer)    [below right = 5cm of builder]   {\small Бинарный анализ};
+        \node [process  ] (static analyzer) [below left = 5cm of builder]    {\small Статический анализ};
+        \node [process  ] (stat parser)     [below = 2cm of static analyzer] {\small Преобразование результатов статического анализа};
+        \node [process  ] (aggregator)      [below = 2cm of stat parser]     {\small Агрегирование результатов линковки и статического анализа};
+        \node [process  ] (gdb manager)     [below = 2cm of breakpointer]    {\small Динамический анализ};
+        \node [process  ] (dyn parser)      [below = 2cm of gdb manager]     {\small Преобразование результатов динамического анализа};
+        \node [cloud    ] (end)             [below = 15cm of makefile]       {\small Конец};
+        \node [process  ] (comparer)        [above = 2cm of end]             {\small Сравнительный анализ};
+        \node [parallel ] (parallel aggr)   [above = 2cm of comparer, yscale=0.3] {\rpts[105]{\ }};
 
-        \draw [line] (makefile)        -- (builder);
-        \draw [line] (builder)         -| (call map);
-        \draw [line] (builder)         -| (build log);
+        \draw [line] (makefile) -- (builder);
+        \draw [-] (builder)     -- (parallel);
 
-        \draw [line] (executable)      -- (breakpointer);
-        \draw [line] (file executable) -- +(0,-1.35) -| (breakpointer);
-        \draw [line] (breakpointer)    -| (modified exe);
-        \draw [line] (breakpointer)    -| (gdb script);
+        \draw [-] (parallel)  -- +(-3.55,-0.095) -- +(-3.55,-1.2) -- (static analyzer);
+        \draw [-] (parallel)  -- +(+3.55,-0.095) -- +(+3.55,-1.2) -- (breakpointer);
 
-        \draw [line] (modified exe)    |- (gdb manager);
-        \draw [line] (gdb script)      |- (gdb manager);
-        \draw [line] (gdb manager)     -- (dyn result);
-        \draw [line] (dyn result)      -- (dyn parser);
-        \draw [line] (dyn parser)      -- (dyn json);
+        \draw [line] (static analyzer) -- (stat parser);
+        \draw [line] (stat parser)     -- (aggregator);
 
+        \draw [line] (breakpointer)    -- (gdb manager);
+        \draw [line] (gdb manager)     -- (dyn parser);
 
-        \draw [line] (build log)       -- (static analyzer);
-        \draw [line] (static analyzer) -- (stat result);
-        \draw [line] (stat result)     -- (stat parser);
-        \draw [line] (stat parser)     -- (stat json);
-        \draw [line] (call map)        |- (aggregator);
-        \draw [line] (stat json)       -- (aggregator);
-        \draw [line] (aggregator)      -- (aggregator file);
-        \draw [line] (sources)         |- (static analyzer);
-
-        \draw [line] (aggregator file) -- (comparer);
-        \draw [line] (dyn json)        |- (comparer);
-        \draw [line] (comparer)        -- (summary);
+        \draw [-] (aggregator) -- +(+0,-1.05) -- +(+0,-2.37) -- (parallel aggr);
+        \draw [-] (dyn parser) -- +(-0,-1.09) -- +(-0,-2.37) -- (parallel aggr);
+        \draw [-] (parallel aggr) -- (comparer);
+        \draw [line] (comparer)   -- (end);
 
 \end{tikzpicture}

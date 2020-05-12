@@ -279,10 +279,10 @@ Process              & Информация о исследуемой прогр
     node distance=6mm and 30mm, % Global setup of box spacing
     ] 
         \node [process] (breakpointinfo)                                          {\small \BreakpointInfo};
-        \node [process] (segmentinfo)        [below = 6cm of breakpointinfo]      {\small \SegmentInfo};
-        \node [process] (functioninfo)       [below = 4cm of segmentinfo]         {\small \FunctionInfo};
-        \node [process] (processstartinfo)   [below = 4cm of functioninfo]        {\small \ProcessStartInfo};
-        \node [process] (processsegmentsinfo)[below = 4cm of processstartinfo]    {\small \ProcessSegmentsInfo};
+        \node [process] (segmentinfo)        [below = 5cm of breakpointinfo]      {\small \SegmentInfo};
+        \node [process] (functioninfo)       [below = 3cm of segmentinfo]         {\small \FunctionInfo};
+        \node [process] (processstartinfo)   [below = 3cm of functioninfo]        {\small \ProcessStartInfo};
+        \node [process] (processsegmentsinfo)[below = 3cm of processstartinfo]    {\small \ProcessSegmentsInfo};
         \node [process] (process)            [below = 4cm of processsegmentsinfo] {\small \Process};
 
         \draw [line] (process) -- +(-9,-0) |- (breakpointinfo);
