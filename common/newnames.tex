@@ -81,3 +81,5 @@
     \newcounter{loopcntr2}
     \forloop{loopcntr2}{0}{\value{loopcntr2}<#1}{#2}%
   }
+
+\def\Put(#1,#2)#3{\leavevmode\makebox(0,0){\put(#1,#2){#3}}}
