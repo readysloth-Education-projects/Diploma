@@ -227,18 +227,18 @@
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
     ] 
-        \node [cloud    ] (makefile)        [left  = 4cm ]                   {\small Начало};
-        \node [process  ] (builder)         [below = 1cm of makefile]        {\small Сборщик};
-        \node [parallel ] (parallel)        [below of = builder, yscale=0.3] {\rptf[105]{\ }};
-        \node [process  ] (breakpointer)    [below right = 5cm of builder]   {\small Бинарный анализ};
-        \node [process  ] (static analyzer) [below left = 5cm of builder]    {\small Статический анализ};
-        \node [process  ] (stat parser)     [below = 2cm of static analyzer] {\small Преобразование результатов статического анализа};
-        \node [process  ] (aggregator)      [below = 2cm of stat parser]     {\small Агрегирование результатов линковки и статического анализа};
-        \node [process  ] (gdb manager)     [below = 2cm of breakpointer]    {\small Динамический анализ};
-        \node [process  ] (dyn parser)      [below = 2cm of gdb manager]     {\small Преобразование результатов динамического анализа};
-        \node [cloud    ] (end)             [below = 15cm of makefile]       {\small Конец};
-        \node [process  ] (comparer)        [above = 2cm of end]             {\small Сравнительный анализ};
-        \node [parallel ] (parallel aggr)   [above = 2cm of comparer, yscale=0.3] {\rpts[105]{\ }};
+        \node [cloud      ] (makefile)        [left  = 4cm                         ] {\small Начало};
+        \node [subroutine ] (builder)         [below = 1cm of makefile             ] {\small Сборщик};
+        \node [parallel   ] (parallel)        [below of = builder, yscale=0.3      ] {\rptf[106] {\ }};
+        \node [subroutine ] (breakpointer)    [below right = 5cm of builder        ] {\small Бинарный анализ};
+        \node [subroutine ] (static analyzer) [below left = 5cm of builder         ] {\small Статический анализ};
+        \node [subroutine ] (stat parser)     [below = 2cm of static analyzer      ] {\small Преобразование результатов статического анализа};
+        \node [subroutine ] (aggregator)      [below = 2cm of stat parser          ] {\small Агрегирование результатов линковки и статического анализа};
+        \node [subroutine ] (gdb manager)     [below = 2cm of breakpointer         ] {\small Динамический анализ};
+        \node [subroutine ] (dyn parser)      [below = 2cm of gdb manager          ] {\small Преобразование результатов динамического анализа};
+        \node [cloud      ] (end)             [below = 15cm of makefile            ] {\small Конец};
+        \node [subroutine ] (comparer)        [above = 2cm of end                  ] {\small Сравнительный анализ};
+        \node [parallel   ] (parallel aggr)   [above = 2cm of comparer, yscale=0.3 ] {\rpts[106] {\ }};
 
         \draw [line] (makefile) -- (builder);
         \draw [-] (builder)     -- (parallel);

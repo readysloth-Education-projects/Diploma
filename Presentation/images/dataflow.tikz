@@ -18,7 +18,7 @@
         on grid,
         align=center,
         minimum height=4ex,
-        minimum width = 10ex,
+        minimum width = 5ex,
         node distance = 6mm and 60mm,
         text badly centered,
         text width=5cm
@@ -189,35 +189,37 @@
     scale=0.7, 
     every node/.style={scale=0.72}
     ] 
-        \node [prompt   ] (makefile)        [left  = 2cm ]                      {\small Путь до папки с Makefile};
-        \node [process  ] (builder)         [below = 2cm of makefile]           {\small Сборщик};
-        \node [prompt   ] (executable)      [right = 10cm of makefile]          {\small Путь до исполняемого файла};
-        \node [process  ] (breakpointer)                                        {\small Модуль бинарного анализа};
-        \node [disk file] (modified exe)    [below right = 3cm of breakpointer] {\small Модифицированный исполняемый файл};
-        \node [disk file] (build log)       [below right = 4cm of builder]      {\small Файл с информацией о сборке};
-        \node [disk file] (sources)         [below = 5cm of builder]            {\small Файлы\\с исходным\\кодом};
-        \node [process  ] (static analyzer) [below = 4cm of build log]          {\small Модуль статического анализа};
-        \node [disk file] (call map)        [below left = 4cm of builder]       {\small Файл с информацией о линковке};
-        \node [disk file] (gdb script)      [below left = 3cm of breakpointer]  {\small Скрипт для GDB};
-        \node [process  ] (gdb manager)     [below = 4cm of breakpointer]       {\small Модуль управления отладчиком};
-        \node [disk file] (dyn result)      [below = 2cm of gdb manager]        {\small Результаты динамического анализа};
-        \node [process  ] (dyn parser)      [below = 2cm of dyn result]         {\small Модуль преобразования результатов динамического анализа};
-        \node [disk file] (dyn json)        [below = 2cm of dyn parser]         {\small Преобразованные результаты динамического анализа};
-        \node [disk file] (stat result)     [below = 2cm of static analyzer]    {\small Результаты статического анализа};
-        \node [process  ] (stat parser)     [below = 2cm of stat result]        {\small Модуль преобразования результатов статического анализа};
-        \node [disk file] (stat json)       [below = 2cm of stat parser]        {\small Преобразованные результаты статического анализа};
-        \node [process  ] (aggregator)      [below = 2cm of stat json]          {\small Модуль агрегирования результатов линковки и статического анализа};
-        \node [disk file] (aggregator file) [below = 2cm of aggregator]         {\small Агрегированные результаты линковки и статического анализа};
-        \node [process  ] (comparer)                                            {\small Модуль сравнительного анализа};
-        \node [disk file] (summary)                                             {\small Результаты сравнительного анализа};
-        \node [disk file] (file executable) [left = 4.5cm of executable]        {\small Исполняемый\\файл};
+        \node [prompt   ] (makefile path)   [left  = 2cm ]                               {\small Путь до папки с Makefile};
+        \node [process  ] (builder)         [below = 0.7cm of makefile path]             {\small Сборщик};
+        \node [disk file] (makefile)        [yshift=0.5cm, left  = 5cm of makefile path] {\small Makefile};
+        \node [prompt   ] (executable)      [right = 10cm of makefile path]              {\small Путь до исполняемого файла};
+        \node [process  ] (breakpointer)                                                 {\small Модуль бинарного анализа};
+        \node [disk file] (modified exe)    [xshift=3.5cm, below = 1cm of breakpointer]  {\small Модифицированный исполняемый файл};
+        \node [disk file] (build log)       [xshift=3.5cm, below = 1cm of builder]       {\small Файл с информацией о сборке};
+        \node [disk file] (call map)        [left = 8.25cm of build log]                 {\small Файл с информацией о линковке};
+        \node [process  ] (static analyzer) [below = 1.25cm of build log]                {\small Модуль статического анализа};
+        \node [disk file] (sources)         [left = 4.15cm of build log]                 {\small Файлы с исходным кодом};
+        \node [disk file] (gdb script)      [left = 5cm of modified exe]                 {\small Скрипт для GDB};
+        \node [process  ] (gdb manager)     [below = 2.25cm of breakpointer]             {\small Модуль управления отладчиком};
+        \node [disk file] (dyn result)      [below = 1.25cm of gdb manager]              {\small Результаты динамического анализа};
+        \node [process  ] (dyn parser)      [below = 1.25cm of dyn result]               {\small Модуль преобразования результатов динамического анализа};
+        \node [disk file] (dyn json)        [below = 1.25cm of dyn parser]               {\small Преобразованные результаты динамического анализа};
+        \node [disk file] (stat result)     [below = 1.25cm of static analyzer]          {\small Результаты статического анализа};
+        \node [process  ] (stat parser)     [below = 1.25cm of stat result]              {\small Модуль преобразования результатов статического анализа};
+        \node [disk file] (stat json)       [below = 1.25cm of stat parser]              {\small Преобразованные результаты статического анализа};
+        \node [process  ] (aggregator)      [below = 1.25cm of stat json]                {\small Модуль агрегирования результатов линковки и статического анализа};
+        \node [disk file] (aggregator file) [below = 1.25cm of aggregator]               {\small Агрегированные результаты линковки и статического анализа};
+        \node [process  ] (comparer)                                                     {\small Модуль сравнительного анализа};
+        \node [disk file] (summary)                                                      {\small Результаты сравнительного анализа};
+        \node [disk file] (file executable) [left = 4.5cm of executable]                 {\small Исполняемый\\файл};
 
-        \draw [line] (makefile)        -- (builder);
+        \draw [-] (makefile path)      -- (builder);
+        \draw [-] (makefile)           -- +(0,-0.95) -| (builder);
         \draw [line] (builder)         -| (call map);
         \draw [line] (builder)         -| (build log);
 
         \draw [line] (executable)      -- (breakpointer);
-        \draw [line] (file executable) -- +(0,-1.35) -| (breakpointer);
+        \draw [line] (file executable) -- +(0,-0.7) -| (breakpointer);
         \draw [line] (breakpointer)    -| (modified exe);
         \draw [line] (breakpointer)    -| (gdb script);
 
