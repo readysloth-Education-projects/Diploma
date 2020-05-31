@@ -1,47 +1,46 @@
-% !TEX encoding = UTF-8 Unicode
-% Úτƒ-8 encoded
-% http://www.linux.org.ru/forum/general/10357036
 \tikzset{
     line/.style={draw, -latex'},
-    every join/.style={line},
+%     every join/.style={line},
     u/.style={anchor=south},
     r/.style={anchor=west},
     fxd/.style={text width = 6em},
-    it/.style={font={\small\itshape}},
-    bf/.style={font={\small\bfseries}}
+    it/.style={font={\itshape}},
+    bf/.style={font={\bfseries}}
 
 }
 \tikzstyle{base} =
     [
         draw,
-        on chain,
-        on grid,
-        align=center,
-        minimum height=4ex,
-        minimum width = 5ex,
-        node distance = 6mm and 60mm,
+%         on chain,
+%         on grid, именно из-за этой опции у вас node distance было расстоянием между центрами, а не между блоками
+%         align=center,
+%         minimum width = 5ex,
+%         node distance = 6mm and 60mm,
         text badly centered,
-        text width=5cm
+        text width=12em,
+        minimum height=3ex,
+        inner xsep = 1pt,
+        inner ysep = 3pt,
     ]
 \tikzstyle{coord} =
     [
         coordinate,
-        on chain,
-        on grid
+%         on chain,
+%         on grid
     ]
 \tikzstyle{cloud} =
     [
         base,
         ellipse,
-        node distance = 3cm,
-        minimum height = 2em
+%         node distance = 3cm,
+%         minimum height = 2em
     ]
 \tikzstyle{decision} =
     [
         base,
         diamond,
         aspect=2,
-        node distance = 2cm,
+%         node distance = 2cm,
         inner sep = 0pt
     ]
 \tikzstyle{block} =
@@ -49,7 +48,7 @@
         rectangle,
         base,
         rounded corners,
-        minimum height = 2em
+%         minimum height = 2em
     ]
 \tikzstyle{print_block} =
     [
@@ -77,6 +76,7 @@
         base,
         cylinder,
         aspect=0.2,
+        minimum width=4ex, % то, что у~лежачего цилиндра по вертикали — это ширина
     ]
 \tikzstyle{process} =
     [
@@ -183,64 +183,167 @@
         base,
         circle,
     ]
+
+% \small
+% \footnotesize
+\scriptsize
+\renewcommand{\baselinestretch}{0.8}
+\sf
+
+\noindent
+\resizebox{\linewidth}{!}{
+% !TEX encoding = UTF-8 Unicode
+% Úτƒ-8 encoded
+% http://www.linux.org.ru/forum/general/10357036
+% \begin{figure}
+% \hspace{-4cm}
+% \small
 \begin{tikzpicture}[%
-    start chain=going below,    % General flow is top-to-bottom
-    node distance=6mm and 30mm, % Global setup of box spacing
-    scale=0.7, 
-    every node/.style={scale=0.72}
+    start chain=main_vert going below,    % General flow is top-to-bottom
+    start chain=main_horz going right,  
+    start chain=rev_vert going above,    
+    node distance=1.ex and 1em, % Global setup of box spacing
+%     scale=0.7, 
+%     every node/.style={scale=0.72}
+every on chain/.style=join,
     ] 
-        \node [prompt   ] (makefile path)   [left  = 2cm ]                               {\small Путь до папки с Makefile};
-        \node [process  ] (builder)         [below = 0.7cm of makefile path]             {\small Сборщик};
-        \node [disk file] (makefile)        [yshift=0.5cm, left  = 5cm of makefile path] {\small Makefile};
-        \node [prompt   ] (executable)      [right = 10cm of makefile path]              {\small Путь до исполняемого файла};
-        \node [process  ] (breakpointer)                                                 {\small Модуль бинарного анализа};
-        \node [disk file] (modified exe)    [xshift=3.5cm, below = 1cm of breakpointer]  {\small Модифицированный исполняемый файл};
-        \node [disk file] (build log)       [xshift=3.5cm, below = 1cm of builder]       {\small Файл с информацией о сборке};
-        \node [disk file] (call map)        [left = 8.25cm of build log]                 {\small Файл с информацией о линковке};
-        \node [process  ] (static analyzer) [below = 1.25cm of build log]                {\small Модуль статического анализа};
-        \node [disk file] (sources)         [left = 4.15cm of build log]                 {\small Файлы с исходным кодом};
-        \node [disk file] (gdb script)      [left = 5cm of modified exe]                 {\small Скрипт для GDB};
-        \node [process  ] (gdb manager)     [below = 2.25cm of breakpointer]             {\small Модуль управления отладчиком};
-        \node [disk file] (dyn result)      [below = 1.25cm of gdb manager]              {\small Результаты динамического анализа};
-        \node [process  ] (dyn parser)      [below = 1.25cm of dyn result]               {\small Модуль преобразования результатов динамического анализа};
-        \node [disk file] (dyn json)        [below = 1.25cm of dyn parser]               {\small Преобразованные результаты динамического анализа};
-        \node [disk file] (stat result)     [below = 1.25cm of static analyzer]          {\small Результаты статического анализа};
-        \node [process  ] (stat parser)     [below = 1.25cm of stat result]              {\small Модуль преобразования результатов статического анализа};
-        \node [disk file] (stat json)       [below = 1.25cm of stat parser]              {\small Преобразованные результаты статического анализа};
-        \node [process  ] (aggregator)      [below = 1.25cm of stat json]                {\small Модуль агрегирования результатов линковки и статического анализа};
-        \node [disk file] (aggregator file) [below = 1.25cm of aggregator]               {\small Агрегированные результаты линковки и статического анализа};
-        \node [process  ] (comparer)                                                     {\small Модуль сравнительного анализа};
-        \node [disk file] (summary)                                                      {\small Результаты сравнительного анализа};
-        \node [disk file] (file executable) [left = 4.5cm of executable]                 {\small Исполняемый\\файл};
 
-        \draw [-] (makefile path)      -- (builder);
-        \draw [-] (makefile)           -- +(0,-0.95) -| (builder);
-        \draw [line] (builder)         -| (call map);
-        \draw [line] (builder)         -| (build log);
+        \tikzstyle{fitblock}=[inner sep = 0ex]
+        \tikzstyle{shortline}=[draw, thin]
+        \tikzstyle{longline}=[shortline,-latex']
+        \tikzstyle{revline}=[shortline,latex'-]
+        \tikzstyle{nodraw}=[draw=none]
 
-        \draw [line] (executable)      -- (breakpointer);
-        \draw [line] (file executable) -- +(0,-0.7) -| (breakpointer);
-        \draw [line] (breakpointer)    -| (modified exe);
-        \draw [line] (breakpointer)    -| (gdb script);
+        \tikzset{every join/.style=shortline}
+        \node [disk file ] (sources)         [on chain=main_vert                   ] {  Файлы с~исходным кодом};
+        \node [disk file ] (makefile)        [right  = of sources ] {  Makefile};
+%         \node [prompt    ] (makefile path)   [right  = of makefile                             ] {  Путь до папки с~Makefile};
+        \coordinate                          [on chain=main_vert] (main_from_makefile);
+%         \coordinate[on chain=main_vert] (main_from_makefile path);
+%         \coordinate                          [on chain=main_vert] (no_used);
+        \tikzset{every join/.style=shortline} %longline
+        \node [process   ] (builder)         [on chain=main_vert              ] {  Сборка};
+        \tikzset{every join/.style=shortline}
+                
+        \node [disk file ] (build log)       [on chain=main_vert        ] {  Файл с~информацией о~сборке};
+        \node [process   ] (static analyzer) [on chain=main_vert        ] {  Модуль статического анализа};
+        \node [disk file ] (stat result)     [on chain=main_vert        ] {  Результаты статического анализа};
+        \node [process   ] (stat parser)     [on chain=main_vert        ] {  Модуль преобразования результатов статического анализа};
+        \node [disk file ] (stat json)       [on chain=main_vert                ] {  Преобразованные результаты статического анализа};
+        \node [process   ] (aggregator)      [on chain=main_vert        ] {  Модуль агрегирования результатов линковки и~статического анализа};
+        \node [disk file ] (aggregator file) [on chain=main_vert           ] {  Агрегированные результаты линковки и~статического анализа};
+        \node [process   ] (comparer)        [on chain=main_vert           ] {  Модуль сравнительного анализа};
+        \node [disk file ] (summary)         [on chain=main_vert           ] {  Результаты сравнительного анализа};
+        \tikzset{every join/.style=nodraw}
 
-        \draw [line] (modified exe)    |- (gdb manager);
-        \draw [line] (gdb script)      |- (gdb manager);
-        \draw [line] (gdb manager)     -- (dyn result);
-        \draw [line] (dyn result)      -- (dyn parser);
-        \draw [line] (dyn parser)      -- (dyn json);
+        
+        \draw [longline] (makefile)   |- (main_from_makefile);
+%         \draw [longline] (makefile path)         |- (main_from_makefile path);
 
+%         \draw [longline] (sources)         |- (static analyzer);
+         \coordinate                          [left = of static analyzer] (static_from_sources);
+        \draw [longline] (sources)     -| (static_from_sources)    -- (static analyzer);
+       
+        \node [disk file ] (call map)        [right =  of build log                ] {  Файл с~информацией о~линковке};
+        \draw [longline] (builder)         -| (call map);
+        \draw [longline] (call map)        |- (aggregator);
+       
+        \node[fit=(call map.north) (sources) (summary), fitblock] (left_vert_base) {};
+        
+        
+        
+        % самая широкая часть правой вертикали
+        \tikzset{every join/.style=nodraw}
+%         \coordinate                          [right = of stat parser.north east-|left_vert_base.east, on chain=main_horz] (right_vert_anchorpoint); % right = of stat result?
+        \coordinate                          [right = of stat result.south-|left_vert_base.east, on chain=main_horz] (right_vert_anchorpoint); % right = of stat result?
+        \node [disk file ] (gdb script)      [on chain=main_horz] {  Скрипт для GDB};
+        \coordinate                          [on chain=main_horz] (center_from_breakpointer);
+        \node [disk file ] (modified exe)    [on chain=main_horz] {  Модифицированный исполняемый файл};
+        \node[fit=(gdb script) (modified exe), fitblock] (right_vert_cross) {};
+       
+        % вверх
+        \node [process   ] (breakpointer)    [on chain=rev_vert, above = of right_vert_cross] {  Модуль бинарного анализа};
+        \draw [longline] (breakpointer)    -| (modified exe);
+        \draw [longline] (breakpointer)    -| (gdb script);
+%         \tikzset{every join/.style=revline}
+%         \tikzset{every join/.style=shortline} %revline
+%         \coordinate                          [on chain=rev_vert] (executable_to_breakpointer);
+        \tikzset{every join/.style=shortline}
+        \node [disk file ] (file executable) [on chain=rev_vert   ] {  Исполняемый\\файл};
+        \draw [longline] (builder)         -| (file executable);
+        
+% %         \node [prompt    ] (executable)      [right = of  file executable          ] {  Путь до исполняемого файла};
+%         \node [prompt    ] (executable)      [above = of  file executable.north-|modified exe          ] {  Путь до исполняемого файла};
+%         \draw [revline] (executable_to_breakpointer)    -| (executable);            
+        
+        % вниз
+        \tikzset{every join/.style=nodraw}
+        \node [process   ] (gdb manager)     [on chain=main_vert, below = of right_vert_cross   ] {  Модуль управления отладчиком};
+        \draw [longline] (modified exe)    |- (gdb manager);
+        \draw [longline] (gdb script)      |- (gdb manager);
 
-        \draw [line] (build log)       -- (static analyzer);
-        \draw [line] (static analyzer) -- (stat result);
-        \draw [line] (stat result)     -- (stat parser);
-        \draw [line] (stat parser)     -- (stat json);
-        \draw [line] (call map)        |- (aggregator);
-        \draw [line] (stat json)       -- (aggregator);
-        \draw [line] (aggregator)      -- (aggregator file);
-        \draw [line] (sources)         |- (static analyzer);
-
-        \draw [line] (aggregator file) -- (comparer);
-        \draw [line] (dyn json)        |- (comparer);
-        \draw [line] (comparer)        -- (summary);
-
+        \tikzset{every join/.style=shortline}
+        \node [disk file ] (dyn result)      [on chain=main_vert                ] {  Результаты динамического анализа};
+        \node [process   ] (dyn parser)      [on chain=main_vert                ] {  Модуль преобразования результатов динамического анализа};
+        \node [disk file ] (dyn json)        [on chain=main_vert                ] {  Преобразованные результаты динамического анализа};
+   
+        \draw [longline] (dyn json)        |- (comparer);
+     
+        
+       
+% другой вариант, по раскладке ближе к исходному       
+%         \coordinate[right = of sources, on chain=main_horz] (right_vert_anchorpoint);
+%         \node [disk file ] (file executable) [on chain=main_vert, right = of right_vert_anchorpoint             ] {  Исполняемый\\файл};
+%         \tikzset{every join/.style=shortline}
+%         \coordinate[on chain=main_vert] (executable_to_breakpointer);
+%         \node [prompt    ] (executable)      [right = of  file executable          ] {  Путь до исполняемого файла};
+%         \draw [revline] (executable_to_breakpointer)    -| (executable);
+% 
+%         
+%         \tikzset{every join/.style=longline}
+%         \node [process   ] (breakpointer)    [on chain=main_vert   ] {  Модуль бинарного анализа};% решает последнее
+%         \tikzset{every join/.style=nodraw}
+%         \coordinate[on chain=main_vert] (center_from_breakpointer);
+% %         \node[circle, fill=red] at  (center_from_breakpointer) {};
+%       
+%         
+% %         \node [disk file ] (modified exe)    [right = of center_from_breakpointer, anchor = north west] {  Модифицированный исполняемый файл}; у~цилиндра north west почти на north
+%         \node [disk file ] (modified exe)    [right = of center_from_breakpointer, anchor = after bottom] {  Модифицированный исполняемый файл};
+%         \node [disk file ] (gdb script)      [left = of center_from_breakpointer|-modified exe] {  Скрипт для GDB};
+%         \node [process   ] (gdb manager)     [on chain=main_vert, below = of breakpointer|-modified exe.south              ] {  Модуль управления отладчиком};
+%         \tikzset{every join/.style=shortline}
+%         \node [disk file ] (dyn result)      [on chain=main_vert                ] {  Результаты динамического анализа};
+%         \node [process   ] (dyn parser)      [on chain=main_vert                ] {  Модуль преобразования результатов динамического анализа};
+%         \node [disk file ] (dyn json)        [on chain=main_vert                ] {  Преобразованные результаты динамического анализа};
+%         
+%         
+% %         \draw [line] (builder)         -| (build log);
+% % 
+% % %         \draw [line] (executable)      -| (breakpointer);
+% % %         \draw [line] (file executable) -| (breakpointer);
+%         \draw [longline] (breakpointer)    -| (modified exe);
+%         \draw [longline] (breakpointer)    -| (gdb script);
+% % 
+%         \draw [longline] (modified exe)    |- (gdb manager);
+%         \draw [longline] (gdb script)      |- (gdb manager);
+% % %         \draw [-] (gdb manager)        -- (dyn result);
+% % %         \draw [-] (dyn result)         -- (dyn parser);
+% % %         \draw [-] (dyn parser)         -- (dyn json);
+% % 
+% % 
+% % %         \draw [-] (build log)          -- (static analyzer);
+% % %         \draw [-] (static analyzer)    -- (stat result);
+% % %         \draw [-] (stat result)        -- (stat parser);
+% % %         \draw [-] (stat parser)        -- (stat json);
+% % %         \draw [-] (stat json)          -- (aggregator);
+% % %         \draw [-] (aggregator)         -- (aggregator file);
+% % 
+% % %         \draw [-] (aggregator file)    -- (comparer);
+%         \draw [longline] (dyn json)        |- (comparer);
+% % %         \draw [-] (comparer)           -- (summary);
+        
+        
+% контроль полей
+%         \draw [red] (current bounding box.south east) rectangle (current bounding box.north west);
 \end{tikzpicture}
+}

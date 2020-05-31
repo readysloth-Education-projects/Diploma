@@ -3,56 +3,46 @@
 % http://www.linux.org.ru/forum/general/10357036
 \tikzset{
     line/.style={draw, -latex'},
-    every join/.style={line},
     u/.style={anchor=south},
     r/.style={anchor=west},
     fxd/.style={text width = 6em},
-    it/.style={font={\small\itshape}},
-    bf/.style={font={\small\bfseries}},
+    it/.style={font={\itshape}},
+    bf/.style={font={\bfseries}}
 }
 \tikzstyle{base_long} =
     [
         draw,
-        on chain,
-        on grid,
-        align=center,
-        minimum height=4ex,
-        minimum width = 10ex,
-        node distance = 6mm and 60mm,
         text badly centered,
+        text width=12em,
+        minimum height=3ex,
+        inner xsep = 1pt,
+        inner ysep = 3pt,
+        minimum width = 10em,
     ]
 \tikzstyle{base} =
     [
         draw,
-        on chain,
-        on grid,
-        align=center,
-        minimum height=4ex,
-        minimum width = 10ex,
-        node distance = 6mm and 60mm,
         text badly centered,
-        text width=5cm
+        text width=12em,
+        minimum height=3ex,
+        inner xsep = 1pt,
+        inner ysep = 3pt,
     ]
 \tikzstyle{coord} =
     [
         coordinate,
-        on chain,
-        on grid
     ]
 \tikzstyle{cloud} =
     [
         base,
         ellipse,
-        node distance = 3cm,
-        minimum height = 2em,
-        text width=2cm
+        text width=5em,
     ]
 \tikzstyle{decision} =
     [
         base,
         diamond,
         aspect=2,
-        node distance = 2cm,
         inner sep = 0pt
     ]
 \tikzstyle{block} =
@@ -60,7 +50,6 @@
         rectangle,
         base,
         rounded corners,
-        minimum height = 2em
     ]
 \tikzstyle{print_block} =
     [
@@ -222,39 +211,43 @@
     [
         base_long,
         parallelshape,
+        text width=43em,
     ]
 \begin{tikzpicture}[%
-    start chain=going below,    % General flow is top-to-bottom
-    node distance=6mm and 30mm, % Global setup of box spacing
+    start chain=main going below,    % General flow is top-to-bottom
+    start chain=left_vert  going below,    % General flow is top-to-bottom
+    start chain=right_vert going below,  
+    node distance=2.ex and 1em, % Global setup of box spacing
+    %every on chain/.style=join,
     ] 
-        \node [cloud      ] (makefile)        [left  = 4cm                         ] {\small Начало};
-        \node [subroutine ] (builder)         [below = 1cm of makefile             ] {\small Сборщик};
-        \node [parallel   ] (parallel)        [below of = builder, yscale=0.3      ] {\rptf[106] {\ }};
-        \node [subroutine ] (breakpointer)    [below right = 5cm of builder        ] {\small Бинарный анализ};
-        \node [subroutine ] (static analyzer) [below left = 5cm of builder         ] {\small Статический анализ};
-        \node [subroutine ] (stat parser)     [below = 2cm of static analyzer      ] {\small Преобразование результатов статического анализа};
-        \node [subroutine ] (aggregator)      [below = 2cm of stat parser          ] {\small Агрегирование результатов линковки и статического анализа};
-        \node [subroutine ] (gdb manager)     [below = 2cm of breakpointer         ] {\small Динамический анализ};
-        \node [subroutine ] (dyn parser)      [below = 2cm of gdb manager          ] {\small Преобразование результатов динамического анализа};
-        \node [cloud      ] (end)             [below = 15cm of makefile            ] {\small Конец};
-        \node [subroutine ] (comparer)        [above = 2cm of end                  ] {\small Сравнительный анализ};
-        \node [parallel   ] (parallel aggr)   [above = 2cm of comparer, yscale=0.3 ] {\rpts[106] {\ }};
+        \node [cloud      ] (makefile)        [on chain=main] {Начало};
+        \node [subroutine ] (builder)         [on chain=main, join] {Сборщик};
+        \node [parallel   ] (parallel)        [yscale=0.3, on chain=main, join] {\ };
+O
+        \node [subroutine ] (static analyzer) at (-15em,-15ex) [on chain=left_vert] {Статический анализ}; 
+        \node [subroutine ] (stat parser)     [on chain=left_vert, join] {Преобразование результатов статического анализа};
+        \node [subroutine ] (aggregator)      [on chain=left_vert, join] {Агрегирование результатов линковки и статического анализа};
 
-        \draw [line] (makefile) -- (builder);
-        \draw [-] (builder)     -- (parallel);
+        \node [subroutine ] (breakpointer) at (15em,-15ex)   [on chain=right_vert] {Бинарный анализ};
+        \node [subroutine ] (gdb manager)     [on chain=right_vert, join] {Динамический анализ};
+        \node [subroutine ] (dyn parser)      [on chain=right_vert, join] {Преобразование результатов динамического анализа};
 
-        \draw [-] (parallel)  -- +(-3.55,-0.095) -- +(-3.55,-1.2) -- (static analyzer);
-        \draw [-] (parallel)  -- +(+3.55,-0.095) -- +(+3.55,-1.2) -- (breakpointer);
+        \node [parallel   ] (parallel aggr)   [yshift=-28ex, yscale=0.3,on chain=main] {\ };
+        \node [subroutine ] (comparer)        [on chain=main,join] {Сравнительный анализ};
+        \node [cloud      ] (end)             [on chain=main, join] {Конец};
 
-        \draw [line] (static analyzer) -- (stat parser);
-        \draw [line] (stat parser)     -- (aggregator);
 
-        \draw [line] (breakpointer)    -- (gdb manager);
-        \draw [line] (gdb manager)     -- (dyn parser);
+        \coordinate (upper left)  at (-15em, -10.52ex);
+        \coordinate (upper right) at (15em,  -10.52ex);
 
-        \draw [-] (aggregator) -- +(+0,-1.05) -- +(+0,-2.37) -- (parallel aggr);
-        \draw [-] (dyn parser) -- +(-0,-1.09) -- +(-0,-2.37) -- (parallel aggr);
-        \draw [-] (parallel aggr) -- (comparer);
-        \draw [line] (comparer)   -- (end);
+        \draw [-] (parallel) -- (upper left)  -- (static analyzer);
+        \draw [-] (parallel) -- (upper right) -- (breakpointer);
+
+        \coordinate (lower left)  at (-15em, -40.52ex);
+        \coordinate (lower right) at (15em,  -40.52ex);
+
+        \draw [-] (aggregator) -- (lower left)  -- (parallel aggr);
+        \draw [-] (dyn parser) -- (lower right) -- (parallel aggr);
+
 
 \end{tikzpicture}
