@@ -1,0 +1,15 @@
+title: После разработки ПМ АПНДВ
+
+Клиент -> Орган сертификации: Передача ПО для сертификации
+
+ПМ АПНДВ -> ПО: Обработка статическим анализатором
+ПО -> ПМ АПНДВ: Статические диаграммы
+
+ПМ АПНДВ-> ПО: Обработка динамическим анализатором
+ПО -> ПМ АПНДВ: Динамические диаграммы
+
+ПМ АПНДВ -> Орган Сертификации: Результат сравнительного анализа статических и динамических диаграмм
+
+Орган сертификации -> Клиент: Сертификат о соответствии ПО
+
+https://swimlanes.io/#pZJNTsNADIX3OYUvwAW64DYskFj2AG346QIkEOoKQaA3mKaMMmqTOcPzjXh2N22YAhKLJBN73uc39kwvp1cXE8E7ss6xQxSdIaDz95rBGlsky78Knvh5wxLPVYUXbk6IGLSWs3NBQ8WGmkHIiTqjMOkNt2wR9I7f5FWYoeiTsQWCBRrh304fT8pY67i4l6OQvAbrI6OBFC6CUxbkzc09ejFjfMxy5+lMXUZfuYM98LAG2asCKJrZRNDGy/bo9f6bv5/suXxw6b8NLouoP1kcTQyrkxP74LQ6veaEHvb9sA4buGXtxFC0FNeZrDw6RnEaeit2oYqNsNzIPb3/frX8PAc3clI6Ui00SEL2abTM1+6vdYL1+Qs=

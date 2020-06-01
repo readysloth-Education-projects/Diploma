@@ -1,40 +1,45 @@
 \subsection{Исследование предметной области}
 \begin{frame}[plain, noframenumbering, t]
 \frametitle{Исследование предметной области}
-\begin{table}[!htbp]
-    \centering
-    \caption{\label{table:why-am-i-the-best}До и после разработки {\ProgModule}}
-
-    \begin{center}
-        \begin{tabular}{ | c | c | }
-            \hline
-            \makecell{До разработки {\ProgModule}} & \makecell{После разработки {\ProgModule}}\\
-            \hline
-            \makecell{Проведение статического,\\
-                      динамического и сравнительного\\
-                      анализа проходило вручную} & 
-            \makecell{Проведение статического,\\
-                      динамического и сравнительного\\
-                      анализа проходит автоматически}\\
-            \hline
-            \makecell{Для проведения анализов\\
-                      нужно было вручную выбирать\\
-                      исследуемые файлы} & 
-            \makecell{Для проведения анализов,\\
-                      {\ProgModule}\\
-                      делает это автоматически}\\
-            \hline
-            \makecell{Динамический анализ включал\\
-                      в себя только вызовы функций} & 
-            \makecell{Динамический анализ включает\\
-                      в себя информацию о состоянии\\
-                      стека и регистров программы\\
-                      во время конкретного вызова}\\
-            \hline
-        \end{tabular}
-    \end{center}
-
-\end{table}
+    \vspace{-2ex} 
+    \begin{figure}[!htbp]
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{images/uml_before_cropped.png}
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{images/uml_after_cropped.png}
+    \end{figure}
+%\begin{table}[!htbp]
+%    \centering
+%    \caption{\label{table:why-am-i-the-best}До и после разработки {\ProgModule}}
+%
+%    \begin{center}
+%        \begin{tabular}{ | c | c | }
+%            \hline
+%            \makecell{До разработки {\ProgModule}} & \makecell{После разработки {\ProgModule}}\\
+%            \hline
+%            \makecell{Проведение статического,\\
+%                      динамического и сравнительного\\
+%                      анализа проходило вручную} & 
+%            \makecell{Проведение статического,\\
+%                      динамического и сравнительного\\
+%                      анализа проходит автоматически}\\
+%            \hline
+%            \makecell{Для проведения анализов\\
+%                      нужно было вручную выбирать\\
+%                      исследуемые файлы} & 
+%            \makecell{Для проведения анализов,\\
+%                      {\ProgModule}\\
+%                      делает это автоматически}\\
+%            \hline
+%            \makecell{Динамический анализ включал\\
+%                      в себя только вызовы функций} & 
+%            \makecell{Динамический анализ включает\\
+%                      в себя информацию о состоянии\\
+%                      стека и регистров программы\\
+%                      во время конкретного вызова}\\
+%            \hline
+%        \end{tabular}
+%    \end{center}
+%
+%\end{table}
 \end{frame}
 
 \begin{frame}[plain, noframenumbering, t]
