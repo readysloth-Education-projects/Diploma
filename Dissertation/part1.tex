@@ -204,7 +204,7 @@ Linux и пакетов пользовательского пространст�
         \setlength{\tabcolsep}{2pt}
         \caption{\label{table:static-analyzers-comparsion}
                Сравнительная таблица статических анализаторов}
-        \begin{longtable}{*{4}{| c}|}
+        \begin{longtable}{*{5}{| c}|}
             \hline
             \diagbox[width=8cm]{Свойства}{Название программы}                                       &
             \makecell{Microsoft\\Application\\Inspector \autocite{microsoft-application-inspector}} &
@@ -216,19 +216,19 @@ Linux и пакетов пользовательского пространст�
             \hline
             \makecell{Открытость\\исходного кода}        & \greencell{Да} & \redcell{Нет}  & \greencell{Да} & \greencell{Да}\\
             \hline
-            \makecell{Препроцессирование\\кода C/C++}    & \redcell{Нет}   & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
+            \makecell{Препроцессирование\\кода C/C++}    & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
             \hline
             \makecell{Представление\\
                       препроцессорных директив как\\
-                      вызов функций}                     & \redcell{Нет}   & \redcell{Нет}  & \redncell{Нет} & \greencell{Да}\\
+                      вызов функций}                     & \redcell{Нет}  & \redcell{Нет}  & \redcell{Нет}  & \greencell{Да}\\
             \hline
-            \makecell{Создание графа вызовов}            & \redcell{Нет}   & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
+            \makecell{Создание графа вызовов}            & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
             \hline
-            \makecell{Создание обратного\\графа вызовов} & \redcell{Нет}   & \greencell{Да} & \redcell{Нет} & \greencell{Да}\\
+            \makecell{Создание обратного\\графа вызовов} & \redcell{Нет}  & \greencell{Да} & \redcell{Нет}  & \greencell{Да}\\
             \hline
-            \makecell{Бесплатность}                      & \greencell{Да} & \redcell{Нет}   & \greencell{Да} & \greencell{Да}\\
+            \makecell{Бесплатность}                      & \greencell{Да} & \redcell{Нет}  & \greencell{Да} & \greencell{Да}\\
             \hline
-            \makecell{Графический интерфейс}             & Нет & Есть & Нет & Нет \\
+            \makecell{Графический интерфейс}             & Нет            & Есть           & Нет            & Нет \\
             \hline
         \end{longtable}
     }
@@ -287,7 +287,7 @@ Microsoft Application Inspector не покрывает нужные сцена�
         \setlength{\tabcolsep}{2pt}
         \caption{\label{table:dynamic-analyzers-comparsion}
                Сравнительная таблица программ для динамического анализа}
-        \begin{longtable}{*{3}{| c}|}
+        \begin{longtable}{*{4}{| c}|}
             \hline
             \diagbox[width=8cm]{Свойства}{Название программы} &
             \makecell{GDB \autocite{gdb}}                     &
