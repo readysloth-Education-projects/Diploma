@@ -223,7 +223,7 @@
         \node [cloud      ] (makefile)        [on chain=main] {Начало};
         \node [subroutine ] (builder)         [on chain=main, join] {Сборщик};
         \node [parallel   ] (parallel)        [yscale=0.3, on chain=main, join] {\ };
-O
+
         \node [subroutine ] (static analyzer) at (-15em,-15ex) [on chain=left_vert] {Статический анализ}; 
         \node [subroutine ] (stat parser)     [on chain=left_vert, join] {Преобразование результатов статического анализа};
         \node [subroutine ] (aggregator)      [on chain=left_vert, join] {Агрегирование результатов линковки и статического анализа};
