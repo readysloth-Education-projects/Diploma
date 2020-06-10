@@ -1,16 +1,19 @@
 % Титульный лист (ГОСТ Р 7.0.11-2001, 5.1)
 \thispagestyle{empty}
 
-\null\hfill\begin{tabular}[t]{l@{}}
-    Утверждаю\\
-    Директор Института СПИНТех\\
-    НИУ МИЭТ\\
-    Проф. \rule{3cm}{0.15mm}/Гагарина Л.Г./\\
-    <<\rule{1cm}{0.15mm}>>\rule{3cm}{0.15mm} 2020 г. 
-\end{tabular}
+%\null\hfill\begin{tabular}[t]{l@{}}
+%    Утверждаю\\
+%    директор института СПИНТех\\
+%    НИУ МИЭТ\\
+%    проф. \rule{3cm}{0.15mm}/Гагарина Л.Г./\\
+%    <<\rule{1cm}{0.15mm}>>\rule{3cm}{0.15mm} 2020 г. 
+%\end{tabular}
 
 \begin{center}
+МИНОБРНАУКИ РОССИИ\\
 \thesisOrganization
+\\
+Институт СПИНТех
 \end{center}
 %
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
@@ -42,15 +45,18 @@
 %
 \vspace{0pt plus1fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 \begin{center}
-\textbf {\large %\MakeUppercase
-\thesisTitle}
-
-\vspace{0pt plus2fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 {%\small
-Специальность \thesisSpecialtyNumber\ "---
-
+Бакалаврская работа \\
+по направлению \thesisSpecialtyNumber\ 
 <<\thesisSpecialtyTitle>>
 }
+\\
+\textbf {%\large %\MakeUppercase
+\thesisTitle}
+\\
+{\ProgModule}
+
+\vspace{0pt plus2fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
 
 \ifdefined\thesisSpecialtyTwoNumber
 {%\small
@@ -67,47 +73,51 @@
 \end{center}
 %
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места
-\begin{flushright}
-\ifdefined\supervisorTwoFio
-Научные руководители:
+\begin{flushleft}
 
-\supervisorRegalia
+Студент 
+\newcount\lineblank
+\lineblank=25
+\loop
+  \message{\ }
+    \advance \lineblank-1
+    \ifnum \lineblank>0
+    \repeat
+\
+\line(10,0){200} \
+\newcount\mynameblank
+\mynameblank=50
+\loop
+  \message{\ }
+    \advance \mynameblank-1
+    \ifnum \mynameblank>0
+    \repeat
+\
+Уманский А.А. %\thesisAuthorLastName\ \thesisAuthorOtherNames
 
-\ifdefined\supervisorDead
-\framebox{\supervisorFio}
-\else
-\supervisorFio
-\fi
+Руководитель,\\
+\supervisorRegaliaShort
+\
+\newcount\lineblank
+\lineblank=6
+\loop
+  \message{\ }
+    \advance \lineblank-1
+    \ifnum \lineblank>0
+    \repeat
+\
+\line(10,0){200} \
+\newcount\mynameblank
+\mynameblank=50
+\loop
+  \message{\ }
+    \advance \mynameblank-1
+    \ifnum \mynameblank>0
+    \repeat
+\
+Кононова А.И.
 
-\supervisorTwoRegalia
-
-\ifdefined\supervisorTwoDead
-\framebox{\supervisorTwoFio}
-\else
-\supervisorFio
-\fi
-\else
-Научный руководитель:
-
-\supervisorRegalia
-
-
-\ifdefined\supervisorDead
-\framebox{\supervisorFio}
-\else
-\supervisorFio
-
-\line(1,0){160}
-\fi
-\fi
-
-Студент:
-
-\thesisAuthorLastName\ \thesisAuthorOtherNames
-
-\line(1,0){160}
-
-\end{flushright}
+\end{flushleft}
 
 %
 \vspace{0pt plus4fill} %число перед fill = кратность относительно некоторого расстояния fill, кусками которого заполнены пустые места

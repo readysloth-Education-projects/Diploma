@@ -228,16 +228,16 @@
     node distance=6mm and 30mm, % Global setup of box spacing
     ] 
         \node [cloud    ] (makefile)        [left  = 4cm ]                   {\small Начало};
-        \node [process  ] (builder)         [below = 3cm of makefile]        {\small Сборщик};
+        \node [subroutine] (builder)         [below = 3cm of makefile]        {\small Сборщик};
         \node [parallel ] (parallel)        [below of = builder, yscale=0.3] {\rptf[75]{\ }};
-        \node [process  ] (breakpointer)    [below right = 5cm of builder]   {\small Бинарный анализ};
-        \node [process  ] (static analyzer) [below left = 5cm of builder]    {\small Статический анализ};
-        \node [process  ] (stat parser)     [below = 4cm of static analyzer] {\small Преобразование результатов статического анализа};
-        \node [process  ] (aggregator)      [below = 4cm of stat parser]     {\small Агрегирование результатов линковки и статического анализа};
-        \node [process  ] (gdb manager)     [below = 4cm of breakpointer]    {\small Динамический анализ};
-        \node [process  ] (dyn parser)      [below = 4cm of gdb manager]     {\small Преобразование результатов динамического анализа};
+        \node [subroutine] (breakpointer)    [below right = 5cm of builder]   {\small Бинарный анализ};
+        \node [subroutine] (static analyzer) [below left = 5cm of builder]    {\small Статический анализ};
+        \node [subroutine] (stat parser)     [below = 4cm of static analyzer] {\small Преобразование результатов статического анализа};
+        \node [subroutine] (aggregator)      [below = 4cm of stat parser]     {\small Агрегирование результатов линковки и статического анализа};
+        \node [subroutine] (gdb manager)     [below = 4cm of breakpointer]    {\small Динамический анализ};
+        \node [subroutine] (dyn parser)      [below = 4cm of gdb manager]     {\small Преобразование результатов динамического анализа};
         \node [cloud    ] (end)             [below = 23cm of makefile]       {\small Конец};
-        \node [process  ] (comparer)        [above = 3cm of end]             {\small Сравнительный анализ};
+        \node [subroutine] (comparer)        [above = 3cm of end]             {\small Сравнительный анализ};
         \node [parallel ] (parallel aggr)   [above = 3cm of comparer, yscale=0.3] {\rpts[75]{\ }};
 
         \draw [line] (makefile) -- (builder);
