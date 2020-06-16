@@ -1,0 +1,65 @@
+%%% Реализация библиографии пакетами biblatex и biblatex-gost с использованием движка biber %%%
+\usepackage{csquotes} % biblatex рекомендует его подключать. Пакет для оформления сложных блоков цитирования.
+%%% Загрузка пакета с основными настройками %%%
+\makeatletter
+\ifnumequal{\value{draft}}{0}{% Чистовик
+\usepackage[%
+backend=biber,% движок
+bibencoding=utf8,% кодировка bib файла
+sorting=none,% настройка сортировки списка литературы
+style=gost-numeric,% стиль цитирования и библиографии (по ГОСТ)
+language=autobib,% получение языка из babel/polyglossia, default: autobib % если ставить autocite или auto, то цитаты в тексте с указанием страницы, получат указание страницы на языке оригинала
+autolang=other,% многоязычная библиография
+clearlang=true,% внутренний сброс поля language, если он совпадает с языком из babel/polyglossia
+defernumbers=true,% нумерация проставляется после двух компиляций, зато позволяет выцеплять библиографию по ключевым словам и нумеровать не из большего списка
+sortcites=true,% сортировать номера затекстовых ссылок при цитировании (если в квадратных скобках несколько ссылок, то отображаться будут отсортированно, а не абы как)
+doi=false,% Показывать или нет ссылки на DOI
+isbn=false,% Показывать или нет ISBN, ISSN, ISRN
+]{biblatex}[2016/09/17]
+\ltx@iffilelater{biblatex-gost.def}{2017/05/03}%
+{\toggletrue{bbx:gostbibliography}%
+\renewcommand*{\revsdnamepunct}{\addcomma}}{}
+}
+{%Черновик
+\usepackage[%
+backend=biber,% движок
+bibencoding=utf8,% кодировка bib файла
+style=gost-numeric,% стиль цитирования и библиографии (по ГОСТ)
+language=autobib,% получение языка из babel/polyglossia, default: autobib % если ставить autocite или auto, то цитаты в тексте с указанием страницы, получат указание страницы на языке оригинала
+sorting=true,% настройка сортировки списка литературы
+defernumbers=true, % откомментируйте, если требуется правильная нумерация ссылок на литературу в режиме черновика. Замедляет сборку
+]{biblatex}[2016/09/17]%
+}
+\makeatother
+
+\ifxetexorluatex
+\else
+% Исправление случая неподдержки знака номера в pdflatex
+    \DefineBibliographyStrings{russian}{number={\textnumero}}
+\fi
+
+\ifsynopsis
+\ifnumgreater{\value{usefootcite}}{0}{
+    \ExecuteBibliographyOptions{autocite=footnote}
+    \newbibmacro*{cite:full}{%
+        \printtext[bibhypertarget]{%
+            \usedriver{%
+                \DeclareNameAlias{sortname}{default}%
+            }{%
+                \thefield{entrytype}%
+            }%
+        }%
+        \usebibmacro{shorthandintro}%
+    }
+    \DeclareCiteCommand{\smartcite}[\mkbibfootnote]{%
+        \usebibmacro{prenote}%
+    }{%
+        \usebibmacro{citeindex}%
+        \usebibmacro{cite:full}%
+    }{%
+        \multicitedelim%
+    }{%
+        \usebibmacro{postnote}%
+    }
+}{}
+\fi

@@ -48,9 +48,7 @@
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Обзор существующих решений}
 
-На сегодняшний день на рынке не существует решений аналогичных {\ProgModule}.
-Поэтому рассмотрим программы, которые можно использовать в качестве составных частей
-{\ProgModule}.
+Статические анализаторы.
 \begin{table}[!htbp]
     {\footnotesize
         \setlength{\tabcolsep}{2pt}
@@ -82,14 +80,21 @@
         \end{longtable}
     }
 \end{table}
+
+{\tiny
+\begin{itemize}
+    \item \fullcite{microsoft-application-inspector}
+    \item \fullcite{sci-tools-understand}
+    \item \fullcite{gnu-cflow}
+\end{itemize}
+}
+
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Обзор существующих решений}
 
-На сегодняшний день на рынке не существует решений аналогичных {\ProgModule}.
-Поэтому рассмотрим программы, которые можно использовать в качестве составных частей
-{\ProgModule}.
+Динамические анализаторы.
 \begin{table}[!htbp]
     {\small
         \setlength{\tabcolsep}{2pt}
@@ -120,6 +125,12 @@
         \end{longtable}
     }
 \end{table}
+{\tiny
+\begin{itemize}
+    \item \fullcite{gdb}
+    \item \fullcite{qemu}
+\end{itemize}
+}
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
@@ -199,6 +210,14 @@
         \end{longtable}
     }
 \end{table}
+\vspace{-2ex}
+{\tiny
+\begin{itemize}
+    \item \fullcite{nim}
+    \item \fullcite{python}
+    \item \fullcite{perl}
+\end{itemize}
+}
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
@@ -278,6 +297,17 @@
         \end{longtable}
     }
 \end{table}
+
+\vspace{-3ex}
+{\tiny
+\begin{itemize}
+    \item \fullcite{aporia-ide}
+    \item \fullcite{atom-ide}
+    \item \fullcite{sublime-ide}
+    \item \fullcite{vs-code-ide}
+    \item \fullcite{vim-ide}
+\end{itemize}
+}
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
@@ -321,8 +351,26 @@
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
+\frametitle{Отладка и тестирование {\ProgModule}}
+    Разработка {\ProgModule} проводилась с использованием техники Test-driven development,
+    с применением элементов функционального программирования. Хотя TDD советует вместо
+    отладки писать тесты, иногда для ускорения разработки {\ProgModule} отлаживался через
+    GDB.
+    \begin{figure}[!htbp]
+        \begin{adjustbox}{max totalsize={0.8\textwidth}{0.8\textheight}}
+            \includegraphics[width=\linewidth]{images/TDD.png}
+        \end{adjustbox}
+        %\caption{Схема алгоритма {\ProgModule}\label{fig:algorithm}}
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}%[plain, noframenumbering, t]
 \frametitle{Апробация}
     {\ProgModule} готовится к внедрению на предприятии ООО Фирма <<Анкад>>
+    \begin{figure}[!htbp]
+        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{images/Ancud.png}
+    \end{figure}
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
@@ -335,6 +383,15 @@
         \item разработана схема алгоритма {\ProgModule};
         \item запрограммирован {\ProgModule};
         \item проведена отладка и тестирование {\ProgModule};
-        \item разработана документация оператора к {\ProgModule};
+        \item разработано руководство оператора к {\ProgModule};
     \end{itemize}
+    Цель ВКР достигнута.
+\end{frame}
+
+\begin{frame}%[plain, noframenumbering, t]
+
+    \begin{center}
+        \Huge Спасибо за внимание!
+    \end{center}
+    
 \end{frame}
