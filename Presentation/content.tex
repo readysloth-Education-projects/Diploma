@@ -1,5 +1,5 @@
-\subsection{Исследование предметной области}
-\begin{frame}[plain, noframenumbering, t]
+%\subsection{Исследование предметной области}
+\begin{frame}[shrink=20]%[plain, noframenumbering, t, shrink=20]
 \frametitle{Исследование предметной области}
     \vspace{-2ex} 
     \begin{figure}[!htbp]
@@ -45,7 +45,7 @@
 %\end{table}
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
+\begin{frame}%[plain, noframenumbering, t]
 \frametitle{Обзор существующих решений}
 
 На сегодняшний день на рынке не существует решений аналогичных {\ProgModule}.
@@ -54,8 +54,6 @@
 \begin{table}[!htbp]
     {\footnotesize
         \setlength{\tabcolsep}{2pt}
-        \caption{\label{table:static-analyzers-comparsion}
-               Сравнительная таблица статических анализаторов}
         \begin{longtable}{*{4}{| c}|}
             \hline
             \diagbox[width=4cm]{Свойства}{Название\\программы}                                       &
@@ -86,7 +84,7 @@
 \end{table}
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
+\begin{frame}%[plain, noframenumbering, t]
 \frametitle{Обзор существующих решений}
 
 На сегодняшний день на рынке не существует решений аналогичных {\ProgModule}.
@@ -95,8 +93,6 @@
 \begin{table}[!htbp]
     {\small
         \setlength{\tabcolsep}{2pt}
-        \caption{\label{table:dynamic-analyzers-comparsion}
-               Сравнительная таблица программ для динамического анализа}
         \begin{longtable}{*{3}{| c}|}
             \hline
             \diagbox[width=8cm]{Свойства}{Название программы} &
@@ -126,14 +122,12 @@
 \end{table}
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
+\begin{frame}%[plain, noframenumbering, t]
 \frametitle{Выбор языка программирования}
 
 \begin{table}
     {\small
         \setlength{\tabcolsep}{2pt}
-        \caption{\label{table:languages-comparsion}
-               Сравнительная таблица языков программирования}
         \begin{longtable}{*{5}{| c}|}
             \hline
             \diagbox[width=5cm]{Свойства}{Язык} &
@@ -190,7 +184,7 @@
                 \greencell{Есть} &
                 \greencell{Есть} \\
             \hline
-                \makecell{Мета-программирование} & 
+                \makecell{Метапрограммирование} & 
                 \greencell{Есть} & 
                 \greencell{Есть} &
                 \greencell{Есть} &
@@ -207,7 +201,7 @@
 \end{table}
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
+\begin{frame}%[plain, noframenumbering, t]
 \frametitle{Выбор среды разработки}
 
 Для разработки на Nim существует несколько IDE и огромное количество
@@ -216,8 +210,6 @@
 \begin{table}[!htbp]
     {\small
         \setlength{\tabcolsep}{2pt}
-        \caption{\label{table:ide-comparsion}
-               Сравнительная таблица IDE и редакторов кода}
         \begin{longtable}{*{6}{| c}|}
             \hline
             \diagbox[width=4cm]{Свойства}{IDE/Редактор} &
@@ -288,15 +280,15 @@
 \end{table}
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
-\frametitle{Схема данных}
+\begin{frame}%[plain, noframenumbering, t]
+\frametitle{Схема данных {\ProgModule}}
     \begin{figure}[!htbp]
             \input{Presentation/images/dataflow.tikz}
     \end{figure}
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
-\frametitle{Схема алгоритма}
+\begin{frame}%[plain, noframenumbering, t]
+\frametitle{Схема алгоритма {\ProgModule}}
 
     \Put(149,-490){\includegraphics[height=2cm]{Presentation/images/algo_gost.png}}
     %\begin{figure}[!htbp]
@@ -315,21 +307,27 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
-\frametitle{Ползовательский интерфейс}
-    Пользователь будет управлять {\ProgModule} с помощью
-    консольного интерфейса.
+\begin{frame}%[plain, noframenumbering, t]
+\frametitle{Пользовательский интерфейс {\ProgModule}}
+    Пользователь может управлять {\ProgModule}, как с помощью
+    консольного интерфейса, так и графического.
+    \begin{figure}[!htbp]
+        \begin{adjustbox}{max totalsize={0.8\textwidth}{0.8\textheight}}
+            \includegraphics[trim={0.2em 0 0 0},clip,width=\linewidth]{images/apndv-gui.png}
+        \end{adjustbox}
+        %\caption{Схема алгоритма {\ProgModule}\label{fig:algorithm}}
+    \end{figure}
 
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
+\begin{frame}%[plain, noframenumbering, t]
 \frametitle{Апробация}
-    {\ProgModule} готовится к внедрению на предпириятии ООО Фирма <<Анкад>>
+    {\ProgModule} готовится к внедрению на предприятии ООО Фирма <<Анкад>>
 \end{frame}
 
-\begin{frame}[plain, noframenumbering, t]
+\begin{frame}%[plain, noframenumbering, t]
 \frametitle{Результаты работы}
-    \begin{enumerate}
+    \begin{itemize}
         \item исследована предметная область;
         \item проведен сравнительный анализ существующих программных решений;
         \item выборан язык и среда разработки;
@@ -337,6 +335,6 @@
         \item разработана схема алгоритма {\ProgModule};
         \item запрограммирован {\ProgModule};
         \item проведена отладка и тестирование {\ProgModule};
-        \item разработана документации к {\ProgModule};
-    \end{enumerate}
+        \item разработана документация оператора к {\ProgModule};
+    \end{itemize}
 \end{frame}
