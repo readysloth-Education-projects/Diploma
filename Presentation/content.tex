@@ -46,9 +46,8 @@
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
-\frametitle{Обзор существующих решений}
+\frametitle{Обзор существующих решений. Статические анализаторы.}
 
-Статические анализаторы.
 \begin{table}[!htbp]
     {\footnotesize
         \setlength{\tabcolsep}{2pt}
@@ -81,20 +80,20 @@
     }
 \end{table}
 
-{\tiny
+\vspace{-5ex}
+{\scriptsize
 \begin{itemize}
-    \item \fullcite{microsoft-application-inspector}
-    \item \fullcite{sci-tools-understand}
-    \item \fullcite{gnu-cflow}
+    \item \cite{microsoft-application-inspector} \fullcite{microsoft-application-inspector}
+    \item \cite{sci-tools-understand} \fullcite{sci-tools-understand}
+    \item \cite{gnu-cflow} \fullcite{gnu-cflow}
 \end{itemize}
 }
 
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
-\frametitle{Обзор существующих решений}
+\frametitle{Обзор существующих решений. Динамические анализаторы.}
 
-Динамические анализаторы.
 \begin{table}[!htbp]
     {\small
         \setlength{\tabcolsep}{2pt}
@@ -125,10 +124,11 @@
         \end{longtable}
     }
 \end{table}
-{\tiny
+\vspace{-5ex}
+{\scriptsize
 \begin{itemize}
-    \item \fullcite{gdb}
-    \item \fullcite{qemu}
+    \item \cite{gdb} \fullcite{gdb}
+    \item \cite{qemu} \fullcite{qemu}
 \end{itemize}
 }
 \end{frame}
@@ -145,7 +145,7 @@
                 \makecell{Nim \autocite{nim}} &
                 \makecell{Python \autocite{python}} &
                 \makecell{Perl \autocite{perl}} &
-                \makecell{C/C++} \\
+                \makecell{C/C++ \autocite{cpp}} \\
             \hline
                 \makecell{Сверхвысокоуровневость} & 
                 \greencell{Да} & 
@@ -210,21 +210,19 @@
         \end{longtable}
     }
 \end{table}
-\vspace{-2ex}
-{\tiny
+\vspace{-5ex}
+{\scriptsize
 \begin{itemize}
-    \item \fullcite{nim}
-    \item \fullcite{python}
-    \item \fullcite{perl}
+    \item \cite{nim} \fullcite{nim}
+    \item \cite{python} \fullcite{python}
+    \item \cite{perl} \fullcite{perl}
 \end{itemize}
 }
+
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Выбор среды разработки}
-
-Для разработки на Nim существует несколько IDE и огромное количество
-текстовых редакторов, часть которых рассмотрим ниже:
 
 \begin{table}[!htbp]
     {\small
@@ -298,14 +296,14 @@
     }
 \end{table}
 
-\vspace{-3ex}
-{\tiny
+\vspace{-5ex}
+{\scriptsize
 \begin{itemize}
-    \item \fullcite{aporia-ide}
-    \item \fullcite{atom-ide}
-    \item \fullcite{sublime-ide}
-    \item \fullcite{vs-code-ide}
-    \item \fullcite{vim-ide}
+    \item \cite{aporia-ide} \fullcite{aporia-ide}
+    \item \cite{atom-ide} \fullcite{atom-ide}
+    \item \cite{sublime-ide} \fullcite{sublime-ide}
+    \item \cite{vs-code-ide} \fullcite{vs-code-ide}
+    \item \cite{vim-ide} \fullcite{vim-ide}
 \end{itemize}
 }
 \end{frame}
@@ -313,14 +311,14 @@
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Схема данных {\ProgModule}}
     \begin{figure}[!htbp]
-            \input{Presentation/images/dataflow.tikz}
+        \input{Presentation/images/dataflow.tikz}
     \end{figure}
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Схема алгоритма {\ProgModule}}
 
-    \Put(149,-490){\includegraphics[height=2cm]{Presentation/images/algo_gost.png}}
+    \Put(149,-414){\includegraphics[height=2cm]{Presentation/images/algo_gost.png}}
     %\begin{figure}[!htbp]
     %    \begin{adjustbox}{max totalsize={1.0\textwidth}{0.8\textheight},left}
     %        \includegraphics{}
@@ -328,7 +326,7 @@
     %\end{figure}
 
     \begin{figure}[!htbp]
-        \vspace{-1ex} 
+        \vspace{-9ex} 
         \hspace{-13cm} 
         \begin{adjustbox}{max totalsize={1.6\textwidth}{1.6\textheight},left}
             \input{Presentation/images/algorithm.tikz}
@@ -339,7 +337,7 @@
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Пользовательский интерфейс {\ProgModule}}
-    Пользователь может управлять {\ProgModule}, как с помощью
+    Пользователь может управлять {\ProgModule} как с помощью
     консольного интерфейса, так и графического.
     \begin{figure}[!htbp]
         \begin{adjustbox}{max totalsize={0.8\textwidth}{0.8\textheight}}
@@ -352,7 +350,7 @@
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Отладка и тестирование {\ProgModule}}
-    В процессе разработки {\ProgModule} было написано 32 модульных теста, рассматривающих
+    В процессе разработки {\ProgModule} было написано 43 модульных теста, рассматривающих
     различные сценарии использования элементов {\ProgModule}. {\ProgModule} отлаживался
     с помощью отладчика GDB.
     
@@ -383,10 +381,14 @@
         \item выборан язык и среда разработки;
         \item разработана схема данных {\ProgModule};
         \item разработана схема алгоритма {\ProgModule};
-        \item запрограммирован {\ProgModule};
+        \item программно реализован {\ProgModule};
         \item проведена отладка и тестирование {\ProgModule};
-        \item разработано руководство оператора к {\ProgModule};
+        \item разработано руководство оператора к {\ProgModule}.
     \end{itemize}
+
+    Поиск НДВ в сертифицируемом ПО унифицирован и проходит автоматически,
+    что значительно ускоряет процесс сертификации.
+    
     Цель ВКР достигнута.
 \end{frame}
 
