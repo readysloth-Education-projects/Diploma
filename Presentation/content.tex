@@ -343,7 +343,7 @@
     консольного интерфейса, так и графического.
     \begin{figure}[!htbp]
         \begin{adjustbox}{max totalsize={0.8\textwidth}{0.8\textheight}}
-            \includegraphics[trim={0.2em 0 0 0},clip,width=\linewidth]{images/apndv-gui.png}
+            \includegraphics[trim={0.2em 0.2ex 0.2ex 0.2ex},clip,width=\linewidth]{images/apndv-gui.png}
         \end{adjustbox}
         %\caption{Схема алгоритма {\ProgModule}\label{fig:algorithm}}
     \end{figure}
@@ -352,13 +352,14 @@
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Отладка и тестирование {\ProgModule}}
-    Разработка {\ProgModule} проводилась с использованием техники Test-driven development,
-    с применением элементов функционального программирования. Хотя TDD советует вместо
-    отладки писать тесты, иногда для ускорения разработки {\ProgModule} отлаживался через
-    GDB.
+    В процессе разработки {\ProgModule} было написано 32 модульных теста, рассматривающих
+    различные сценарии использования элементов {\ProgModule}. {\ProgModule} отлаживался
+    с помощью отладчика GDB.
+    
+    \vspace{3ex}
     \begin{figure}[!htbp]
-        \begin{adjustbox}{max totalsize={0.8\textwidth}{0.8\textheight}}
-            \includegraphics[width=\linewidth]{images/TDD.png}
+        \begin{adjustbox}{max totalsize={1.2\textwidth}{1.2\textheight}}
+            \includegraphics[trim={0 4ex 0 0 0},clip,width=\linewidth]{images/running-gdb.png}
         \end{adjustbox}
         %\caption{Схема алгоритма {\ProgModule}\label{fig:algorithm}}
     \end{figure}
@@ -367,10 +368,11 @@
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Апробация}
-    {\ProgModule} готовится к внедрению на предприятии ООО Фирма <<Анкад>>
-    \begin{figure}[!htbp]
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{images/Ancud.png}
-    \end{figure}
+    \begin{itemize}
+        \item Уманский А.А. Разработка coreutils на языке Forth для встраиваемых систем.
+            <<Актуальные проблемы информатизации в цифровой жкономике и научных исследованиях>>
+            Международная научно-практическая конференция 2019
+    \end{itemize}
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
