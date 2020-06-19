@@ -44,6 +44,7 @@
 
 \else
     \ifnumequal{\value{usealtfont}}{1}{% Используется pscyr, при наличии
-        \IfFileExists{pscyr.sty}{\renewcommand{\rmdefault}{ftm}}{}
+        %\IfFileExists{pscyr.sty}
+        {\renewcommand{\rmdefault}{ftm}}{}
     }{}
 \fi
