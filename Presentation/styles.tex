@@ -38,6 +38,7 @@
 % Убрать иконки перед списком литературы
 % https://tex.stackexchange.com/a/124271/104425
 \setbeamertemplate{bibliography item}{}
+\setbeamertemplate{frametitle}[default][center]
 
 % Использовать шрифт с засечками для формул
 % https://tex.stackexchange.com/a/34267/104425
@@ -54,7 +55,7 @@
 
  %footer презентации
 \setbeamertemplate{footline}{
-    \leavevmode%
+    %\leavevmode%
     \hbox{%
 %        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,center]{}%
 %            % И. О. Фамилия, Организация кратко
@@ -64,8 +65,8 @@
 %            % Город, 20XX
 %            \thesisCity, \thesisYear
 %        \end{beamercolorbox}%
-        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,left]{}%
-            Стр. \insertframenumber{}% из \inserttotalframenumber \hspace*{2ex}
+        \begin{beamercolorbox}[wd=0.96\paperwidth,ht=2ex,dp=4.3ex,right]{}%
+            \insertframenumber{}% из \inserttotalframenumber \hspace*{2ex}
         \end{beamercolorbox}}%
     \vskip0pt%
 }

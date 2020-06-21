@@ -1,4 +1,4 @@
-\chapter{Исследовательский раздел}\label{ch:ch1}
+\chapter{ИССЛЕДОВАТЕЛЬСКИЙ РАЗДЕЛ}\label{ch:ch1}
 Сертификация программного обеспечения проводится, 
 когда необходимо подтвердить соответствие разрабатываемой 
 продукции требованиям защиты информации.
@@ -357,40 +357,38 @@ Linux и пакетов пользовательского пространст�
 
 Поэтому в таблице \ref{table:static-analyzers-comparsion} рассмотрим статические анализаторы, специализирующиеся на создании карт исходного кода.
 
-\begin{table}[!htbp]
-    {\small
-        \setlength{\tabcolsep}{2pt}
-        \caption{\label{table:static-analyzers-comparsion}
-               Сравнительная таблица статических анализаторов}
-        \begin{longtable}{*{5}{| c}|}
-            \hline
-            \diagbox[width=8cm]{Свойства}{Название программы}                 &
-            \makecell{Microsoft\\Application\\Inspector}                      &
-            \makecell{SCI\\Tools\\Understand \autocite{sci-tools-understand}} &
-            \makecell{GNU cflow \autocite{gnu-cflow}}                         &
-            \makecell{Kernel\\analyzer} \\
-            \hline
-            \makecell{Кроссплатформенность}             & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
-            \hline
-            \makecell{Открытость\\исходного кода}        & \greencell{Да} & \redcell{Нет}  & \greencell{Да} & \redcell{Нет} \\
-            \hline
-            \makecell{Препроцессирование\\кода C/C++}    & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
-            \hline
-            \makecell{Представление\\
-                      препроцессорных директив как\\
-                      вызов функций}                     & \redcell{Нет}  & \redcell{Нет}  & \greencell{Да} & \redcell{Нет} \\
-            \hline
-            \makecell{Создание графа вызовов}            & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
-            \hline
-            \makecell{Создание обратного\\графа вызовов} & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \redcell{Нет}  \\
-            \hline
-            \makecell{Бесплатность}                      & \greencell{Да} & \redcell{Нет}  & \greencell{Да} & \greencell{Да}\\
-            \hline
-            \makecell{Графический интерфейс}             & Нет            & Есть           & Нет            & Нет           \\
-            \hline
-        \end{longtable}
-    }
-\end{table}
+{\small
+    \setlength{\tabcolsep}{2pt}
+    \begin{longtable}{*{5}{| c}|}
+    \caption{\label{table:static-analyzers-comparsion}
+           Сравнительная таблица статических анализаторов}\\
+        \hline
+        \diagbox[width=8cm]{Свойства}{Название программы}                 &
+        \makecell{Microsoft\\Application\\Inspector}                      &
+        \makecell{SCI\\Tools\\Understand \autocite{sci-tools-understand}} &
+        \makecell{GNU cflow \autocite{gnu-cflow}}                         &
+        \makecell{Kernel\\analyzer} \\
+        \hline
+        \makecell{Кроссплатформенность}             & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
+        \hline
+        \makecell{Открытость\\исходного кода}        & \greencell{Да} & \redcell{Нет}  & \greencell{Да} & \redcell{Нет} \\
+        \hline
+        \makecell{Препроцессирование\\кода C/C++}    & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
+        \hline
+        \makecell{Представление\\
+                  препроцессорных директив как\\
+                  вызов функций}                     & \redcell{Нет}  & \redcell{Нет}  & \greencell{Да} & \redcell{Нет} \\
+        \hline
+        \makecell{Создание графа вызовов}            & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
+        \hline
+        \makecell{Создание обратного\\графа вызовов} & \redcell{Нет}  & \greencell{Да} & \greencell{Да} & \redcell{Нет}  \\
+        \hline
+        \makecell{Бесплатность}                      & \greencell{Да} & \redcell{Нет}  & \greencell{Да} & \greencell{Да}\\
+        \hline
+        \makecell{Графический интерфейс}             & Нет            & Есть           & Нет            & Нет           \\
+        \hline
+    \end{longtable}
+}
 
 \subsubsection{Microsoft Application Inspector}\label{sec:ch1/sec3/sub1/sub1}
 
@@ -472,44 +470,42 @@ Microsoft Application Inspector не покрывает нужные сцена�
 В таблице \ref{table:dynamic-analyzers-comparsion} рассмотрим программы, потенциально пригодные для проведения динамического
 анализа.
 
-\begin{table}[!htbp]
-    {\small
-        \setlength{\tabcolsep}{2pt}
-        \caption{\label{table:dynamic-analyzers-comparsion}
-               Сравнительная таблица программ для динамического анализа}
-        \begin{longtable}{*{5}{| c}|}
-            \hline
-            \diagbox[width=8cm]{Свойства}{Название программы} &
-            \makecell{Gcov \autocite{gcov}}                   &
-            \makecell{GDB \autocite{gdb}}                     &
-            \makecell{QEMU \autocite{qemu}}                   &
-            \makecell{Kernel\\analyzer}                   \\
-            \hline
-            \makecell{Кроссплатформенность}             & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
-            \hline
-            \makecell{Открытость\\исходного кода}        & \greencell{Да} & \greencell{Да} & \greencell{Да} & \redcell{Нет} \\
-            \hline
-            \makecell{Возможность\\анализировать память} & \redcell{Нет} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
-            \hline
-            \makecell{Возможность\\программно управлять} & \redcell{Нет} & \greencell{Да} & \greencell{Да} & \redcell{Нет} \\
-            \hline
-            \makecell{Возможность\\создавать\\
-                      собственные команды}               & \redcell{Нет} & \greencell{Да} & \redcell{Нет} & \redcell{Нет} \\
-            \hline
-            \makecell{Возможность удаленной\\
-                      отладки}                           & \redcell{Нет} & \greencell{Да} & \redcell{Нет} & \redcell{Нет} \\
-            \hline
-            \makecell{Бесплатность}                      & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
-            \hline
-            \makecell{Поддержка отладки\\
-                      программ, написанных\\
-                      не для x86 архитектуры}            & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
-            \hline
-            \makecell{Графический интерфейс}             & Есть & Есть & Есть & Нет \\
-            \hline
-        \end{longtable}
-    }
-\end{table}
+{\small
+    \setlength{\tabcolsep}{2pt}
+    \begin{longtable}{*{5}{| c}|}
+    \caption{\label{table:dynamic-analyzers-comparsion}
+           Сравнительная таблица программ для динамического анализа}\\
+        \hline
+        \diagbox[width=8cm]{Свойства}{Название программы} &
+        \makecell{Gcov \autocite{gcov}}                   &
+        \makecell{GDB \autocite{gdb}}                     &
+        \makecell{QEMU \autocite{qemu}}                   &
+        \makecell{Kernel\\analyzer}                   \\
+        \hline
+        \makecell{Кроссплатформенность}             & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
+        \hline
+        \makecell{Открытость\\исходного кода}        & \greencell{Да} & \greencell{Да} & \greencell{Да} & \redcell{Нет} \\
+        \hline
+        \makecell{Возможность\\анализировать память} & \redcell{Нет} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
+        \hline
+        \makecell{Возможность\\программно управлять} & \redcell{Нет} & \greencell{Да} & \greencell{Да} & \redcell{Нет} \\
+        \hline
+        \makecell{Возможность\\создавать\\
+                  собственные команды}               & \redcell{Нет} & \greencell{Да} & \redcell{Нет} & \redcell{Нет} \\
+        \hline
+        \makecell{Возможность удаленной\\
+                  отладки}                           & \redcell{Нет} & \greencell{Да} & \redcell{Нет} & \redcell{Нет} \\
+        \hline
+        \makecell{Бесплатность}                      & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
+        \hline
+        \makecell{Поддержка отладки\\
+                  программ, написанных\\
+                  не для x86 архитектуры}            & \greencell{Да} & \greencell{Да} & \greencell{Да} & \greencell{Да} \\
+        \hline
+        \makecell{Графический интерфейс}             & Есть & Есть & Есть & Нет \\
+        \hline
+    \end{longtable}
+}
 
 \subsubsection{Gcov}\label{sec:ch1/sec3/sub2/sub1}
 Утилита для создания покрытия кода, входит в пакет GCC (GNU Compiler Collection).
