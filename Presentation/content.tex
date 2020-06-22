@@ -350,13 +350,17 @@
 
 \begin{frame}%[plain, noframenumbering, t]
 \frametitle{Отладка и тестирование {\ProgModule}}
-    \vspace{3ex}
-    \begin{figure}[!htbp]
-        \begin{adjustbox}{max totalsize={1.3\textwidth}{1.3\textheight}}
-            \includegraphics[trim={0 24ex 0 0 0},clip,width=\linewidth]{images/running-gdb.png}
-        \end{adjustbox}
-        %\caption{Схема алгоритма {\ProgModule}\label{fig:algorithm}}
-    \end{figure}
+    \begin{itemize}
+        \item Отладка -- GDB
+            \vspace{3ex}
+            \begin{figure}[!htbp]
+                \begin{adjustbox}{max totalsize={1.3\textwidth}{1.3\textheight}}
+                    \includegraphics[trim={0 24ex 0 0 0},clip,width=\linewidth]{images/running-gdb.png}
+                \end{adjustbox}
+                %\caption{Схема алгоритма {\ProgModule}\label{fig:algorithm}}
+            \end{figure}
+        \item В рамках TDD написано 43 модульных теста
+    \end{itemize}
 
 \end{frame}
 
@@ -365,7 +369,7 @@
     \begin{itemize}
         \item Уманский А.А. Разработка coreutils на языке Forth для встраиваемых систем.
             <<Актуальные проблемы информатизации в цифровой экономике и научных исследованиях>>
-            Международная научно-практическая конференция 2019.
+            Международная научно-практическая конференция 2019, c 61.
         \item Внедрение {\ProgModule} готовится в ООО Фирма <<Анкад>>.
     \end{itemize}
     \begin{figure}[!htbp]
@@ -381,7 +385,7 @@
     \begin{itemize}
         \item исследована предметная область;
         \item проведен сравнительный анализ существующих программных решений;
-        \item выборан язык и среда разработки;
+        \item выбран язык и среда разработки;
         \item разработана схема данных {\ProgModule};
         \item разработана схема алгоритма {\ProgModule};
         \item программно реализован {\ProgModule};
