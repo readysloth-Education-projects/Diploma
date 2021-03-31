@@ -1,143 +1,20 @@
-Сертификация -- процесс подтверждения соответствия характеристик товара определенным стандартам.
+\textbf{Проблемная ситуация в области объекта исследований:}
 
-Разработка {\ProgModule} проводилась в ООО Фирма <<Анкад>>.
-ООО Фирма <<Анкад>> занимается разработкой доверенных средств защиты информации и
-средств криптографической защиты информации.
+Существующие подходы к нахождению НДВ в ПО устарели и не отвечают необходимым требованиям безопасности.
 
-{\aim} данной работы является ускорение проведения процесса сертификации
-программ, написанных на языках программирования C/C++.
-
-Для~достижения поставленной цели необходимо решить следующие {\tasks}:
+\textbf{Причины сложившейся ситуации:}
 \begin{enumerate}[label={\arabic*)}]
-    \item исследование предметной области;
-    \item сравнительный анализ существующих программных решений;
-    \item выбор языка и среды разработки;
-    \item разработка схемы данных {\ProgModule};
-    \item разработка схемы алгоритма {\ProgModule};
-    \item программная реализация {\ProgModule};
-    \item разработка пользовательского интерфейса;
-    \item отладка и тестирование {\ProgModule};
-    \item разработка руководства оператора {\ProgModule}.
+    \item Современное ПО большое и сложное, у него большая «поверхность» для атаки;
+    \item Требования и методики нахождения НДВ в ПО разрабатывались во времена с другим уровнем и сложностью технологий;
+    \item Новые атаки на ПО появляются постоянно, нет гибкого механизма их диагностирования, который соответствовал бы текущему уровню развития технологий.
 \end{enumerate}
 
+\textbf{Цель исследования:}
+создание методики и алгоритма нахождения НДВ ПО при известной модели нарушителя.
 
-% {\novelty}
-% \begin{enumerate}
-%   \item Впервые \ldots
-%   \item Впервые \ldots
-%   \item Было выполнено оригинальное исследование \ldots
-% \end{enumerate}
-
-{\influence} проекта состоит в ускорении и унификации процесса сертификации ПО на отсутствие НДВ.
-
-
-%{\methods} \ldots
-
-%{\defpositions}
-%\begin{enumerate}
-%  \item Первое положение
-%\end{enumerate}
-%В папке Documents можно ознакомиться в решением совета из Томского ГУ
-%в~файле \verb+Def_positions.pdf+, где обоснованно даются рекомендации
-%по~формулировкам защищаемых положений.
-
-% {\reliability} полученных результатов обеспечивается \ldots \ Результаты находятся в соответствии с результатами, полученными другими авторами.
-% 
-% 
-% {\probation}
-% Основные результаты работы докладывались~на:
-% перечисление основных конференций, симпозиумов и~т.\:п.
-% 
-% {\contribution} Автор принимал активное участие \ldots
-% 
-% \ifnumequal{\value{bibliosel}}{0}
-% {%%% Встроенная реализация с загрузкой файла через движок bibtex8. (При желании, внутри можно использовать обычные ссылки, наподобие `\cite{vakbib1,vakbib2}`).
-%     {\publications} Основные результаты по теме диссертации изложены в XX печатных изданиях,
-%     X из которых изданы в журналах, рекомендованных ВАК,
-%     X "--- в тезисах докладов.
-% }%
-% {%%% Реализация пакетом biblatex через движок biber
-%     \begin{refsection}[bl-author]
-%         % Это refsection=1.
-%         % Процитированные здесь работы:
-%         %  * подсчитываются, для автоматического составления фразы "Основные результаты ..."
-%         %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthor` или `\insertbiblioauthorgrouped`
-%         %  * нумеруются там в зависимости от порядка команд `\printbibliography` в этом разделе.
-%         %  * при использовании `\insertbiblioauthorgrouped`, порядок команд `\printbibliography` в нём должен быть тем же (см. biblio/biblatex.tex)
-%         %
-%         % Невидимый библиографический список для подсчёта количества публикаций:
-%         \printbibliography[heading=nobibheading, section=1, env=countauthorvak,          keyword=biblioauthorvak]%
-%         \printbibliography[heading=nobibheading, section=1, env=countauthorwos,          keyword=biblioauthorwos]%
-%         \printbibliography[heading=nobibheading, section=1, env=countauthorscopus,       keyword=biblioauthorscopus]%
-%         \printbibliography[heading=nobibheading, section=1, env=countauthorconf,         keyword=biblioauthorconf]%
-%         \printbibliography[heading=nobibheading, section=1, env=countauthorother,        keyword=biblioauthorother]%
-%         \printbibliography[heading=nobibheading, section=1, env=countauthor,             keyword=biblioauthor]%
-%         \printbibliography[heading=nobibheading, section=1, env=countauthorvakscopuswos, filter=vakscopuswos]%
-%         \printbibliography[heading=nobibheading, section=1, env=countauthorscopuswos,    filter=scopuswos]%
-%         %
-%         \nocite{*}%
-%         %
-%         {\publications} Основные результаты по теме диссертации изложены в~\arabic{citeauthor}~печатных изданиях,
-%         \arabic{citeauthorvak} из которых изданы в журналах, рекомендованных ВАК\sloppy%
-%         \ifnum \value{citeauthorscopuswos}>0%
-%             , \arabic{citeauthorscopuswos} "--- в~периодических научных журналах, индексируемых Web of~Science и Scopus\sloppy%
-%         \fi%
-%         \ifnum \value{citeauthorconf}>0%
-%             , \arabic{citeauthorconf} "--- в~тезисах докладов.
-%         \else%
-%             .
-%         \fi
-%     \end{refsection}%
-%     \begin{refsection}[bl-author]
-%         % Это refsection=2.
-%         % Процитированные здесь работы:
-%         %  * попадают в авторскую библиографию, при usefootcite==0 и стиле `\insertbiblioauthorimportant`.
-%         %  * ни на что не влияют в противном случае
-%         \nocite{vakbib2}%vak
-%         \nocite{bib1}%other
-%         \nocite{confbib1}%conf
-%     \end{refsection}%
-%         %
-%         % Всё, что вне этих двух refsection, это refsection=0,
-%         %  * для диссертации - это нормальные ссылки, попадающие в обычную библиографию
-%         %  * для автореферата:
-%         %     * при usefootcite==0, ссылка корректно сработает только для источника из `external.bib`. Для своих работ --- напечатает "[0]" (и даже Warning не вылезет).
-%         %     * при usefootcite==1, ссылка сработает нормально. В авторской библиографии будут только процитированные в refsection=0 работы.
-%         %
-%         % Невидимый библиографический список для подсчёта количества внешних публикаций
-%         % Используется, чтобы убрать приставку "А" у работ автора, если в автореферате нет
-%         % цитирований внешних источников.
-%         % Замедляет компиляцию
-%     \ifsynopsis
-%     \ifnumequal{\value{draft}}{0}{
-%       \printbibliography[heading=nobibheading, section=0, env=countexternal,          keyword=biblioexternal]%
-%     }{}
-%     \fi
-% }
-% 
-% При использовании пакета \verb!biblatex! будут подсчитаны все работы, добавленные
-% в файл \verb!biblio/author.bib!. Для правильного подсчёта работ в~различных
-% системах цитирования требуется использовать поля:
-% \begin{itemize}
-%         \item \texttt{authorvak} если публикация индексирована ВАК,
-%         \item \texttt{authorscopus} если публикация индексирована Scopus,
-%         \item \texttt{authorwos} если публикация индексирована Web of Science,
-%         \item \texttt{authorconf} для докладов конференций,
-%         \item \texttt{authorother} для других публикаций.
-% \end{itemize}
-% Для подсчёта используются счётчики:
-% \begin{itemize}
-%         \item \texttt{citeauthorvak} для работ, индексируемых ВАК,
-%         \item \texttt{citeauthorscopus} для работ, индексируемых Scopus,
-%         \item \texttt{citeauthorwos} для работ, индексируемых Web of Science,
-%         \item \texttt{citeauthorvakscopuswos} для работ, индексируемых одной из трёх баз,
-%         \item \texttt{citeauthorscopuswos} для работ, индексируемых Scopus или Web of~Science,
-%         \item \texttt{citeauthorconf} для докладов на конференциях,
-%         \item \texttt{citeauthorother} для остальных работ,
-%         \item \texttt{citeauthor} для суммарного количества работ.
-% \end{itemize}
-% % Счётчик \texttt{citeexternal} используется для подсчёта процитированных публикаций.
-% 
-% Для добавления в список публикаций автора работ, которые не были процитированы в
-% автореферате требуется их~перечислить с использованием команды \verb!\nocite! в
-% \verb!Synopsis/content.tex!.
+\textbf{Задачи исследования:}
+\begin{enumerate}[label={\arabic*)}]
+    \item анализ возможностей нарушителя;
+    \item анализ критичности и применимости воздействия нарушителя на ПО;
+    \item создание методики выбора инструментов для проверки воздействия нарушителя на ПО;
+\end{enumerate}

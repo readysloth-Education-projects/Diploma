@@ -1,1 +1,1 @@
-docker run -it --rm -v $(pwd):/mnt -w /mnt --entrypoint=bash raabf/texstudio-versions:texlive2018
+docker run -it --rm -v $(pwd):/mnt -w /mnt --entrypoint=bash raabf/latex-versions:texlive2020
