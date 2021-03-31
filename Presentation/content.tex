@@ -1,48 +1,14 @@
 %\subsection{Исследование предметной области}
-\begin{frame}[shrink=20]%[plain, noframenumbering, t, shrink=20]
+\begin{frame}%[plain, noframenumbering, t, shrink=20]
 \frametitle{Исследование предметной области}
-    \vspace{-2ex} 
-    \begin{figure}[!htbp]
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{images/uml_before_cropped.png}
-    \end{figure}
-    \begin{figure}[!htbp]
-    \vspace{-2.6ex} 
-        \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{images/uml_after_cropped.png}
-    \end{figure}
-%\begin{table}[!htbp]
-%    \centering
-%    \caption{\label{table:why-am-i-the-best}До и после разработки {\ProgModule}}
-%
-%    \begin{center}
-%        \begin{tabular}{ | c | c | }
-%            \hline
-%            \makecell{До разработки {\ProgModule}} & \makecell{После разработки {\ProgModule}}\\
-%            \hline
-%            \makecell{Проведение статического,\\
-%                      динамического и сравнительного\\
-%                      анализа проходило вручную} & 
-%            \makecell{Проведение статического,\\
-%                      динамического и сравнительного\\
-%                      анализа проходит автоматически}\\
-%            \hline
-%            \makecell{Для проведения анализов\\
-%                      нужно было вручную выбирать\\
-%                      исследуемые файлы} & 
-%            \makecell{Для проведения анализов,\\
-%                      {\ProgModule}\\
-%                      делает это автоматически}\\
-%            \hline
-%            \makecell{Динамический анализ включал\\
-%                      в себя только вызовы функций} & 
-%            \makecell{Динамический анализ включает\\
-%                      в себя информацию о состоянии\\
-%                      стека и регистров программы\\
-%                      во время конкретного вызова}\\
-%            \hline
-%        \end{tabular}
-%    \end{center}
-%
-%\end{table}
+    Существующие подходы к нахождению НДВ в ПО устарели и не отвечают необходимым требованиям безопасности.
+
+    \textbf{Причины сложившейся ситуации:}
+    \begin{itemize}
+        \item Современное ПО большое и сложное, у него большая «поверхность» для атаки;
+        \item Требования и методики нахождения НДВ в ПО разрабатывались во времена с другим уровнем и сложностью технологий;
+        \item Новые атаки на ПО появляются постоянно, нет гибкого механизма их диагностирования, который соответствовал бы текущему уровню развития технологий.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}%[plain, noframenumbering, t]
