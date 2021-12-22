@@ -88,6 +88,9 @@
 
 \begin{frame}%[plain, noframenumbering, t]
     \frametitle{Формализованное представление}
+    Описание устройства это абстракное синтаксическое дерево $T$ на разрабатываемом языке $L$.
+
+    $P \colon T \to F(L)$ -- отображение, определяющее преобразование языка $L$ в язык $C$.
 \end{frame}
 
 
@@ -105,6 +108,52 @@
         \item Компилятор для разработанного языка преобразует данное описание в код на языке C;
         \item Пользователь заполняет в полученном файле функции обработки данных;
         \item Данный файл с описанием устройства на языке C встраивается как новое устройство в эмулятор QEMU;
+    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}%[plain, noframenumbering, t]
+    \frametitle{Программная реализация}
+    \lstset{frame=tb,
+      language=C,
+      aboveskip=3mm,
+      belowskip=3mm,
+      showstringspaces=false,
+      columns=flexible,
+      basicstyle={\tiny\ttfamily},
+      numbers=none,
+      numberstyle=\tiny\color{gray},
+      keywordstyle=\color{blue},
+      commentstyle=\color{OliveGreen},
+      stringstyle=\color{orange},
+      breaklines=true,
+      breakatwhitespace=true,
+      tabsize=4
+    }
+    \lstinputlisting[firstline=0,lastline=35]{Presentation/core.template.c}
+\end{frame}
+
+
+\begin{frame}%[plain, noframenumbering, t]
+    \frametitle{Выбор метрики оценки эффективности}
+    Основные метрики эффективности:
+    \begin{enumerate}
+        \item Время разработки виртуального устройства (в человеко-часах)
+        \item Качество сгенерированного кода на языке C
+    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}%[plain, noframenumbering, t]
+    \frametitle{Основные результаты диссертационной работы}
+    \begin{enumerate}
+        \item Проведен аналитический обзор существующих методов создания виртуального аппаратного обеспечения;
+        \item Проведен анализ существующих подходов к эмуляции аппаратного обеспечения;
+        \item Проведен анализ актуальности существующих подходов к разработке прикладного ПО при отсутствии аппаратного обеспечения;
+        \item Произведена декомпозиция поставленной задачи для создания методики и алгоритма генерации виртуального аппаратного обеспечения;
+        \item Разработан лингвистический аппарата (семантика, синтаксис) языка для создания программ по генерации виртуального
+            аппаратного обеспечения;
+        \item Разработан лингвистический аппарата (семантика, синтаксис) языка для создания программ по генерации виртуального аппаратного обеспечения;
     \end{enumerate}
 \end{frame}
 
