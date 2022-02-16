@@ -1,0 +1,275 @@
+% !TEX encoding = UTF-8 Unicode
+% Úτƒ-8 encoded
+% http://www.linux.org.ru/forum/general/10357036
+\tikzset{
+    line/.style={draw, -latex'},
+    every join/.style={line},
+    u/.style={anchor=south},
+    r/.style={anchor=west},
+    fxd/.style={text width = 6em},
+    it/.style={font={\small\itshape}},
+    bf/.style={font={\small\bfseries}},
+}
+\tikzstyle{base_long} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+    ]
+\tikzstyle{base} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        text badly centered,
+    ]
+\tikzstyle{coord} =
+    [
+        coordinate,
+        on chain,
+        on grid
+    ]
+\tikzstyle{cloud} =
+    [
+        base,
+        ellipse,
+        node distance = 3cm,
+        minimum height = 2em,
+        text width=2cm
+    ]
+\tikzstyle{decision} =
+    [
+        base,
+        diamond,
+        aspect=2,
+        node distance = 2cm,
+        inner sep = 0pt
+    ]
+\tikzstyle{block} =
+    [
+        rectangle,
+        base,
+        rounded corners,
+        minimum height = 2em
+    ]
+\tikzstyle{print_block} =
+    [
+        base,
+        tape,
+        tape bend top=none,
+    ]
+\tikzstyle{io} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 70,
+        trapezium right angle = 110,
+    ]
+\tikzstyle{prompt} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 90,
+        trapezium right angle = 80,
+        shape border rotate = 90
+    ]
+\tikzstyle{disk file} =
+    [
+        base,
+        cylinder,
+        aspect=0.2,
+    ]
+\tikzstyle{process} =
+    [
+        rectangle,
+        base,
+    ]
+\makeatletter
+\pgfkeys{/pgf/.cd,
+    subrtshape w/.initial=2mm,
+    cycleshape w/.initial=2mm
+}
+\pgfdeclareshape{parallelshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{subrtshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/subrtshape w}}
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\ppd@offset}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\ppd@offset}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cyclebegshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cycleendshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\makeatother
+\tikzstyle{subroutine} =
+    [
+        base,
+        subrtshape,
+    ]
+\tikzstyle{cyclebegin} =
+    [
+        base,
+        cyclebegshape,
+    ]
+\tikzstyle{cycleend} =
+    [
+        base,
+        cycleendshape,
+    ]
+\tikzstyle{connector} =
+    [
+        base,
+        circle,
+    ]
+
+\tikzstyle{parallel} =
+    [
+        base_long,
+        parallelshape,
+    ]
+
+\def\code (#1,#2) at (#3,#4) {
+  \node [rectangle, base] (begin) at (#3,#4) {...};
+  \node [rectangle, base] (left branch) [below left = 2cm of begin] {...};
+  \node [rectangle, base] (right branch) [below right = 2cm of begin] {...};
+
+  \coordinate (CENTER) at ($(left branch)!0.5!(right branch)$);
+
+  \node [rectangle, base] (end) [below of = CENTER] {...};
+
+  \draw [->] (begin) -- (left branch);
+  \draw [->] (begin) -- (right branch);
+
+  \draw [->] (left branch) -- (end);
+  \draw [->] (right branch) -- (end);
+
+  \node [draw, dotted, thick, minimum width=6cm, minimum height=4cm] at (CENTER) {};
+  \node [above=2cm of CENTER] {#2};
+}
+
+\begin{tikzpicture}[%
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=6mm and 30mm, % Global setup of box spacing
+    scale=0.7
+    ]
+    \code (emulated, Код эмулируемой системы) at (0,0)
+    \code (native, Сгенерированный код) at (16,1.5)
+
+    \draw [->] +(4.3,-2) -- (7,-2);
+    \node [draw] (TCG) at (8,-2) {TCG};
+    \draw [->] +(9,-2) -- (11.7,-2);
+
+    \node [draw, dotted, thick, minimum width=7cm, minimum height=5cm] (translation cache) at (16,-1.5) {};
+    \node [above= 0.2cm of translation cache] {Кэш трансляции};
+
+    \node [draw, minimum width=2cm, minimum height=2cm] at (0,-10) {QEMU};
+    \node [draw] (prologue) at (7,-9) {пролог вызова};
+    \node [draw] (epilogue) at (7,-11) {эпилог вызова};
+
+    \coordinate (peCENTER) at ($(prologue)!0.5!(epilogue)$);
+
+    \draw [->] (1.45,-9) -- (4.5,-9);
+    \draw [->] (4.5,-11) -- (1.45,-11);
+
+    \node [draw, dotted, thick, minimum width=4cm, minimum height=3cm] (prologue epilogue) at (peCENTER) {};
+    \node [above=0.2cm of prologue epilogue] {Передача контроля эмулятора};
+
+    \draw [->] (prologue) -- (12,-9) -- (12, 0) -- (14.45, 0);
+    \draw [->] (16, -4.35) -- (16, -11) -- (epilogue);
+
+
+\end{tikzpicture}

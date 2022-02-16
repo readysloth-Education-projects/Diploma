@@ -9,6 +9,39 @@
 Но производство аппаратного обеспечения не ограничивается потребительским рынком.
 Специфические аппаратные решения требуются отдельным отраслям или организациям.
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{tikzpicture}[%
+        start chain=going below,    % General flow is top-to-bottom
+        node distance=6mm and 30mm, % Global setup of box spacing
+        line/.style={draw, -latex'},
+        every join/.style={line},
+        block/.style={draw,
+                      on chain,
+                      on grid,
+                      rectangle,
+                      minimum height = 2em}
+        ]
+            \node [block] (feasibility)
+                          {Технико-экономическое обоснование};
+            \node [block] (preliminary design) [below=2cm of feasibility]
+                          {Предварительныое проектирование};
+            \node [block] (prototyping) [below=2cm of preliminary design]
+                          {Прототипирование};
+            \node [block] (design for manufacturing) [below=2cm of prototyping]
+                          {Проектирование для производства и сборки};
+            \node [block] (manufacturing) [below=2cm of design for manufacturing]
+                          {Производство};
+
+            \draw [line] (feasibility) -- (preliminary design);
+            \draw [line] (preliminary design) -- (prototyping);
+            \draw [line] (prototyping) -- (design for manufacturing);
+            \draw [line] (design for manufacturing) -- (manufacturing);
+
+    \end{tikzpicture}
+    \caption{Этапы создания аппаратного обеспечения}\label{fig:hardware-design}
+\end{figure}
+
 Создание аппаратного обеспечения трудоемкий процесс, непременно сязанный с созданием прикладного программного обеспечения.
 В свою очередь, отсутствие возможности исполнения ПО с использованием АО серьезно усложняет отладку и тестирование конечного продукта.
 
@@ -135,17 +168,17 @@
                       minimum height = 2em}
         ]
             \node [block] (subset)
-                          {вычленение эмулируемого подмножества функционала устройства};
+                          {Вычленение эмулируемого подмножества функционала устройства};
             \node [block, fill=yellow] (conversation) [below=2cm of subset]
-                          {выбор и написание средства общения ПО с эмулятором};
+                          {Выбор и написание средства общения ПО с эмулятором};
             \node [block] (logic) [below=2cm of conversation]
-                          {написание логики эмулятора};
+                          {Написание логики эмулятора};
 
             \draw [line] (subset) -- (conversation);
             \draw [line] (conversation) -- (logic);
 
     \end{tikzpicture}
-    \caption{Этапы создания эмулятора аппаратного обеспечения\label{fig:emu-creation-naive}}
+    \caption{Этапы создания эмулятора аппаратного обеспечения}\label{fig:emu-creation-naive}
 \end{figure}
 
 %\begin{enumerate}[label={\arabic*)}]
@@ -183,21 +216,20 @@
                       minimum height = 2em}
         ]
             \node [block] (subset)
-                          {вычленение эмулируемого подмножества функционала устройства};
+                          {Вычленение эмулируемого подмножества функционала устройства};
             \node [block, fill=yellow] (conversation) [below=2cm of subset]
-                          {реализация общения виртуального аппаратного обеспечения и эмулятора};
+                          {Реализация общения виртуального аппаратного обеспечения и эмулятора};
             \node [block, fill=yellow] (driver) [below=2cm of conversation]
-                          {реализация общения ПО с эмулятором (написание драйвера)};
+                          {Реализация общения ПО с эмулятором (написание драйвера)};
             \node [block] (logic) [below=2cm of driver]
-                          {написание логики эмулятора};
+                          {Написание логики эмулятора};
 
             \draw [line] (subset) -- (conversation);
-            \draw [line] (conversation) -- (logic);
-            \draw [line] (logic) -- (driver);
+            \draw [line] (conversation) -- (driver);
             \draw [line] (driver) -- (logic);
 
     \end{tikzpicture}
-    \caption{Этапы создания эмулятора аппаратного обеспечения с использованием существующего эмулятора\label{fig:emu-creation-pro}}
+    \caption{Этапы создания эмулятора аппаратного обеспечения с использованием существующего эмулятора}\label{fig:emu-creation-pro}
 \end{figure}
 
 %\begin{enumerate}[label={\arabic*)}]
@@ -220,3 +252,81 @@
 В случае, если есть возможность получить описание работы эмулируемого аппаратного обеспечения на HDL языке,
 то четвертый этап создания эмулятора тоже автоматизируется, так как логика работы аппаратного обеспечения
 уже описана на HDL языке.
+
+
+\section{Симуляция HDL}\label{sec:ch1/sec3}
+
+HDL или Harwdare Description Language -- специализированный язык для описания структуры и поведния
+электронных схем. Самыми известными и популярными представителями являются Verilog и VHDL.
+Данный тип языков помогает разрабатывать электронные схемы на более высоком уровне абстракции, чем раньше,
+что просто необходимо при проектировании сложных современных интегральных схем.
+
+Процесс превращения HDL-кода в соединения логических вентилей называется логическим синтезом.
+Результат логического синтеза -- список соединений, который может быть зашит на ПЛИС, или исполнен в симуляторе, что позволяет
+протестировать HDL-программу не используя ПЛИС.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{0.8\textheight}}
+        \includegraphics[]{images/netlist.png}
+    \end{adjustbox}
+    \caption{Визуализация результата логического синтеза}\label{fig:emu-creation-pro}
+\end{figure}
+
+
+Так как в списке соединений заложена логика работы устройства, пусть и на элементном уровне,
+то его можно использовать для эмуляции работы устройства.
+
+
+\section{Унифицированный подход к созданию эмуляторов аппаратного обеспечения}\label{sec:ch1/sec4}
+
+Унифицированный подход к созданию эмуляторов аппаратного обеспечения позволяет
+повысить степень автоматизации и корректности рутинной работы по внедрению
+эмулятора в исполняемую среду. Но сначала надо выбрать эмулятор, который
+будет использоваться для эмулирования целевого аппаратного обеспечения.
+
+\subsection{Сравнение эмуляторов с открытым исходным кодом}\label{sec:ch1/sec4/sub1}
+
+Активно развивающихся эмуляторов с открытым исходным кодом мало, Bochs и QEMU
+единственные, которые можно было бы использовать для создания на их основе
+эмуляторов аппаратного обеспечения.
+
+\begin{table}[!htbp]
+    {
+        \setlength{\tabcolsep}{2pt}
+        \begin{longtable}{*{3}{| c}|}
+            \hline
+            \diagbox[width=8.5cm]{Свойства}{Название\\эмулятора}                                       &
+            \makecell{Bochs} &
+            \makecell{QEMU} \\
+            \hline
+            \makecell{Кроссплатформенность}                         & \greencell{Да}                       & \greencell{Да}      \\
+            \hline
+            \makecell{Поддержка платформ кроме x86}                 & \redcell{Нет}                        & \greencell{Да}      \\
+            \hline
+            \makecell{Скорость эмуляции}                            & \redcell{Низкая}                     & \greencell{Высокая} \\
+            \hline
+            \makecell{Возможность добавить\\собственное устройство} & \yellowcell{Нет удобного интерфейса} & \greencell{Есть}    \\
+            \hline
+        \end{longtable}
+    }
+    \bigskip
+    \caption{Сравнение эмуляторов Bochs и QEMU}\label{fig:emu-comparsion}
+\end{table}
+
+Исходя из таблицы, лучшим эмулятором для поставленной задачи будет QEMU.
+
+\subsection{Методика добавления целевого аппаратного обеспечения в QEMU}\label{sec:ch1/sec4/sub2}
+
+\subsubsection{Устройство QEMU}\label{sec:ch1/sec4/sub2/sub1}
+
+QEMU (Quick Emulator) -- эмулятор аппаратного обеспечения различных платформ.
+QEMU по-умолчанию использует TCG или Tiny Code Generator (Маленький Генератор Кода) для
+перевода инструкций эмулируемой системы в инструкции физической машины.
+
+\begin{figure}[!htbp]
+    \centering
+    \input{images/qemu-tcg.tikz}
+    \caption{Схема работы QEMU TCG}\label{fig:qemu-tcg}
+\end{figure}
+
