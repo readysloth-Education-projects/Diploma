@@ -1,0 +1,250 @@
+% !TEX encoding = UTF-8 Unicode
+% Úτƒ-8 encoded
+% http://www.linux.org.ru/forum/general/10357036
+\tikzset{
+    line/.style={draw, -latex'},
+    every join/.style={line},
+    u/.style={anchor=south},
+    r/.style={anchor=west},
+    fxd/.style={text width = 6em},
+    it/.style={font={\small\itshape}},
+    bf/.style={font={\small\bfseries}},
+}
+\tikzstyle{base_long} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+    ]
+\tikzstyle{base} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        text badly centered,
+    ]
+\tikzstyle{coord} =
+    [
+        coordinate,
+        on chain,
+        on grid
+    ]
+\tikzstyle{cloud} =
+    [
+        base,
+        ellipse,
+        node distance = 3cm,
+        minimum height = 2em,
+        text width=2cm
+    ]
+\tikzstyle{decision} =
+    [
+        base,
+        diamond,
+        aspect=2,
+        node distance = 2cm,
+        inner sep = 0pt
+    ]
+\tikzstyle{block} =
+    [
+        rectangle,
+        base,
+        rounded corners,
+        minimum height = 2em
+    ]
+\tikzstyle{print_block} =
+    [
+        base,
+        tape,
+        tape bend top=none,
+    ]
+\tikzstyle{io} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 70,
+        trapezium right angle = 110,
+    ]
+\tikzstyle{prompt} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 90,
+        trapezium right angle = 80,
+        shape border rotate = 90
+    ]
+\tikzstyle{disk file} =
+    [
+        base,
+        cylinder,
+        aspect=0.2,
+    ]
+\tikzstyle{process} =
+    [
+        rectangle,
+        base,
+    ]
+\makeatletter
+\pgfkeys{/pgf/.cd,
+    subrtshape w/.initial=2mm,
+    cycleshape w/.initial=2mm
+}
+\pgfdeclareshape{parallelshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{subrtshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/subrtshape w}}
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\ppd@offset}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\ppd@offset}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cyclebegshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cycleendshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\makeatother
+\tikzstyle{subroutine} =
+    [
+        base,
+        subrtshape,
+    ]
+\tikzstyle{cyclebegin} =
+    [
+        base,
+        cyclebegshape,
+    ]
+\tikzstyle{cycleend} =
+    [
+        base,
+        cycleendshape,
+    ]
+\tikzstyle{connector} =
+    [
+        base,
+        circle,
+    ]
+
+\tikzstyle{parallel} =
+    [
+        base_long,
+        parallelshape,
+    ]
+
+\begin{tikzpicture}[%
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=6mm and 30mm, % Global setup of box spacing
+    scale=0.7
+    ]
+    \node [draw, fill=white] (process3) at (1,-1) {Процесс в ОС};
+    \node [draw, fill=white] (process2) at (0.5,-0.5) {Процесс в ОС};
+    \node [draw, fill=white] (process1) at (0,0) {Процесс в ОС};
+    \draw[line width=0.5mm, >=triangle 45, <->] (1,-1.55) -- (1,-3.35);
+
+
+    \node [draw, fill=white, minimum height=5cm, text depth=4cm] (qemu) at (9,3) {Процесс QEMU};
+    \draw[line width=0.5mm, >=triangle 45, <->] (9,-0.55) -- (9,-3.35);
+
+    \node [draw, fill=green, text width=3cm, text centered] (qemu vcpu) at (9,3) {\footnotesize Виртуальный\\процессор};
+
+    \node [draw, fill=white, minimum height=5cm] (qemu kvm) at (16,3) {Процесс QEMU};
+    \draw[line width=0.5mm, >=triangle 45, <->] (16,-0.55) -- (16,-3.35);
+
+
+    \node [draw, fill=blue!30, minimum width=14cm, minimum height=3cm] (linux) at (9,-5.5) {Ядро Linux};
+    \draw[line width=0.5mm, >=triangle 45, <->] (9,-7.6) -- (9,-9.3);
+    \node [draw, fill=blue!30, minimum width=10cm, minimum height=1cm] (hardware) at (9,-10) {Аппаратное обеспечение};
+
+    \node [draw, fill=orange] (kvm) at (15.2,-3.85) {Kernel Virtual Machine};
+\end{tikzpicture}
