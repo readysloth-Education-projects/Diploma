@@ -1,0 +1,264 @@
+% !TEX encoding = UTF-8 Unicode
+% Úτƒ-8 encoded
+% http://www.linux.org.ru/forum/general/10357036
+\tikzset{
+    line/.style={draw, -latex'},
+    every join/.style={line},
+    u/.style={anchor=south},
+    r/.style={anchor=west},
+    fxd/.style={text width = 6em},
+    it/.style={font={\small\itshape}},
+    bf/.style={font={\small\bfseries}},
+}
+\tikzstyle{base_long} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+    ]
+\tikzstyle{base} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+        text width=5cm
+    ]
+\tikzstyle{coord} =
+    [
+        coordinate,
+        on chain,
+        on grid
+    ]
+\tikzstyle{cloud} =
+    [
+        base,
+        ellipse,
+        node distance = 3cm,
+        minimum height = 2em,
+        text width=2cm
+    ]
+\tikzstyle{decision} =
+    [
+        base,
+        diamond,
+        aspect=2,
+        node distance = 2cm,
+        inner sep = 0pt
+    ]
+\tikzstyle{block} =
+    [
+        rectangle,
+        base,
+        rounded corners,
+        minimum height = 2em
+    ]
+\tikzstyle{print_block} =
+    [
+        base,
+        tape,
+        tape bend top=none,
+    ]
+\tikzstyle{io} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 70,
+        trapezium right angle = 110,
+    ]
+\tikzstyle{prompt} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 90,
+        trapezium right angle = 80,
+        shape border rotate = 90
+    ]
+\tikzstyle{disk file} =
+    [
+        base,
+        cylinder,
+        aspect=0.2,
+    ]
+\tikzstyle{process} =
+    [
+        rectangle,
+        base,
+    ]
+\makeatletter
+\pgfkeys{/pgf/.cd,
+    subrtshape w/.initial=2mm,
+    cycleshape w/.initial=2mm
+}
+\pgfdeclareshape{parallelshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{subrtshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/subrtshape w}}
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\ppd@offset}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\ppd@offset}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cyclebegshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cycleendshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\makeatother
+\tikzstyle{subroutine} =
+    [
+        base,
+        subrtshape,
+    ]
+\tikzstyle{cyclebegin} =
+    [
+        base,
+        cyclebegshape,
+    ]
+\tikzstyle{cycleend} =
+    [
+        base,
+        cycleendshape,
+    ]
+\tikzstyle{connector} =
+    [
+        base,
+        circle,
+    ]
+
+\tikzstyle{parallel} =
+    [
+        base_long,
+        parallelshape,
+    ]
+\begin{tikzpicture}[%
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=6mm and 30mm, % Global setup of box spacing
+    ]
+        \node  [disk file]  (source)         []                  {\small Исходный код устройства};
+        \node  [rectangle,
+                base,
+                dotted,
+                minimum width=6cm,
+                minimum height=15cm] (compile rect) at (0,-0.75) {};
+
+        \node [color = blue, left = 1cm of compile rect, yshift = 0.25cm]  (group) {\small Компиляция устройства};
+        \draw [color = blue, decorate, decoration = {brace,amplitude=10pt,raise=5pt, mirror}] (-3cm,-1.2cm) --  (-3cm,-16cm);
+
+
+        \node  [process]   (parse)          [below = 2.2cm of source]         {\small Разбор файла};
+        \node  [process]   (qemu inh)       [below = 2.2cm of parse]          {\small Поиск используемых\\сущностей QEMU};
+        \node  [process]   (qemu inh inter) [below = 2.2cm of qemu inh]       {\small Определение интерфейса используемых\\сущностей QEMU};
+        \node  [process]   (qemu inh boil)  [below = 2.2cm of qemu inh inter] {\small Генерация C-интерфейса устройства в QEMU};
+        \node  [process]   (python)         [below = 2.2cm of qemu inh boil]  {\small Генерация python-интерфейса\\для логики устройства};
+        \node  [process]   (buildsystem)    [below = 2.2cm of python]         {\small Встраивание устройства\\в сборку QEMU};
+
+        \node  [disk file] (qemu folder)    [left  = 8cm of buildsystem]      {\small Сборочная папка QEMU};
+        \node  [process]   (compile)        [below = 2cm of buildsystem]      {\small Сборка QEMU};
+        \node  [disk file] (binary)         [below = 2.5cm of compile]        {\small QEMU со встроенным устройством};
+
+
+        \draw [->] (source)         -- (parse);
+        \draw [->] (parse)          -- (qemu inh);
+        \draw [->] (qemu inh)       -- (qemu inh inter);
+        \draw [->] (qemu inh inter) -- (qemu inh boil);
+        \draw [->] (qemu inh boil)  -- (python);
+        \draw [->] (python)         -- (buildsystem);
+        \draw [->] (buildsystem)    -- (qemu folder);
+        \draw [->] (buildsystem)    -- (compile);
+        \draw [->] (compile)        -- (binary);
+
+
+\end{tikzpicture}
