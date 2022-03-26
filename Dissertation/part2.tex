@@ -61,6 +61,79 @@
 что ведет к отсутствию ошибок уровня интерфейса устройства,
 сводя появление возможных неисправностей только до реализации логики устройства.
 
+Язык-фреймворк Racket \cite{racket-lang} разработан как раз для языково-ориентированного
+программирования. Написание на нем логики компилятора или интерпретатора целевого языка
+полуавтоматически создает интегрированную среду разработки с помощью IDE DrRacket, которую
+также поддерживает сообщество.
+После объявления некоторых функций \cite{racket-drracket-integration}, разработчик программ
+на целевом языке сможет пользоваться подсветкой синтаксиса, отладчиком, автоматическим добавлением
+отступов и указателями использования переменных (рис. \ref{fig:racket-variable-arrow}), что дополнительно облегчает разработку.
+
+\begin{figure}[!htbp]
+    \centering
+    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+        \includegraphics[]{images/racket-variable-arrow.png}
+    \end{adjustbox}
+    \caption{Результат интеграции языка datalog в IDE DrRacket.}\label{fig:racket-variable-arrow}
+\end{figure}
+
+
+\subsubsection{Структура программы}\label{sec:ch2/sec1/sub1/sub1}
+
+Структура программы-описания аппаратного обеспечения имеет следующий вид, рисунок \ref{fig:device-program-structure}.
+
+\begin{figure}[!htbp]
+    \centering
+    \input{images/program-structure.tikz}
+    \caption{Структура программы-описания аппаратного обеспечения.}\label{fig:device-program-structure}
+\end{figure}
+
+Данная структура является наиболее понятной и органичной для стороннего разработчика.
+
+
+\subsubsection{Граммматика языка}\label{sec:ch2/sec1/sub1/sub1}
+Разрабатываемый язык является языком с контекстно-свободной грамматикой.
+Далее он будет именоваться как {\mylanguage} (произносится \mylanguageprononciation)
+
+Грамматика {\mylanguage} ограничена до описания зависимостей устройства и QEMU,
+связывания функций C и Python, встраивания Python-кода с логикой работы устройства
+в файл.
+
+
+\begin{figure}[!htbp]
+    \begin{grammar}
+        <letter> ::= `A' | `B' | `C' | `D' | `E' | `F' | `G'
+                   | `H' | `I' | `J' | `K' | `L' | `M' | `N'
+                   | `O' | `P' | `Q' | `R' | `S' | `T' | `U'
+                   | `V' | `W' | `X' | `Y' | `Z' | `a' | `b'
+                   | `c' | `d' | `e' | `f' | `g' | `h' | `i'
+                   | `j' | `k' | `l' | `m' | `n' | `o' | `p'
+                   | `q' | `r' | `s' | `t' | `u' | `v' | `w'
+                   | `x' | `y' | `z' ;
+
+        <digit> ::= `0' | `1' | `2' | `3' | `4' | `5' | `6' | `7' | `8' | `9' ;
+
+        <identifier> ::= <letter> , \{ <letter> | <digit> | `\_' \} ;
+
+        <block start> ::= `{';
+
+        <block end> ::= `}';
+
+        <field> ::= <identifier> `=' <identifier> | <block> ;
+
+        <block> ::= <block start> <field> <block end>;
+
+        <device definition> ::= '\#' <identifier>;
+
+        <device class inheritance> ::= `(' <identifier> `:' <identifier> `)';
+
+        <bind block> ::= `@bind' ;
+
+        <python block> ::= `@py' ;
+    \end{grammar}
+    \caption{Расширенная форма Бэкуса-Наура \mylanguage}\label{fig:qpydev-grammar}
+\end{figure}
+
 
 \subsection{Поиск используемых сущностей QEMU}\label{sec:ch2/sec1/sub2}
 \subsection{Определение интерфейса используемых сущностей QEMU}\label{sec:ch2/sec1/sub3}
