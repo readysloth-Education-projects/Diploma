@@ -107,18 +107,15 @@
 
 \begin{figure}[!htbp]
     \begin{grammar}
-        <letter> ::= `A' | `B' | `C' | `D' | `E' | `F' | `G'
-                   | `H' | `I' | `J' | `K' | `L' | `M' | `N'
-                   | `O' | `P' | `Q' | `R' | `S' | `T' | `U'
-                   | `V' | `W' | `X' | `Y' | `Z' | `a' | `b'
-                   | `c' | `d' | `e' | `f' | `g' | `h' | `i'
-                   | `j' | `k' | `l' | `m' | `n' | `o' | `p'
-                   | `q' | `r' | `s' | `t' | `u' | `v' | `w'
-                   | `x' | `y' | `z' ;
+        <letter> ::= `a' ... `z' | `A' ... `Z';
 
-        <digit> ::= `0' | `1' | `2' | `3' | `4' | `5' | `6' | `7' | `8' | `9' ;
+        <digit> ::= `0' ... `9' ;
 
-        <identifier> ::= <letter> , \{ <letter> | <digit> | `\_' \} ;
+        <symbol> ::= \symbol{92}x20 ... \symbol{92}x7E ; (* любой печатный символ, согласно кодам ASCII *)
+
+        <const value> ::= <digit> | `"' \{ <symbol> \} `"';
+
+        <identifier> ::= <letter> [\{ <letter> | <digit> | `\_' \}] ;
 
         <block start> ::= `{';
 
@@ -126,11 +123,11 @@
 
         <field> ::= <identifier> `=' <identifier> | <block> ;
 
-        <block> ::= <block start> <field> <block end>;
+        <block> ::= <block start> <field> [\{ `,' <field> \}] <block end>;
 
         <device definition> ::= '\#' <identifier>;
 
-        <device class inheritance> ::= `(' <identifier> `:' <identifier> `,' \{ <identifier> \} `)';
+        <device class inheritance> ::= `(' <identifier> `:' <identifier> [\{ `,' <identifier> \}] `)';
 
         <device class block> ::= <device class inheritance> <block>;
 
@@ -148,11 +145,44 @@
 
 Для описания семантики языка {\mylanguage} была выбрана денотационная семантика.
 Краеугольным камнем денотационной семантики является определение для каждой сущности
-языка некоего математического объекта и некоей функции, отображающей экземпляры этой
-сущности в экземпляры этого математического объекта.
+языка некоего математического объекта и некоей функции, называемой интерпретатором,
+которая отображает экземпляры этой сущности в экземпляры этого математического объекта -- элемент множества денотаций.
 Поскольку математические объекты строго определены, то они представляют собой точный
 смысл соответствующих сущностей.
 
+Функции обозначают посредством двойных квадратных скобок $[[$ $]]$,
+а элемент алгебры или операция алгебры, сопоставленные функцией $[[$ $]]$
+правильному выражению или конструктору выражений, называют денотантом этого выражения или,
+соответственно, денотацией конструкции. \cite{denotational-semantics}
+
+Для языка {\mylanguage} значимыми множествами семантических объектов
+являются только множества $Q$ -- объектов QEMU (переменные, функции, структуры) и
+$C$ -- множество константных выражений.
+
+
+\begin{figure}[!htbp]
+    \centering
+    \begingroup
+    \addtolength{\jot}{1em}
+    \begin{gather*}
+        [[assignment]](x,y) = \lambda x.y
+        [[if]](c,e_1,e_2) =
+        \begin{cases}
+            e_1, & \text{Если } c = true \\
+            e_2, & \text{Если } c \not= true
+        \end{cases} \\
+        [[terminate]](m) \\
+        [[throw\ error]](c, e) = if(c, e_g, terminate) \\
+        [[lookup]](o) = [[throw\ error]](o \in Q, o) \\
+        [[<device\ definition>]](i) = lookup(i) \\
+        [[<device\ class\ inheritance>]](i_1,...,i_n) = lookup(i_1) + ... + lookup(i_n) \\
+        [[<field>]](v_1, v_2) = assignment(v_1, v_2), \text{ Если } v_1 \in Q \text{ и } v_3 \in C \cup Q \\
+        [[<block>]](f_1,...,f_n) = field(f_1) + ... + field(f_n) \\
+        [[<python block>]](b) = assignment(b,b)\\
+    \end{gather*}
+    \endgroup
+    \caption{Денотационная семантика {\mylanguage}}\label{fig:denotational-semantics}
+\end{figure}
 
 
 \subsection{Поиск используемых сущностей QEMU}\label{sec:ch2/sec1/sub2}
