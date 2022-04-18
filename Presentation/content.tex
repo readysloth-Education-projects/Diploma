@@ -1,29 +1,16 @@
-%\subsection{Исследование предметной области}
-\begin{frame}%[plain, noframenumbering, t, shrink=20]
-    \begin{center}
-        \textbf{Объект исследования:}
-
-        Существующие методики создания виртуального аппаратного
-        обеспечения.
-
-        \textbf{Предмет исследования:}
-
-        Программное обеспечение.
-    \end{center}
-\end{frame}
-
-
 \begin{frame}%[plain, noframenumbering, t]
     \frametitle{Проблемная ситуация}
 
-    Высокая трудоемкость и дороговизна создания прикладного ПО, ориентированного
-    на использование конкретного физического устройства.
+    Создание аппаратного обеспечения -- трудоемкий процесс,
+    непременно сязанный с созданием прикладного программного обеспечения.
+    В свою очередь, отсутствие возможности исполнения ПО с использованием аппаратного обеспечения
+    серьезно усложняет отладку и тестирование конечного продукта.
 
     \textbf{Причины сложившейся ситуации:}
     \begin{itemize}
         \item невозможность обеспечить всех разработчиков прикладного ПО физическими устройствами;
-        \item отсутствие автоматического или полуавтоматического ПО для эмуляции физических устройств;
-        \item неизбежное появление программных ошибок в <<рукописном>> устройстве.
+        \item отсутствие автоматического или полуавтоматического ПО для эмуляции перефирийных устройств;
+        \item неизбежное появление программных ошибок при создании собственного эмулятора.
     \end{itemize}
 \end{frame}
 
@@ -41,7 +28,6 @@
         \item формализация задачи;
         \item разработка лингвистического аппарата (семантика, синтаксис) языка для создания программ по генерации виртуального
             аппаратного обеспечения.
-        \item анализ эффективности методики и алгоритма.
     \end{itemize}
 \end{frame}
 
@@ -50,8 +36,7 @@
     \frametitle{Положения, выносимые на защиту}
     \begin{enumerate}
         \item Формализованное представление алгоритма генерации виртуального аппаратного обеспечения;
-        \item Алгоритма генерации виртуального аппаратного обеспечения;
-        \item Программная реализация разработанных методики и алгоритма;
+        \item Алгоритм генерации виртуального аппаратного обеспечения;
         \item Лингвистический аппарат (синтаксис, семантика) языка для создания программ по генерации виртуального
             аппаратного обеспечения;
     \end{enumerate}
@@ -59,80 +44,72 @@
 
 
 \begin{frame}%[plain, noframenumbering, t]
-    \frametitle{Анализ существующих средств макетирования реальных устройств}
-    \begin{table}[!htbp]
-        {\footnotesize
-            \setlength{\tabcolsep}{2pt}
-            \begin{longtable}{*{4}{| c}|}
-                \hline
-                \diagbox[width=4cm]{Свойства}{Название\\программы}                                       &
-                \makecell{umockdev} &
-                \makecell{Verilator}                       &
-                \makecell{GHDL} \\
-                \hline
-                \makecell{Кроссплатформенность}             & \greencell{Да} & \greencell{Да} & \greencell{Да}\\
-                \hline
-                \makecell{Открытость\\исходного кода}        & \greencell{Да} & \greencell{Да}   & \greencell{Да}\\
-                \hline
-                \makecell{Бесплатность}                      & \greencell{Да} & \greencell{Да}   & \greencell{Да}\\
-                \hline
-                \makecell{Анализ языков\\описания аппаратуры} & \redcell{Нет} & \greencell{Да}   & \greencell{Да}\\
-                \hline
-                \makecell{Создание виртуального\\устройства в системе} & \yellowcell{Есть воспроизведение поведения} & \redcell{Нет}   & \redcell{Нет}\\
-                \hline
-                \makecell{Графический интерфейс}             & Нет & Нет & Нет \\
-                \hline
-            \end{longtable}
-        }
-    \end{table}
+    \frametitle{Формализованное представление}
+    \begin{figure}[!htbp]
+        \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+            \begin{minipage}{\linewidth}
+                \begin{grammar}
+                    <letter> ::= `a' ... `z' | `A' ... `Z'; \newline
+                    <digit> ::= `0' ... `9' ; \newline
+                    <symbol> ::= \symbol{92}x20 ... \symbol{92}x7E ; (* любой печатный символ, согласно кодам ASCII *) \newline
+                    <const value> ::= <digit> | `"' \{ <symbol> \} `"'; \newline
+                    <identifier> ::= <letter> [\{ <letter> | <digit> | `\_' \}] ; \newline
+                    <block start> ::= `{'; \newline
+                    <block end> ::= `}'; \newline
+                    <field> ::= <identifier> `=' <identifier> | <block> ; \newline
+                    <block> ::= <block start> <field> [\{ `,' <field> \}] <block end>; \newline
+                    <device definition> ::= '\#' <identifier>; \newline
+                    <device class inheritance> ::= `(' <identifier> `:' <identifier> [\{ `,' <identifier> \}] `)'; \newline
+                    <device class block> ::= <device class inheritance> <block>; \newline
+                    <bind block> ::= `@bind' <block>; \newline
+                    <python block> ::= `@py' <block>; \newline
+                    <program> ::= <device definition> <device class block> <bind block> <python block>;
+                \end{grammar}
+            \end{minipage}
+        \end{adjustbox}
+        \caption{Расширенная форма Бэкуса-Наура \mylanguage}\label{fig:qpydev-grammar}
+    \end{figure}
 \end{frame}
 
 
 \begin{frame}%[plain, noframenumbering, t]
-    \frametitle{Формализованное представление}
-    Описание устройства это абстракное синтаксическое дерево $T$ на разрабатываемом языке $L$.
-
-    $P \colon T \to F(L)$ -- отображение, определяющее преобразование языка $L$ в язык $C$.
-\end{frame}
-
+    \frametitle{Формализованное представление (продолжение)}
+    \begin{figure}[!htbp]
+        \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+        \begin{minipage}{\linewidth}
+                \centering
+                \begingroup
+                \begin{gather*}
+                    [[assignment]](x,y) = \lambda x.y \\
+                    [[terminate]](m) \text{ Завершение работы компилятора} \\
+                    [[if]](c,e_1,e_2) =
+                    \begin{cases}
+                        e_1, & \text{Если } c = true \\
+                        e_2, & \text{Если } c \not= true
+                    \end{cases} \\
+                    [[throw\ error]](c, e) = if(c, e_g, terminate) \\
+                    [[lookup]](o) = [[throw\ error]](o \in Q, o) \\
+                    [[<device\ definition>]](i) = lookup(i) \\
+                    [[<device\ class\ inheritance>]](i_1,...,i_n) = lookup(i_1) + ... + lookup(i_n) \\
+                    [[<field>]](v_1, v_2) = assignment(v_1, v_2), \text{ Если } v_1 \in Q \text{ и } v_3 \in C \cup Q \\
+                    [[<block>]](f_1,...,f_n) = field(f_1) + ... + field(f_n) \\
+                    [[<python block>]](b) = assignment(B,B)\\
+                \end{gather*}
+                \endgroup
+            \end{minipage}
+        \end{adjustbox}
+        \caption{Денотационная семантика языка {\mylanguage}}\label{fig:denotational-semantics}
+    \end{figure}
+\end{frame}%[plain, noframenumbering, t]
 
 \begin{frame}%[plain, noframenumbering, t]
     \frametitle{Методика создания полнофункционального виртуального устройства}
-    Из описания аппаратуры:
-    \begin{enumerate}
-        \item С помощью Verilator или GDHL генерируется модель устройства;
-        \item Из модели удаляется все, кроме общения устройства с внешним миром и обработки этой информации;
-        \item Полученная модель встраивается как новое устройство в эмулятор QEMU;
-    \end{enumerate}
-    Полуавтоматически:
     \begin{enumerate}
         \item С помощью разработанного языка описываются интерфейсы и характеристики устройства;
         \item Компилятор для разработанного языка преобразует данное описание в код на языке C;
         \item Пользователь заполняет в полученном файле функции обработки данных;
         \item Данный файл с описанием устройства на языке C встраивается как новое устройство в эмулятор QEMU;
     \end{enumerate}
-\end{frame}
-
-
-\begin{frame}%[plain, noframenumbering, t]
-    \frametitle{Программная реализация}
-    \lstset{frame=tb,
-      language=C,
-      aboveskip=3mm,
-      belowskip=3mm,
-      showstringspaces=false,
-      columns=flexible,
-      basicstyle={\tiny\ttfamily},
-      numbers=none,
-      numberstyle=\tiny\color{gray},
-      keywordstyle=\color{blue},
-      commentstyle=\color{OliveGreen},
-      stringstyle=\color{orange},
-      breaklines=true,
-      breakatwhitespace=true,
-      tabsize=4
-    }
-    \lstinputlisting[firstline=0,lastline=35]{Presentation/core.template.c}
 \end{frame}
 
 
@@ -155,7 +132,6 @@
         \item Произведена декомпозиция поставленной задачи для создания методики и алгоритма генерации виртуального аппаратного обеспечения;
         \item Разработан лингвистический аппарата (семантика, синтаксис) языка для создания программ по генерации виртуального
             аппаратного обеспечения;
-        \item Разработан лингвистический аппарата (семантика, синтаксис) языка для создания программ по генерации виртуального аппаратного обеспечения;
     \end{enumerate}
 \end{frame}
 
