@@ -107,6 +107,8 @@
 
 % TODO: Учтено ли, что пользователь захочет кастомизировать функции инициализации класса и инстанса?
 % TODO: MemoryRegionOps?
+\setlength{\grammarparsep}{0.1cm}
+\setlength{\grammarindent}{13em}
 \begin{figure}[!htbp]
     \begin{grammar}
         <letter> ::= `a' ... `z' | `A' ... `Z';
@@ -166,22 +168,22 @@ $C$ -- множество константных выражений.
     \centering
     \begingroup
     \addtolength{\jot}{1em}
-    \begin{gather*}
-        [[assignment]](x,y) = \lambda x.y \\
-        [[terminate]](m) \text{ Завершение работы компилятора} \\
-        [[if]](c,e_1,e_2) =
+    \begin{align*}
+        [[assignment]](x,y) ={}& \lambda x.y \\
+        [[terminate]](m) ={}& \text{ Завершение работы компилятора} \\
+        [[if]](c,e_1,e_2) ={}&
         \begin{cases}
             e_1, & \text{Если } c = true \\
             e_2, & \text{Если } c \not= true
         \end{cases} \\
-        [[throw\ error]](c, e) = if(c, e_g, terminate) \\
-        [[lookup]](o) = [[throw\ error]](o \in Q, o) \\
-        [[<device\ definition>]](i) = lookup(i) \\
-        [[<device\ class\ inheritance>]](i_1,...,i_n) = lookup(i_1) + ... + lookup(i_n) \\
-        [[<field>]](v_1, v_2) = assignment(v_1, v_2), \text{ Если } v_1 \in Q \text{ и } v_3 \in C \cup Q \\
-        [[<block>]](f_1,...,f_n) = field(f_1) + ... + field(f_n) \\
-        [[<python block>]](b) = assignment(B,B)\\
-    \end{gather*}
+        [[throw\ error]](c, e) ={}& if(c, e_g, terminate) \\
+        [[lookup]](o) ={}& [[throw\ error]](o \in Q, o) \\
+        [[<device\ definition>]](i) ={}& lookup(i) \\
+        [[<device\ class\ inheritance>]](i_1,...,i_n) ={}& lookup(i_1) + ... + lookup(i_n) \\
+        [[<field>]](v_1, v_2) ={}& assignment(v_1, v_2),\\ & \text{ Если } v_1 \in Q \text{ и } v_3 \in C \cup Q \\
+        [[<block>]](f_1,...,f_n) ={}& field(f_1) + ... + field(f_n) \\
+        [[<python block>]](b) ={}& assignment(B,B)\\
+    \end{align*}
     \endgroup
     \caption{Денотационная семантика {\mylanguage}}\label{fig:denotational-semantics}
 \end{figure}
