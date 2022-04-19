@@ -74,68 +74,87 @@
     \begin{figure}[!htbp]
         \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
             \begin{minipage}{\linewidth}
-                \begin{grammar}
-                    <letter> ::= `a' ... `z' | `A' ... `Z'; \newline
-                    <digit> ::= `0' ... `9' ; \newline
-                    <symbol> ::= \symbol{92}x20 ... \symbol{92}x7E ; (* любой печатный символ, согласно кодам ASCII *) \newline
-                    <const value> ::= <digit> | `"' \{ <symbol> \} `"'; \newline
-                    <identifier> ::= <letter> [\{ <letter> | <digit> | `\_' \}] ; \newline
-                    <block start> ::= `{'; \newline
-                    <block end> ::= `}'; \newline
-                    <field> ::= <identifier> `=' <identifier> | <block> ; \newline
-                    <block> ::= <block start> <field> [\{ `,' <field> \}] <block end>; \newline
-                    <device definition> ::= '\#' <identifier>; \newline
-                    <device class inheritance> ::= `(' <identifier> `:' <identifier> [\{ `,' <identifier> \}] `)'; \newline
-                    <device class block> ::= <device class inheritance> <block>; \newline
-                    <bind block> ::= `@bind' <block>; \newline
-                    <python block> ::= `@py' <block>; \newline
+                {\footnotesize
+                \setlength{\grammarparsep}{0.02cm}
+                \setlength{\grammarindent}{13em}
+                \begin{grammar}{}
+                    <letter> ::= `a' ... `z' | `A' ... `Z';
+
+                    <digit> ::= `0' ... `9' ;
+
+                    <symbol> ::= \symbol{92}x20 ... \symbol{92}x7E ; (* любой печатный символ, согласно кодам ASCII *)
+
+                    <const value> ::= <digit> | `"' \{ <symbol> \} `"';
+
+                    <identifier> ::= <letter> [\{ <letter> | <digit> | `\_' \}] ;
+
+                    <block start> ::= `{';
+
+                    <block end> ::= `}';
+
+                    <field> ::= <identifier> `=' <identifier> | <block> ;
+
+                    <block> ::= <block start> <field> [\{ `,' <field> \}] <block end>;
+
+                    <device definition> ::= '\#' <identifier>;
+
+                    <device class inheritance> ::= `(' <identifier> `:' <identifier> [\{ `,' <identifier> \}] `)';
+
+                    <device class block> ::= <device class inheritance> <block>;
+
+                    <bind block> ::= `@bind' <block>;
+
+                    <python block> ::= `@py' <block>;
+
                     <program> ::= <device definition> <device class block> <bind block> <python block>;
                 \end{grammar}
+                }
             \end{minipage}
         \end{adjustbox}
-        \caption{Расширенная форма Бэкуса-Наура \mylanguage}\label{fig:qpydev-grammar}
+        \caption{Расширенная форма Бэкуса-Наура генератора виртуального аппаратного обеспечения}
     \end{figure}
 \end{frame}
 
 
 \begin{frame}%[plain, noframenumbering, t]
-    \frametitle{Формализованное представление (синтаксис)}
+    \frametitle{Формализованное представление (семантика)}
     \begin{figure}[!htbp]
         \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
         \begin{minipage}{\linewidth}
                 \centering
                 \begingroup
-                \begin{gather*}
-                    [[assignment]](x,y) = \lambda x.y \\
-                    [[terminate]](m) \text{ Завершение работы компилятора} \\
-                    [[if]](c,e_1,e_2) =
+                \begin{align*}
+                    [[assignment]](x,y) ={}& \lambda x.y \\
+                    [[terminate]](m) ={}& \text{ Завершение работы компилятора} \\
+                    [[if]](c,e_1,e_2) ={}&
                     \begin{cases}
                         e_1, & \text{Если } c = true \\
                         e_2, & \text{Если } c \not= true
                     \end{cases} \\
-                    [[throw\ error]](c, e) = if(c, e_g, terminate) \\
-                    [[lookup]](o) = [[throw\ error]](o \in Q, o) \\
-                    [[<device\ definition>]](i) = lookup(i) \\
-                    [[<device\ class\ inheritance>]](i_1,...,i_n) = lookup(i_1) + ... + lookup(i_n) \\
-                    [[<field>]](v_1, v_2) = assignment(v_1, v_2), \text{ Если } v_1 \in Q \text{ и } v_3 \in C \cup Q \\
-                    [[<block>]](f_1,...,f_n) = field(f_1) + ... + field(f_n) \\
-                    [[<python block>]](b) = assignment(B,B)\\
-                \end{gather*}
+                    [[throw\ error]](c, e) ={}& if(c, e_g, terminate) \\
+                    [[lookup]](o) ={}& [[throw\ error]](o \in Q, o) \\
+                    [[<device\ definition>]](i) ={}& lookup(i) \\
+                    [[<device\ class\ inheritance>]](i_1,...,i_n) ={}& lookup(i_1) + ... + lookup(i_n) \\
+                    [[<field>]](v_1, v_2) ={}& assignment(v_1, v_2), \text{ Если } v_1 \in Q \text{ и } v_3 \in C \cup Q \\
+                    [[<block>]](f_1,...,f_n) ={}& field(f_1) + ... + field(f_n) \\
+                    [[<python block>]](b) ={}& assignment(B,B)\\
+                \end{align*}
                 \endgroup
             \end{minipage}
         \end{adjustbox}
-        \caption{Денотационная семантика генератора виртуального аппаратного обеспечения}\label{fig:denotational-semantics}
+        \caption{Денотационная семантика генератора виртуального аппаратного обеспечения}
     \end{figure}
 \end{frame}%[plain, noframenumbering, t]
 
 
 \begin{frame}%[plain, noframenumbering, t]
-    \frametitle{Методика создания полнофункционального виртуального аппаратного обеспечения}
-    \begin{itemize}
-        \item с помощью разработанного языка описываются интерфейсы и характеристики виртуального аппаратного обеспечения;
-        \item компилятор для разработанного языка преобразует данное описание в код на языке C;
-        \item скомпилированный файл с описанием виртуального аппаратного обеспечения встраивается в эмулятор QEMU;
-    \end{itemize}
+    \frametitle{Методика создания виртуального аппаратного обеспечения}
+    \begin{figure}[!htbp]
+        \centering
+        \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+            \includegraphics[]{images/imposter_algorithm.png}
+        \end{adjustbox}
+    \end{figure}
 \end{frame}
 
 
@@ -143,8 +162,8 @@
     \frametitle{Выбор метрики оценки эффективности}
     Основные метрики эффективности:
     \begin{itemize}
-        \item Время разработки виртуального устройства (в человеко-часах);
-        \item Быстродействие сгенерированного кода на языке C.
+        \item время разработки виртуального устройства (в человеко-часах);
+        \item быстродействие сгенерированного виртуального аппаратного обеспечения.
     \end{itemize}
 \end{frame}
 
