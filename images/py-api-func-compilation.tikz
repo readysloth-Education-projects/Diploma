@@ -227,62 +227,64 @@
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
-        \node [disk file] (qemu parent source) {\small Исходный код родительского устройства};
-        \node [process]   (preprocessor) [right = 8cm of qemu parent source] {\small Препроцессор языка C};
-        \node [subroutine] (c-utils) [below = 2cm of preprocessor] {\small Парсер языка C};
-        \node [cyclebegin] (struct analysis) [below = 2cm of c-utils] {\small Пока есть поля в структуре};
+    \node [block] (macro) {\small Макрос обработки ошибок};
+    \node [block] (build value) [below = 3cm of macro] {\small Преобразование аргументов \\ для вызова Python-функции};
+    \node [block] (py call) [below = 3cm of build value] {\small Вызов Python-функции};
+    \node [block] (parse tuple) [below = 3cm of py call] {\small Преобразование возвращаемого \\ значения Python-функции};
 
-        \node [decision] (is field another struct) [below = 4cm of struct analysis]
-                         {\small Поле является \\ структурой \\или указателем \\ на структуру?};
+    \node [block] (qemu to python API) [left = 10cm of build value,
+                                        minimum width = 8cm,
+                                        align = left,
+                                        text width=12cm]
+        {
+        \begin{lstlisting}[language=c,
+                           basicstyle=\tiny,
+                           breakatwhitespace=true,
+                           numbers=none,
+                           keywordstyle=\color{blue},
+                           otherkeywords = {uint64_t,
+                                            bool,
+                                            PyObject,
+                                            hwaddr,
+                                            CustomDevice
+                                            },
+                           deletendkeywords={PyObject_CallObject}
+                                            ]
+...
+#define RAISE_IF_NOT(VALUE) if(!VALUE) {return 1;}
+static uint64_t edu_mmio_read(void *opaque,
+                              hwaddr addr,
+                              unsigned size){
+    CustomDevice *device = (CustomDevice*)opaque;
+    PyObject *py_args;
+    py_args = Py_BuildValue("(onn)", device, addr, size);
 
-        \node [block] (create python type) [below = 4cm of is field another struct] {\small Создание python-типа};
-
-        \node [cycleend] (struct analysis end) [below = 2cm of create python type] {\small Пока есть поля в структуре};
-        \node [disk file] (result) [below = 3cm of struct analysis end] {\small Результирующий файл интерфейса};
-
-
-        \node [block] (python type C-API) [below left = 13cm of is field another struct,
-                                           minimum width = 8cm,
-                                           align = left,
-                                           text width=10cm]
-            {
-            \begin{lstlisting}[language=c,
-                                basicstyle=\tiny,
-                                breakatwhitespace=true,
-                                numbers=none,
-                                keywordstyle=\color{blue},
-                                otherkeywords = {uint32_t, bool, PyObject}]
-
-PyObject* CustomDevice_get_item(PyObject *o, PyObject *key){
-    char *field = NULL;
-    PyArg_ParseTuple(key, "s", field);
-    if(!strcmp(field, "...")){
-    ...
-    }
-    elif (!strcmp(field, "...")){
-    ...
-    }
+    RAISE_IF_NOT(py_args);
+    PyObject *read_func = device->mmio_read;
+    PyObject *py_ret = PyObject_CallObject(read_func, py_args);
+    RAISE_IF_NOT(py_ret);
+    uint64_t ret;
+    bool ok = PyArg_ParseTuple(py_ret, "n", &ret);
+    RAISE_IF_NOT(ok);
+    return ret;
 }
-typedef struct {
-    PyObject_HEAD
-    uint32_t addr;
-    bool busy;
-    ...
-} CustomDevice;
-             \end{lstlisting}
-            };
+...
+        \end{lstlisting}
+        };
 
-        \draw [->] (qemu parent source) -- (preprocessor);
-        \draw [->] (preprocessor) -- (c-utils);
-        \draw [->] (c-utils) -- (struct analysis);
-        \draw [->] (struct analysis) -- (is field another struct);
-        \draw [->] (is field another struct.east) -- (12.8, -2) -- (10.88, -2) node [midway, above, sloped] (yes) {Да};
-        \draw [->] (is field another struct) -- (create python type) node [midway, above, sloped] (no) {Нет};
-        \draw [->] (create python type) -- (struct analysis end);
-        \draw [->] (struct analysis end) -- (result);
 
-        \draw [dotted] (create python type.south west) -- (python type C-API.south east);
-        \draw [dotted] (create python type.north west) -- (python type C-API.north west);
+    \node [block] (rect macro) [purple, minimum height=0.5cm, minimum width = 10cm] at (-10.25,1.65) {};
+    \node [block] (rect build value) [blue, minimum height=0.5cm, minimum width = 11cm] at (-9.5,-1) {};
+    \node [block] (rect py call) [orange, minimum height=0.8cm, minimum width = 10cm] at (-9.7,-2.7) {};
+    \node [block] (rect parse tuple) [magenta, minimum height=0.5cm, minimum width = 10cm] at (-9.7,-4.2) {};
 
+    \draw [-, purple] (rect macro.north east) -- (macro.north west);
+    \draw [-, purple] (rect macro.south east) -- (macro.south west);
+    \draw [-, blue] (rect build value.north east) -- (build value.north west);
+    \draw [-, blue] (rect build value.south east) -- (build value.south west);
+    \draw [-, orange] (rect py call.north east) -- (py call.north west);
+    \draw [-, orange] (rect py call.south east) -- (py call.south west);
+    \draw [-, magenta] (rect parse tuple.north east) -- (parse tuple.north west);
+    \draw [-, magenta] (rect parse tuple.south east) -- (parse tuple.south west);
 
 \end{tikzpicture}

@@ -227,62 +227,22 @@
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
-        \node [disk file] (qemu parent source) {\small Исходный код родительского устройства};
-        \node [process]   (preprocessor) [right = 8cm of qemu parent source] {\small Препроцессор языка C};
-        \node [subroutine] (c-utils) [below = 2cm of preprocessor] {\small Парсер языка C};
-        \node [cyclebegin] (struct analysis) [below = 2cm of c-utils] {\small Пока есть поля в структуре};
-
-        \node [decision] (is field another struct) [below = 4cm of struct analysis]
-                         {\small Поле является \\ структурой \\или указателем \\ на структуру?};
-
-        \node [block] (create python type) [below = 4cm of is field another struct] {\small Создание python-типа};
-
-        \node [cycleend] (struct analysis end) [below = 2cm of create python type] {\small Пока есть поля в структуре};
-        \node [disk file] (result) [below = 3cm of struct analysis end] {\small Результирующий файл интерфейса};
+    \node [block] (lookup) {\small Поиск сигнатуры C-функции};
+    \node [block] (build value) [below = 3.3cm of lookup] {\small Преобразование аргументов C-функции в аргументы
+                                                         Python-функции через \texttt{Py\_BuildValue}};
+    \node [block] (manage gc before) [below = 3.6cm of build value] {\small Увеличение счетчика ссылок
+                                                                   переменных для сборщика мусора};
+    \node [block] (check for errors) [below = 3cm of manage gc before] {\small Проверка на существование исключений};
+    \node [block] (manage gc after) [below = 3cm of check for errors] {\small Уменьшение счетчика ссылок
+                                                                       переменных для сборщика мусора};
+    \node [block] (return) [below = 3cm of manage gc after] {\small Конвертация возвращаемого значения
+                                                             из Python-объекта в C-объект};
 
 
-        \node [block] (python type C-API) [below left = 13cm of is field another struct,
-                                           minimum width = 8cm,
-                                           align = left,
-                                           text width=10cm]
-            {
-            \begin{lstlisting}[language=c,
-                                basicstyle=\tiny,
-                                breakatwhitespace=true,
-                                numbers=none,
-                                keywordstyle=\color{blue},
-                                otherkeywords = {uint32_t, bool, PyObject}]
-
-PyObject* CustomDevice_get_item(PyObject *o, PyObject *key){
-    char *field = NULL;
-    PyArg_ParseTuple(key, "s", field);
-    if(!strcmp(field, "...")){
-    ...
-    }
-    elif (!strcmp(field, "...")){
-    ...
-    }
-}
-typedef struct {
-    PyObject_HEAD
-    uint32_t addr;
-    bool busy;
-    ...
-} CustomDevice;
-             \end{lstlisting}
-            };
-
-        \draw [->] (qemu parent source) -- (preprocessor);
-        \draw [->] (preprocessor) -- (c-utils);
-        \draw [->] (c-utils) -- (struct analysis);
-        \draw [->] (struct analysis) -- (is field another struct);
-        \draw [->] (is field another struct.east) -- (12.8, -2) -- (10.88, -2) node [midway, above, sloped] (yes) {Да};
-        \draw [->] (is field another struct) -- (create python type) node [midway, above, sloped] (no) {Нет};
-        \draw [->] (create python type) -- (struct analysis end);
-        \draw [->] (struct analysis end) -- (result);
-
-        \draw [dotted] (create python type.south west) -- (python type C-API.south east);
-        \draw [dotted] (create python type.north west) -- (python type C-API.north west);
-
+    \draw [->] (lookup) -- (build value);
+    \draw [->] (build value) -- (manage gc before);
+    \draw [->] (manage gc before) -- (check for errors);
+    \draw [->] (check for errors) -- (manage gc after);
+    \draw [->] (manage gc after) -- (return);
 
 \end{tikzpicture}
