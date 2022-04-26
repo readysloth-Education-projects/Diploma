@@ -43,3 +43,4 @@ abbreviate движком центральным элементом
 abbreviate движками центральными элементами
 abbreviate АПИ программный интерфейс
 abbreviate бойлерплейт шаблонный
+abbreviate tit \texttt{

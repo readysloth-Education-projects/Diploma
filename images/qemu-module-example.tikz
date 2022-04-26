@@ -1,0 +1,333 @@
+% !TEX encoding = UTF-8 Unicode
+% Úτƒ-8 encoded
+% http://www.linux.org.ru/forum/general/10357036
+\tikzset{
+    line/.style={draw, -latex'},
+    every join/.style={line},
+    u/.style={anchor=south},
+    r/.style={anchor=west},
+    fxd/.style={text width = 6em},
+    it/.style={font={\small\itshape}},
+    bf/.style={font={\small\bfseries}},
+}
+\tikzstyle{base_long} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+    ]
+\tikzstyle{base} =
+    [
+        draw,
+        on chain,
+        on grid,
+        align=center,
+        minimum height=4ex,
+        minimum width = 10ex,
+        node distance = 6mm and 60mm,
+        text badly centered,
+        text width=5cm
+    ]
+\tikzstyle{coord} =
+    [
+        coordinate,
+        on chain,
+        on grid
+    ]
+\tikzstyle{cloud} =
+    [
+        base,
+        ellipse,
+        node distance = 3cm,
+        minimum height = 2em,
+        text width=2cm
+    ]
+\tikzstyle{decision} =
+    [
+        base,
+        diamond,
+        aspect=2,
+        node distance = 2cm,
+        inner sep = 0pt
+    ]
+\tikzstyle{block} =
+    [
+        rectangle,
+        base,
+        rounded corners,
+        minimum height = 2em
+    ]
+\tikzstyle{print_block} =
+    [
+        base,
+        tape,
+        tape bend top=none,
+    ]
+\tikzstyle{io} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 70,
+        trapezium right angle = 110,
+    ]
+\tikzstyle{prompt} =
+    [
+        base,
+        trapezium,
+        trapezium left angle = 90,
+        trapezium right angle = 80,
+        shape border rotate = 90
+    ]
+\tikzstyle{disk file} =
+    [
+        base,
+        cylinder,
+        aspect=0.2,
+    ]
+\tikzstyle{process} =
+    [
+        rectangle,
+        base,
+    ]
+\makeatletter
+\pgfkeys{/pgf/.cd,
+    subrtshape w/.initial=2mm,
+    cycleshape w/.initial=2mm
+}
+\pgfdeclareshape{parallelshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+            \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{subrtshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/subrtshape w}}
+        \def\ppd@offset{\pgfpoint{\pgfutil@tempdima}{0ex}}
+        \def\ppd@offsetm{\pgfpoint{-\pgfutil@tempdima}{0ex}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+        \pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+        \pgfpathmoveto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\ppd@offsetm}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\ppd@offset}}
+        \pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\ppd@offset}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cyclebegshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xa}{\pgf@ya}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@yb}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@yb}}{\pgfpoint{0ex}{-\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xb}{\pgf@ya}}
+        \pgfpathclose
+    }
+}
+\pgfdeclareshape{cycleendshape}{
+    \inheritsavedanchors[from=rectangle]
+    \inheritanchorborder[from=rectangle]
+    \inheritanchor[from=rectangle]{north}
+    \inheritanchor[from=rectangle]{center}
+    \inheritanchor[from=rectangle]{west}
+    \inheritanchor[from=rectangle]{east}
+    \inheritanchor[from=rectangle]{mid}
+    \inheritanchor[from=rectangle]{base}
+    \inheritanchor[from=rectangle]{south}
+    \backgroundpath{
+        \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+        \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+        \pgfmathsetlength\pgfutil@tempdima{\pgfkeysvalueof{/pgf/cycleshape w}}
+        \pgfpathmoveto{\pgfqpoint{\pgf@xb}{\pgf@yb}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xb}{\pgf@ya}}{\pgfpoint{-\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{\pgfutil@tempdima}{0ex}}}
+\pgfpathlineto{\pgfpointadd{\pgfpoint{\pgf@xa}{\pgf@ya}}{\pgfpoint{0ex}{\pgfutil@tempdima}}}
+\pgfpathlineto{\pgfqpoint{\pgf@xa}{\pgf@yb}}
+        \pgfpathclose
+    }
+}
+\makeatother
+\tikzstyle{subroutine} =
+    [
+        base,
+        subrtshape,
+    ]
+\tikzstyle{cyclebegin} =
+    [
+        base,
+        cyclebegshape,
+    ]
+\tikzstyle{cycleend} =
+    [
+        base,
+        cycleendshape,
+    ]
+\tikzstyle{connector} =
+    [
+        base,
+        circle,
+    ]
+
+\tikzstyle{parallel} =
+    [
+        base_long,
+        parallelshape,
+    ]
+\begin{tikzpicture}[%
+    start chain=going below,    % General flow is top-to-bottom
+    node distance=6mm and 30mm, % Global setup of box spacing
+    ]
+    \node [block] (include) {\small Включение заголовочных файлов};
+    \node [block] (device type name) [below = 2cm of include]           {\small Определение имени типа устройства};
+    \node [block] (type alias)       [below = 2cm of device type name]  {\small Создание синонима типа устройства};
+    \node [block] (instance struct)  [below = 2cm of type alias]        {\small Тип устройства};
+    \node [block] (module prefix)    [below = 2cm of instance struct]   {\small Префикс для формирования \\ имен функций устройства};
+    \node [block] (parent)           [below = 2cm of module prefix]     {\small Имя типа родителя};
+    \node [block] (interfaces)       [below = 2cm of parent]            {\small Реализуемые устройством интерфейсы};
+
+    \node [block] (qemu to python API) [left = 10cm of parent,
+                                        minimum width = 8cm,
+                                        align = left,
+                                        text width=12cm]
+        {
+        \begin{lstlisting}[language=c,
+                           basicstyle=\tiny,
+                           breakatwhitespace=true,
+                           numbers=none,
+                           keywordstyle=\color{blue},
+                           otherkeywords = {uint64_t,
+                                            bool,
+                                            PyObject,
+                                            hwaddr,
+                                            ExampleDevice,
+                                            MemoryRegionOps
+                                            },
+                           deletendkeywords={PyObject_CallObject}
+                                            ]
+#include "qemu/osdep.h"
+#include "qapi/error.h"
+...
+#include <Python.h>
+
+#define TYPE_EXAMPLE_DEVICE "example_device"
+
+typedef struct ExampleDevice ExampleDevice;
+
+OBJECT_DEFINE_TYPE_WITH_INTERFACES(ExampleDevice,
+                                   example_device,
+                                   EXAMPLE_DEVICE,
+                                   PCI_DEVICE,
+                                   { INTERFACE_CONVENTIONAL_PCI_DEVICE },
+                                   { NULL })
+
+static void example_device_class_init(ObjectClass *oc, void *data);
+static void example_device_realize(Object *obj);
+static void example_device_init(Object *obj);
+static void example_device_finalize(Object *obj);
+static uint64_t example_device_read(void *opaque, hwaddr addr, unsigned size);
+static void example_device_write(void *opaque, hwaddr addr, uint64_t data, unsigned size);
+
+static const MemoryRegionOps example_device_mem_ops = {
+    .endianness = DEVICE_NATIVE_ENDIAN,
+    .read = example_device_read,
+    .write = example_device_write,
+};
+
+
+static void example_device_class_init(ObjectClass *oc, void *data){
+    ...
+}
+...
+        \end{lstlisting}
+        };
+
+
+    \node [rectangle, draw] (rect include)          [purple  , minimum height=1.8cm , minimum width = 5.5cm] at (-12.6, -2.5) {};
+    \node [rectangle, draw] (rect device type name) [blue    , minimum height=0.5cm , minimum width = 9cm]   at (-10.75, -4) {};
+    \node [rectangle, draw] (rect type alias)       [orange  , minimum height=0.5cm , minimum width = 8.5cm] at (-11, -4.8) {};
+    \node [rectangle, draw] (rect instance struct)  [magenta , minimum height=0.4cm , minimum width = 3cm]   at (-7, -5.6) {};
+    \node [rectangle, draw] (rect module prefix)    [green   , minimum height=0.4cm , minimum width = 3cm]   at (-7, -6) {};
+
+    \node [rectangle, draw] (rect device type name shallow) [blue, minimum height=0.4cm , minimum width = 3cm] at (-7, -6.5) {};
+    \draw [blue] plot [smooth] coordinates {(rect device type name shallow.west) (-16,-6) (rect device type name.west)};
+
+    \node [rectangle, draw] (rect parent)           [red     , minimum height=0.5cm , minimum width = 3cm] at (-7, -7) {};
+    \node [rectangle, draw] (rect interfaces)       [teal    , minimum height=1cm , minimum width = 9cm] at (-10.5, -8) {};
+
+    \draw [-, purple, name path = rect inc1]  (rect include.north east)          -- (include.north west)          ;
+    \draw [-, purple, name path = rect inc2]  (rect include.south east)          -- (include.south west)          ;
+    \tikzfillbetween[of=rect inc1 and rect inc2]{red, opacity=0.5}
+    \draw [-, blue, name path = rect dtnm1]    (rect device type name.north east) -- (device type name.north west) ;
+    \draw [-, blue, name path = rect dtnm2]    (rect device type name.south east) -- (device type name.south west) ;
+    \tikzfillbetween[of=rect dtnm1 and rect dtnm2]{blue, opacity=0.5}
+    \draw [-, orange, name path = rect ta1]  (rect type alias.north east)       -- (type alias.north west)       ;
+    \draw [-, orange, name path = rect ta2]  (rect type alias.south east)       -- (type alias.south west)       ;
+    \tikzfillbetween[of=rect ta1 and rect ta2]{orange, opacity=0.5}
+    \draw [-, magenta, name path = rect is1] (rect instance struct.north east)  -- (instance struct.north west)  ;
+    \draw [-, magenta, name path = rect is2] (rect instance struct.south east)  -- (instance struct.south west)  ;
+    \tikzfillbetween[of=rect is1 and rect is2]{magenta, opacity=0.5}
+    \draw [-, green, name path = rect mp1]  (rect module prefix.north east)    -- (module prefix.north west)    ;
+    \draw [-, green, name path = rect mp2]  (rect module prefix.south east)    -- (module prefix.south west)    ;
+    \tikzfillbetween[of=rect mp1 and rect mp2]{green, opacity=0.5}
+    \draw [-, red, name path = rect p1]    (rect parent.north east)           -- (parent.north west)           ;
+    \draw [-, red, name path = rect p2]    (rect parent.south east)           -- (parent.south west)           ;
+    \tikzfillbetween[of=rect p1 and rect p2]{red, opacity=0.5}
+    \draw [-, teal, name path = rect i1]  (rect interfaces.north east)       -- (interfaces.north west)       ;
+    \draw [-, teal, name path = rect i2]  (rect interfaces.south east)       -- (interfaces.south west)       ;
+    \tikzfillbetween[of=rect i1 and rect i2]{teal}{opacity=0.5}
+
+
+    \node [rectangle, draw] (rect example module prefix)    [green   , minimum height=2.1cm , minimum width = 3cm]   at (-11.5, -9.9) {};
+    \draw [green] plot [smooth] coordinates {(rect example module prefix.west) (-16,-9) (rect module prefix.west)};
+
+\end{tikzpicture}
