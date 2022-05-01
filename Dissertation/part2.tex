@@ -646,6 +646,14 @@ QEMU.
         \texttt{PyErr\_SetString} и \texttt{PyErr\_SetFromErrno}.
 \end{itemize}
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+        \includegraphics[]{images/python_exception_hierarchy.png}
+    \end{adjustbox}
+    \caption{Иерархия исключений в Python.}\label{fig:python-exception-hierarchy}
+\end{figure}
+
 За любым неудачным выделением памяти должен следовать вызов \texttt{PyErr\_NoMemory},
 бросающий в интерпретатор исключение о нехватке памяти.
 Для игнорирования исключений вызванных функций, внутренний контейнер интерпретатора должен
@@ -699,9 +707,12 @@ PCI-устройства, требуется корректно уведомит
 завершение работающего процесса, но с вызовом деструкторов, зарегистрированных
 функцией \texttt{atexit}.
 
-% 
-% Что будет, если исключение произойдет в критических функциях
-% % В конструкторах?
+Все исключения внутри Python-логики должны быть обработаны. Если происходит
+необработанное исключение внутри Python-кода, то функция \texttt{PyObject\_CallObject}
+вернет \texttt{NULL} и выставит внутренний контейнер исключений.
+В таком случае через \texttt{PyErr\_Fetch} будет получено сообщение произошедшего исключения,
+на его основе будет вызвана функция \texttt{error\_setg} с ошибкой \texttt{error\_fatal},
+которая корректно завершит работу QEMU.
 
 \subsection{Компиляция Python-логики}\label{sec:ch2/sec1/sub6}
 \subsection{Встраивание устройства в сборку QEMU}\label{sec:ch2/sec1/sub7}
