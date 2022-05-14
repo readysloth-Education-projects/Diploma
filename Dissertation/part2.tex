@@ -71,7 +71,7 @@
 
 \begin{figure}[!htbp]
     \centering
-    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
         \includegraphics[]{images/racket-variable-arrow.png}
     \end{adjustbox}
     \caption{Результат интеграции языка datalog в IDE DrRacket.}\label{fig:racket-variable-arrow}
@@ -243,7 +243,7 @@ $C$ -- множество константных выражений.
 
 \begin{figure}[!htbp]
     \centering
-    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
         \includegraphics[]{images/mem_reg_ops_cropped.png}
     \end{adjustbox}
     \caption{Связь \texttt{MemoryRegionOps} с другими сущностями QEMU.}\label{fig:mem-reg-ops}
@@ -401,13 +401,13 @@ API для создания связки между кодом на C и Python 
 функций и структур, для которых требуется сгенерировать интерфейс.
 SWIG принимает на вход файл с описанием шаблонов для нахождения структур и
 функций, которые будут экспортированы в межъязыковой интерфейс.
-Не смотря на удобство, SWIG не обладает возможностями препроцессора и понимает
+Несмотря на удобство, SWIG не обладает возможностями препроцессора и понимает
 только ограниченное количество его директив, причем \texttt{define}'ы воспринимает
 только если они объявляют константы.
 
 \begin{figure}[!htbp]
     \centering
-    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
         \includegraphics[]{images/swig.png}
     \end{adjustbox}
     \caption{Схема работы SWIG.}\label{fig:swig}
@@ -649,7 +649,7 @@ QEMU.
 
 \begin{figure}[!htbp]
     \centering
-    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
         \includegraphics[scale=1.5]{images/python_exception_hierarchy.png}
     \end{adjustbox}
     \caption{Иерархия исключений в Python.}\label{fig:python-exception-hierarchy}
@@ -678,7 +678,7 @@ PCI-устройства, требуется корректно уведомит
 
 \begin{figure}[!htbp]
     \centering
-    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
         \includegraphics[]{images/glib-error.png}
     \end{adjustbox}
     \caption{Класс исключения в GLib.}\label{fig:glib-error}
@@ -686,7 +686,7 @@ PCI-устройства, требуется корректно уведомит
 
 \begin{figure}[!htbp]
     \centering
-    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
         \includegraphics[]{images/qemu-error.png}
     \end{adjustbox}
     \caption{Класс исключения в QEMU.}\label{fig:qemu-error}
@@ -727,7 +727,7 @@ Python является интерпретируемым языком, но пр
 
 \begin{figure}[!htbp]
     \centering
-    \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
         \includegraphics[]{images/python-interpreter.png}
     \end{adjustbox}
     \caption{Схема работы интерпретатора Python.}\label{fig:python-interpreter}
@@ -758,7 +758,7 @@ Python является интерпретируемым языком, но пр
 После того, как файлы с исходным кодом устройства были сгенерированы, требуется
 интегрировать устройство в сборку эмулятора QEMU (рис. \ref{fig:qemu-compilation}).
 
-Не смотря на то, что QEMU собирается meson'ом, в репозитории сохраняется
+Несмотря на то, что QEMU собирается meson'ом, в репозитории сохраняется
 классический sh-скрипт конфигурации, вызвав который можно включить
 или отключить компиляцию определенных устройств и возможностей QEMU.
 Для добавления созданного устройства применяется шаблонизированный patch-файл,
