@@ -60,7 +60,7 @@
     [
         rectangle,
         base,
-        rounded corners,
+        %rounded corners,
         minimum height = 2em
     ]
 \tikzstyle{print_block} =

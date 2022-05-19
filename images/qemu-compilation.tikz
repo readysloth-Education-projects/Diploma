@@ -229,41 +229,48 @@
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
 
-    \node [disk file] (template configure patch) {\small Шаблон patch-файла для \texttt{configure}};
+    \node [cloud] (begin) {\small Начало};
+
+    \node [process] (template convertation)
+                    [below = 2cm of begin]
+                    {\small Конвертация шаблона};
+
     \node [disk file] (template meson patch)
-                      [below = 3cm of template configure patch]
+                      [left = 7cm of begin]
                       {\small Шаблон patch-файла для \texttt{meson}};
+    \node [disk file] (template configure patch)
+                      [below = 3cm of template meson patch]
+                      {\small Шаблон patch-файла для \texttt{configure}};
 
     \coordinate (template between) at ($(template configure patch)!0.5!(template meson patch)$);
 
-    \node [process] (template convertation)
-                    [right = 5cm of template between]
-                    {\small Конвертация шаблона};
 
     \node [disk file] (configure patch)
-                      [below right = 6cm of template convertation]
+                      [below = 3cm of template configure patch]
                       {\small Patch-файл для \texttt{configure}};
     \node [disk file] (meson patch)
-                      [left = 6cm of configure patch]
+                      [right = 6cm of template convertation]
                       {\small Patch-файл для \texttt{meson}};
 
+    \node [process]   (patch application) [below = 3cm of template convertation] {\small Применение patch-файла};
+    \node [subroutine] (cflags) [below = 3cm of patch application]         {\small Получение флагов компиляции интерпретатора};
 
-    \coordinate (patch between) at ($(configure patch)!0.5!(meson patch)$);
+    \node [process]   (build) [below = 3cm of cflags]   {\small Сборка};
+    \node [disk file] (exe)   [right = 6cm of build]    {\small Исполняемый файл эмулятора};
 
-    \node [process]   (patch application) [below = 3cm of patch between] {\small Применение patch-файла};
-    \node [process]   (cflags) [left = 6cm of patch application]         {\small Получение флагов компиляции интерпретатора};
+    \node [cloud] (end) [below = 2cm of build]{\small Конец};
 
-    \node [process]   (build)       [below = 2cm of patch application]   {\small Сборка};
-    \node [disk file] (exe)         [below = 2cm of build]               {\small Исполняемый файл эмулятора};
-
-    \draw [->] (template configure patch) -- (template convertation.north west);
-    \draw [->] (template meson patch) -- (template convertation.south west);
+    \draw [->] (begin) -- (template convertation);
+    \draw [->] (template configure patch) -- (template convertation.south west);
+    \draw [->] (template meson patch) -- (template convertation.north west);
     \draw [->] (template convertation) -- (configure patch);
     \draw [->] (template convertation) -- (meson patch);
+    \draw [->] (template convertation) -- (patch application);
     \draw [->] (configure patch) -- (patch application);
     \draw [->] (meson patch)     -- (patch application);
-    \draw [->] (cflags)     -- (patch application);
-    \draw [->] (patch application) -- (build);
+    \draw [->] (cflags) -- (build);
+    \draw [->] (patch application) -- (cflags);
     \draw [->] (build) -- (exe);
+    \draw [->] (build) -- (end);
 
 \end{tikzpicture}

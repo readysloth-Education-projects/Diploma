@@ -59,7 +59,7 @@
     [
         rectangle,
         base,
-        rounded corners,
+        %rounded corners,
         minimum height = 2em
     ]
 \tikzstyle{print_block} =
@@ -227,22 +227,27 @@
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
-    \node [block] (lookup) {\small Поиск сигнатуры C-функции};
-    \node [block] (build value) [below = 3.3cm of lookup] {\small Преобразование аргументов C-функции в аргументы
-                                                         Python-функции через \texttt{Py\_BuildValue}};
-    \node [block] (manage gc before) [below = 3.6cm of build value] {\small Увеличение счетчика ссылок
-                                                                   переменных для сборщика мусора};
-    \node [block] (check for errors) [below = 3cm of manage gc before] {\small Проверка на существование исключений};
-    \node [block] (manage gc after) [below = 3cm of check for errors] {\small Уменьшение счетчика ссылок
-                                                                       переменных для сборщика мусора};
-    \node [block] (return) [below = 3cm of manage gc after] {\small Конвертация возвращаемого значения
+
+    \node [cloud] (begin) {\small Начало};
+    \node [subroutine] (lookup) {\small Поиск сигнатуры C-функции};
+    \node [subroutine] (build value) [below = 3.3cm of lookup] {\small Преобразование аргументов C-функции в аргументы
+                                                                Python-функции через \texttt{Py\_BuildValue}};
+    \node [subroutine] (manage gc before) [below = 3.6cm of build value] {\small Увеличение счетчика ссылок
+                                                                          переменных для сборщика мусора};
+    \node [subroutine] (check for errors) [below = 3cm of manage gc before] {\small Проверка на существование исключений};
+    \node [subroutine] (manage gc after) [below = 3cm of check for errors] {\small Уменьшение счетчика ссылок
+                                                                            переменных для сборщика мусора};
+    \node [subroutine] (return) [below = 3cm of manage gc after] {\small Конвертация возвращаемого значения
                                                              из Python-объекта в C-объект};
+    \node [cloud] (end) {\small Конец};
 
 
+    \draw [->] (begin) -- (lookup);
     \draw [->] (lookup) -- (build value);
     \draw [->] (build value) -- (manage gc before);
     \draw [->] (manage gc before) -- (check for errors);
     \draw [->] (check for errors) -- (manage gc after);
     \draw [->] (manage gc after) -- (return);
+    \draw [->] (return) -- (end);
 
 \end{tikzpicture}

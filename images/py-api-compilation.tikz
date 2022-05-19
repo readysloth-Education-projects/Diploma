@@ -59,7 +59,7 @@
     [
         rectangle,
         base,
-        rounded corners,
+        %rounded corners,
         minimum height = 2em
     ]
 \tikzstyle{print_block} =
@@ -227,6 +227,7 @@
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
+
         \node [disk file] (qemu parent source) {\small Исходный код родительского устройства};
         \node [process]   (preprocessor) [right = 8cm of qemu parent source] {\small Препроцессор языка C};
         \node [subroutine] (c-utils) [below = 2cm of preprocessor] {\small Парсер языка C};
@@ -238,7 +239,10 @@
         \node [block] (create python type) [below = 4cm of is field another struct] {\small Создание python-типа};
 
         \node [cycleend] (struct analysis end) [below = 2cm of create python type] {\small Пока есть поля в структуре};
-        \node [disk file] (result) [below = 3cm of struct analysis end] {\small Результирующий файл интерфейса};
+        \node [disk file] (result) [right = 6cm of struct analysis end] {\small Результирующий файл интерфейса};
+
+        \node [cloud] (begin) [above = 2cm of preprocessor]{\small Начало};
+        \node [cloud] (end) [below = 2cm of struct analysis end] {\small Конец};
 
 
         \node [block] (python type C-API) [below left = 13cm of is field another struct,
@@ -272,6 +276,7 @@ typedef struct {
              \end{lstlisting}
             };
 
+        \draw [->] (begin) -- (preprocessor);
         \draw [->] (qemu parent source) -- (preprocessor);
         \draw [->] (preprocessor) -- (c-utils);
         \draw [->] (c-utils) -- (struct analysis);
@@ -280,6 +285,7 @@ typedef struct {
         \draw [->] (is field another struct) -- (create python type) node [midway, above, sloped] (no) {Нет};
         \draw [->] (create python type) -- (struct analysis end);
         \draw [->] (struct analysis end) -- (result);
+        \draw [->] (struct analysis end) -- (end);
 
         \draw [dotted] (create python type.south west) -- (python type C-API.south east);
         \draw [dotted] (create python type.north west) -- (python type C-API.north west);
