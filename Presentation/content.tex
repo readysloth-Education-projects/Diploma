@@ -14,6 +14,18 @@
 
 
 \begin{frame}%[plain, noframenumbering, t]
+    \frametitle{Пример специализированного аппаратного обеспечения}
+    \begin{figure}[!htbp]
+        \centering
+        \begin{adjustbox}{max totalsize={0.8\textwidth}{0.8\textheight}}
+            \includegraphics[]{images/apmdz.png}
+        \end{adjustbox}
+        \caption{Аппаратно-программный модуль доверенной загрузки Максим-М1}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}%[plain, noframenumbering, t]
     \frametitle{Цель и задачи диссертации}
     \textbf{Цель:} снижение трудоемкости создания виртуальных устройств.
 
@@ -42,7 +54,7 @@
 \begin{frame}%[plain, noframenumbering, t]
     \frametitle{Анализ существующих методов создания виртуального аппаратного обеспечения}
     \newcommand{\tabitem}{{\textbullet}~}
-        {\scriptsize
+        {\footnotesize
             \begin{longtable}{| p{3cm} | p{3cm} | p{4cm} |}
                 \hline
                 Метод & Особенности & Недостатки \\
@@ -116,44 +128,81 @@
 \end{frame}
 
 
-\begin{frame}%[plain, noframenumbering, t]
+\begin{frame}[allowframebreaks]%[plain, noframenumbering, t]
     \frametitle{Формализованное представление (семантика)}
-    \begin{figure}[!htbp]
-        \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
-        \begin{minipage}{\linewidth}
-                \centering
-                \begingroup
-                \begin{align*}
-                    [[assignment]](x,y) ={}& \lambda x.y \\
-                    [[terminate]](m) ={}& \text{ Завершение работы компилятора} \\
-                    [[if]](c,e_1,e_2) ={}&
-                    \begin{cases}
-                        e_1, & \text{Если } c = true \\
-                        e_2, & \text{Если } c \not= true
-                    \end{cases} \\
-                    [[throw\ error]](c, e) ={}& if(c, e_g, terminate) \\
-                    [[lookup]](o) ={}& [[throw\ error]](o \in Q, o) \\
-                    [[<device\ definition>]](i) ={}& lookup(i) \\
-                    [[<device\ class\ inheritance>]](i_1,...,i_n) ={}& lookup(i_1) + ... + lookup(i_n) \\
-                    [[<field>]](v_1, v_2) ={}& assignment(v_1, v_2), \text{ Если } v_1 \in Q \text{ и } v_3 \in C \cup Q \\
-                    [[<block>]](f_1,...,f_n) ={}& field(f_1) + ... + field(f_n) \\
-                    [[<python block>]](b) ={}& assignment(B,B)\\
-                \end{align*}
-                \endgroup
-            \end{minipage}
-        \end{adjustbox}
-        \caption{Денотационная семантика генератора виртуального аппаратного обеспечения}
-    \end{figure}
+    {\setlength\LTleft{-0.6cm}
+     \small
+        \begin{longtable}{| p{6cm} | p{5cm} |}
+            \caption{Денотационная семантика {\mylanguage}}\label{table:denotational-semantics} \\
+            \hline
+            \text{Математическое описание} & \multicolumn{1}{|c|}{Значение} \\
+            \hline
+            $[[assignment]](x,y) = \lambda x.y$
+            & Операция присваивания значения $y$ переменной $x$ \\
+            \hline
+            \makecell{$[[terminate]](m) =$\\ \text{Завершение работы компилятора}}
+            & Терминирование компилятора с сообщением $m$ \\
+            \hline
+            $[[if]](c,e_1,e_2) =
+            \begin{cases}
+                e_1, & \text{Если } c = true \\
+                e_2, & \text{Если } c \not= true
+            \end{cases}$
+            & Условное исполнение. Если условие $c$ истинно, то
+            выполняется $e_1$, иначе $e_2$ \\
+            \hline
+            $[[throw\ error]](c, e) = if(c, e_g, terminate)$
+            & Создание и бросание исключения при ложном условии $c$ \\
+            \hline
+            $[[lookup]](o) = [[throw\ error]](o \in Q, o)$
+            & Поиск объекта $o$ в множестве объектов QEMU $Q$.
+            В случае, если объект не найден генерируется исключение \\
+            \hline
+            $[[<device\ definition>]](i) = lookup(i)$
+            & Поиск указнного класса устройства в объектах QEMU \\
+            \hline
+            \makecell{$[[<device\ class\ inheritance>]](i_1,...,i_n) = $\\
+                      $lookup(i_1) \land ... \land lookup(i_n)$}
+            & Поск указанного класса для наследования и интерфейсов
+            в объектах QEMU. Для успешного завершения должны быть
+            найдены все объекты \\
+            \hline
+            \makecell{$[[<field>]](v_1, v_2) = $\\
+                      $[[throw\ error]](v_1 \in Q \land v_2 \in C \cup Q,$\\
+                      $assignment(v_1, v_2))$}
+            & Присваивание полям значений при условии, что $v_1$
+            принадлежит множеству объектов QEMU, а $v_2$ множеству
+            констант или множеству объектов QEMU \\
+            \hline
+            $[[<block>]](f_1,...,f_n) = field(f_1) \land ... \land field(f_n)$
+            & Присваивание связанных с одной сущностью полей \\
+            \hline
+            $[[<python block>]](b) = assignment(B,B)$
+            & Инициализация специального поля с Python-логикой\\
+            \hline
+        \end{longtable}
+    }
 \end{frame}%[plain, noframenumbering, t]
 
 
 \begin{frame}%[plain, noframenumbering, t]
     \frametitle{Методика создания виртуального аппаратного обеспечения}
     \begin{figure}[!htbp]
-        \centering
+        \hspace*{-5cm}
+        \scalebox{0.56}{
+            \input{images/func-scheme-pres.tikz}
+        }
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}%[plain, noframenumbering, t]
+    \frametitle{Программная реализация}
+    \begin{figure}[!htbp]
         \begin{adjustbox}{max totalsize={\textwidth}{\textheight}}
-            \includegraphics[]{images/imposter_algorithm.png}
+            \includegraphics[]{images/experimental-device-class-diag.png}
         \end{adjustbox}
+        \caption{Пример созданного с помощью {\mylanguage} виртуального устройства}
     \end{figure}
 \end{frame}
 
@@ -162,9 +211,69 @@
     \frametitle{Выбор метрики оценки эффективности}
     Основные метрики эффективности:
     \begin{itemize}
-        \item время разработки виртуального устройства (в человеко-часах);
+        \item время разработки виртуального аппаратного обеспечения (в человеко-часах);
         \item быстродействие сгенерированного виртуального аппаратного обеспечения.
     \end{itemize}
+
+
+    Экспериментальное устройство выполняет задачу сжатия JPEG-картинки.
+    Данная задача легко поддается измерению, так как:
+    \begin{itemize}
+        \item легко выбрать сложность входных данных -- это
+            размер изображения;
+        \item возможна векторизация этапов алгоритма;
+        \item возможно добавить разные подходы к обработке
+            изображения:
+            \begin{itemize}
+                \item вызов подпрограммы;
+                \item отправка данных по сети;
+                \item реализация алгоритма устройства.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}%[plain, noframenumbering, t]
+    \frametitle{Оценка эффективности}
+    \small
+    \begin{longtable}{| p{2cm} | p{1.5cm} | p{1.5cm} | p{1.5cm} | p{1cm} |}
+        \caption{Сравнение эффективности разработки и производительности виртуальных устройств реализующих
+                 алгоритм сжатия JPEG картинки} \\
+        \hline
+            \multirow{2}{*}{Метрика} &
+            \multicolumn{2}{c|}{Разработка с нуля} &
+            \multicolumn{2}{c|}{Использование библиотеки} \\
+        \cline{2-5} &
+            C устройство &
+            Python устройство &
+            C устройство &
+            Python устройство \\
+        \hline
+            Время разработки в человеко-часах &
+            $100$ &
+            $50$ &
+            $35$ &
+            $10$ \\
+        \hline
+            Время сжатия (сек.)&
+            $3.915$ &
+            $18.548$ &
+            $1.871$ &
+            $2.786$ \\
+        \hline
+    \end{longtable}
+    {\small
+        \textbf{Вывод:} разработка C-устройства дольше, и, соответственно, дороже,
+        но преимуществом является быстрота его работы.
+        Устройство, созданное {\mylanguage} сокращает время разработки вдвое.
+        Использование библиотеки радикально сокращает
+        время разработки в обоих случаях: в $2.8$ для C-устройства и
+        $5$ раз для Python-устройства.
+        При реализации устройств без сторонних библиотек, Python-устройство
+        в $4.7$ раза медленнее аналогичного C-устройства. При использовании
+        библиотек, разрыв сокращается до $1.5$ раза, что является
+        более чем приемлимым.
+    }
 \end{frame}
 
 
