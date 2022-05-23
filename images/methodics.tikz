@@ -227,31 +227,39 @@
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
-        \node [cloud] (start) {\small Начало};
-        \node [cyclebegin] (foreach commit start) [below = 2cm of start] {\small Для каждого коммита в системе контроля версий};
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (analysis)
+                {Анализ QOM для реализации определенного аппаратного обеспечения};
 
-        \node [decision] (if small diff) [below = 4cm of foreach commit start] {\small Разница с предыдущим коммитом меньше 2х часов?};
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (QOM desc)
+                [below = 2cm of analysis]
+                {Описание аппаратного обеспечения в терминах QOM};
 
-        \node [block] (small diff) [below left = 7cm of if small diff] {\small Коммиты принадлежат к непрерывной сессии программирования};
-        \node [block] (session time)
-                      [below = 3.5cm of small diff]
-                      {\small Затраченное время равно разницы между первым и последним коммитом в сессии};
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (device logic)
+                [below = 2cm of QOM desc]
+                {Написание логики аппаратного обеспечения};
 
-        \node [block] (not small diff) [below right = 7.1cm of if small diff] {\small Коммиты принадлежат к разным сессиям программирования};
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (build config)
+                [below = 2cm of device logic]
+                {Встраивание виртуального аппаратного обеспечения в сборку QEMU};
 
-        \node [cycleend] (foreach commit end) [below = 16cm of foreach commit start] {\small Для каждого коммита в системе контроля версий};
-        \node [block] (sum) [below = 2.5cm of foreach commit end] {\small Сложение времени всех сессий};
-        \node [cloud] (end) [below = 2.5cm of sum] {\small Конец};
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (compilation)
+                [below = 2cm of build config]
+                {Компиляция QEMU};
 
-        \draw [->] (start) -- (foreach commit start);
-        \draw [->] (foreach commit start) -- (if small diff);
-        \draw [->] (if small diff.west) -- (-4.95, -8.15) node [midway, above, sloped] (yes) {Да} -- (small diff.north);
-        \draw [->] (if small diff.east) -- (5, -6) node [midway, above, sloped] (no) {Нет} -- (not small diff);
-        \draw [->] (small diff) -- (session time);
-        \draw [->] (session time.south) -- (-4.95, -16.5) -- (0, -16.5) -- (foreach commit end.north);
-        \draw [->] (not small diff.south) -- (5, -16.5) -- (0, -16.5) -- (foreach commit end.north);
-        \draw [->] (foreach commit end) -- (sum);
-        \draw [->] (sum) -- (end);
+        \draw [->] (analysis) -- (QOM desc);
+        \draw [->] (QOM desc) -- (device logic);
+        \draw [->] (device logic) -- (build config);
+        \draw [->] (build config) -- (compilation);
 
 
 

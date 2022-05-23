@@ -59,7 +59,7 @@
     [
         rectangle,
         base,
-        rounded corners,
+        %rounded corners,
         minimum height = 2em
     ]
 \tikzstyle{print_block} =
@@ -228,28 +228,28 @@
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
         \node [cloud] (start) {\small Начало};
-        \node [cyclebegin] (foreach commit start) [below = 2cm of start] {\small Для каждого коммита в системе контроля версий};
+        \node [cyclebegin] (foreach commit start) [below = 1.5cm of start] {\small Для каждого коммита в системе контроля версий};
 
-        \node [decision] (if small diff) [below = 4cm of foreach commit start] {\small Разница с предыдущим коммитом меньше 2х часов?};
+        \node [decision] (if small diff) [below = 3cm of foreach commit start] {\small Разница с предыдущим коммитом меньше 2х часов?};
 
-        \node [block] (small diff) [below left = 7cm of if small diff] {\small Коммиты принадлежат к непрерывной сессии программирования};
+        \node [block] (small diff) at (-4, -5.8) {\small Коммиты принадлежат к непрерывной сессии программирования};
         \node [block] (session time)
-                      [below = 3.5cm of small diff]
+                      [below = 2cm of small diff]
                       {\small Затраченное время равно разницы между первым и последним коммитом в сессии};
 
-        \node [block] (not small diff) [below right = 7.1cm of if small diff] {\small Коммиты принадлежат к разным сессиям программирования};
+        \node [block] (not small diff) [right = 8cm of small diff] {\small Коммиты принадлежат к разным сессиям программирования};
 
-        \node [cycleend] (foreach commit end) [below = 16cm of foreach commit start] {\small Для каждого коммита в системе контроля версий};
-        \node [block] (sum) [below = 2.5cm of foreach commit end] {\small Сложение времени всех сессий};
-        \node [cloud] (end) [below = 2.5cm of sum] {\small Конец};
+        \node [cycleend] (foreach commit end) [below = 10cm of foreach commit start] {\small Для каждого коммита в системе контроля версий};
+        \node [block] (sum) [below = 1.5cm of foreach commit end] {\small Сложение времени всех сессий};
+        \node [cloud] (end) [below = 1.5cm of sum] {\small Конец};
 
         \draw [->] (start) -- (foreach commit start);
         \draw [->] (foreach commit start) -- (if small diff);
-        \draw [->] (if small diff.west) -- (-4.95, -8.15) node [midway, above, sloped] (yes) {Да} -- (small diff.north);
-        \draw [->] (if small diff.east) -- (5, -6) node [midway, above, sloped] (no) {Нет} -- (not small diff);
+        \draw [->] (if small diff.west) -- (-4, -4.5) node [midway, above, sloped] (yes) {Да} -- (small diff.north);
+        \draw [->] (if small diff.east) -- (4, -4.5) node [midway, above, sloped] (no) {Нет} -- (not small diff);
         \draw [->] (small diff) -- (session time);
-        \draw [->] (session time.south) -- (-4.95, -16.5) -- (0, -16.5) -- (foreach commit end.north);
-        \draw [->] (not small diff.south) -- (5, -16.5) -- (0, -16.5) -- (foreach commit end.north);
+        \draw [->] (session time.south) -- (-4, -10) -- (0, -10) -- (foreach commit end.north);
+        \draw [->] (not small diff.south) -- (4, -10) -- (0, -10) -- (foreach commit end.north);
         \draw [->] (foreach commit end) -- (sum);
         \draw [->] (sum) -- (end);
 
