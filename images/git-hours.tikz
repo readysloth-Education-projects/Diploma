@@ -245,7 +245,7 @@
 
         \draw [->] (start) -- (foreach commit start);
         \draw [->] (foreach commit start) -- (if small diff);
-        \draw [->] (if small diff.west) -- (-4.95, -8.15) node [midway, above, sloped] (yes) {Да} -- (small diff.north);
+        \draw [->] (if small diff.west) -- (-4.95, -6) node [midway, above, sloped] (yes) {Да} -- (small diff.north);
         \draw [->] (if small diff.east) -- (5, -6) node [midway, above, sloped] (no) {Нет} -- (not small diff);
         \draw [->] (small diff) -- (session time);
         \draw [->] (session time.south) -- (-4.95, -16.5) -- (0, -16.5) -- (foreach commit end.north);
