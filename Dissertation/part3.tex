@@ -50,7 +50,7 @@
 методами будет называться C-устройство, а устройство, реализованное с помощью {\mylanguage} --
 Python-устройством.
 Время сжатия рассчитывается как среднее время сжатия изображения (\cref{fig:image-for-compression})
-размером $5000x5000$ пикселей до $10\%$ от объема $1000$ раз.
+размером $5000x5000$ пикселей до $10\%$ (\cref{fig:image-after-compression}) от объема $1000$ раз.
 При весе в $43$ МБ результирующий вес изображения будет равен $4.3$ МБ.
 
 
@@ -62,6 +62,13 @@ Python-устройством.
     \caption{Сжимаемое изображение}\label{fig:image-for-compression}
 \end{figure}
 
+\begin{figure}[!htbp]
+    \centering
+    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
+        \includegraphics{images/image_after_compression.jpg}
+    \end{adjustbox}
+    \caption{Изображение, сжатое до 10\% от своего объема}\label{fig:image-after-compression}
+\end{figure}
 
 \begin{figure}[!htbp]
     \centering
