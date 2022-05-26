@@ -308,7 +308,7 @@
             C устройство &
             Python устройство \\
         \hline
-            Время разработки в человеко-часах &
+            Время разработки в человеко-часах ($T$)&
             $100$ &
             $50$ &
             $35$ &
@@ -321,18 +321,77 @@
             $2.786$ \\
         \hline
     \end{longtable}
-    {\small
-        \textbf{Вывод:} разработка C-устройства дольше, и, соответственно, дороже,
-        но преимуществом является быстрота его работы.
-        Устройство, созданное {\mylanguage} сокращает время разработки вдвое.
-        Использование библиотеки радикально сокращает
-        время разработки в обоих случаях: в $2.8$ для C-устройства и
-        $5$ раз для Python-устройства.
-        При реализации устройств без сторонних библиотек, Python-устройство
-        в $4.7$ раза медленнее аналогичного C-устройства. При использовании
-        библиотек, разрыв сокращается до $1.5$ раза, что является
-        более чем приемлемым.
-    }
+    \vspace*{-2.75cm}
+    \begin{figure}[!htbp]
+        \centering
+        \begin{tikzpicture}[%
+                start chain=going below,    % General flow is top-to-bottom
+                node distance=6mm and 30mm, % Global setup of box spacing
+                line/.style={draw, -latex'},
+                every join/.style={line},
+                block/.style={draw,
+                on chain,
+                on grid,
+                rectangle,
+                minimum height = 1em,
+                minimum width = 1.5em}
+                ]
+                \node [block, color=red, text width=2cm] (classic c device)
+                {
+                    \begin{itemize}
+                        \item $L = 20 $
+                        \item $D = 4  $
+                        \item $C = 65 $
+                        \item $R = 11 $
+                    \end{itemize}
+                };
+                \node [block, color=red, text width=2cm] (classic py device)
+                [right = 2.5cm of classic c device]
+                {
+                    \begin{itemize}
+                        \item $L = 4  $
+                        \item $D = 1  $
+                        \item $C = 38 $
+                        \item $R = 7  $
+                    \end{itemize}
+                };
+                \node [block, color=red, text width=2cm] (lib c device)
+                [right = 2.5cm of classic py device]
+                {
+                    \begin{itemize}
+                        \item $L = 20 $
+                        \item $D = 4  $
+                        \item $C = 8  $
+                        \item $R = 3  $
+                    \end{itemize}
+                };
+                \node [block, color=red, text width=2cm] (lib py device)
+                [right = 2.5cm of lib c device]
+                {
+                    \begin{itemize}
+                        \item $L = 4  $
+                        \item $D = 1  $
+                        \item $C = 3  $
+                        \item $R = 2  $
+                    \end{itemize}
+                };
+
+                \node [block, color=red] (classic c box) at (1.35,4.5) {};
+                \node [block, color=red] (classic py box) at (3.25,4.5) {};
+                \node [block, color=red] (lib c box) at (5.15,4.5) {};
+                \node [block, color=red] (lib py box) at (7.1,4.5) {};
+
+                \draw [-, color=red] (classic c device.north west)  -- (classic c box.south west);
+                \draw [-, color=red] (classic c device.north east)  -- (classic c box.south east);
+                \draw [-, color=red] (classic py device.north west) -- (classic py box.south west);
+                \draw [-, color=red] (classic py device.north east) -- (classic py box.south east);
+                \draw [-, color=red] (lib c device.north west)     -- (lib c box.south west);
+                \draw [-, color=red] (lib c device.north east)     -- (lib c box.south east);
+                \draw [-, color=red] (lib py device.north west)    -- (lib py box.south west);
+                \draw [-, color=red] (lib py device.north east)    -- (lib py box.south east);
+
+        \end{tikzpicture}
+    \end{figure}
 \end{frame}
 
 
