@@ -231,7 +231,7 @@
 
     \node [block]     (compilation)                              {\small Компиляция логики в байткод};
     \node [block]     (module)      [below = 2cm of compilation] {\small Создание Python-модуля из байткода};
-    \node [disk file] (module var)  [below = 3cm of module]      {\small Переменная, хранящая Python-модуль с реализацией устройства};
+    \node [io] (module var)  [below = 3cm of module]      {\small Переменная, хранящая Python-модуль с реализацией устройства};
     \node [process]   (func1)       [below = 3cm of module var]  {\small Функция, вызывающая логику};
     \node [process]   (func2)       [left = 6cm of func1]        {\small Функция, вызывающая логику};
     \node [process]   (func3)       [right = 6cm of func1]       {\small Функция, вызывающая логику};
