@@ -287,8 +287,8 @@ typedef struct {
         \draw [->] (struct analysis end) -- (result);
         \draw [->] (struct analysis end) -- (end);
 
-        \draw [dotted] (create python type.south west) -- (python type C-API.south east);
-        \draw [dotted] (create python type.north west) -- (python type C-API.north west);
+        \draw [loosely dashed] (create python type.south west) -- (python type C-API.south east);
+        \draw [loosely dashed] (create python type.north west) -- (python type C-API.north west);
 
 
 \end{tikzpicture}
