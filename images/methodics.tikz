@@ -235,32 +235,69 @@
         \node  [rectangle,
                 base,
                 minimum width=6cm] (QOM desc)
-                [below = 2cm of analysis]
+                [below = 4cm of analysis]
                 {Описание аппаратного обеспечения в терминах QOM};
 
         \node  [rectangle,
                 base,
                 minimum width=6cm] (device logic)
-                [below = 2cm of QOM desc]
+                [below = 4cm of QOM desc]
                 {Написание логики аппаратного обеспечения};
 
         \node  [rectangle,
                 base,
                 minimum width=6cm] (build config)
-                [below = 2cm of device logic]
+                [below = 4cm of device logic]
                 {Встраивание виртуального аппаратного обеспечения в сборку QEMU};
 
         \node  [rectangle,
                 base,
                 minimum width=6cm] (compilation)
-                [below = 2cm of build config]
+                [below = 4cm of build config]
                 {Компиляция QEMU};
+
+        \node  [] (classic)
+                [below = 0.7cm of compilation]
+                {Классическая методика};
 
         \draw [->] (analysis) -- (QOM desc);
         \draw [->] (QOM desc) -- (device logic);
         \draw [->] (device logic) -- (build config);
         \draw [->] (build config) -- (compilation);
 
+        %------
+
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (modern analysis)
+                [right = 7cm of QOM desc]
+                {Выбор устройства QEMU для наследования};
+
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (modern lang)
+                [below = 4cm of modern analysis]
+                {Описание устройства на разработаном языке};
+
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (modern device logic)
+                [below = 4cm of modern lang]
+                {Написание логики аппаратного обеспечения на Python};
+
+        \node  [rectangle,
+                base,
+                minimum width=6cm] (modern compilation)
+                [below = 4cm of modern device logic]
+                {Компиляция разработанного устройства};
+
+        \node  [] (modern)
+                [below = 0.7cm of modern compilation]
+                {Разработанная методика};
+
+        \draw [->] (modern analysis) -- (modern lang);
+        \draw [->] (modern lang) -- (modern device logic);
+        \draw [->] (modern device logic) -- (modern compilation);
 
 
 \end{tikzpicture}
