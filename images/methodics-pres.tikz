@@ -227,9 +227,14 @@
     start chain=going below,    % General flow is top-to-bottom
     node distance=6mm and 30mm, % Global setup of box spacing
     ]
+
+        \node  [] (classic)
+                {Классическая методика};
+
         \node  [rectangle,
                 base,
                 minimum width=6cm] (analysis)
+                [below = 1.5cm of classic]
                 {Анализ QOM для реализации определенного аппаратного обеспечения};
 
         \node  [rectangle,
@@ -256,10 +261,6 @@
                 [below = 2cm of build config]
                 {Компиляция QEMU};
 
-        \node  [] (classic)
-                [below = 0.7cm of compilation]
-                {Классическая методика};
-
         \draw [->] (analysis) -- (QOM desc);
         \draw [->] (QOM desc) -- (device logic);
         \draw [->] (device logic) -- (build config);
@@ -267,10 +268,14 @@
 
         %------
 
+        \node  [] (modern)
+                [right = 3cm of classic]
+                {Разработанная методика};
+
         \node  [rectangle,
                 base,
                 minimum width=6cm] (modern analysis)
-                [right = 7cm of QOM desc]
+                [below = 1.5cm of modern]
                 {Выбор устройства QEMU для наследования};
 
         \node  [rectangle,
@@ -291,13 +296,7 @@
                 [below = 2cm of modern device logic]
                 {Компиляция разработанного устройства};
 
-        \node  [] (modern)
-                [below = 0.7cm of modern compilation]
-                {Разработанная методика};
-
         \draw [->] (modern analysis) -- (modern lang);
         \draw [->] (modern lang) -- (modern device logic);
         \draw [->] (modern device logic) -- (modern compilation);
-
-
 \end{tikzpicture}

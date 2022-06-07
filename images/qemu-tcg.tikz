@@ -237,7 +237,7 @@
   \draw [->] (left branch) -- (end);
   \draw [->] (right branch) -- (end);
 
-  \node [draw, loosely dashed, thick, minimum width=6cm, minimum height=4cm] at (CENTER) {};
+  \node [draw, dashed, thick, minimum width=6cm, minimum height=4cm] at (CENTER) {};
   \node [above=2cm of CENTER] {#2};
 }
 
@@ -253,7 +253,7 @@
     \node [draw] (TCG) at (8,-2) {TCG};
     \draw [->] +(9,-2) -- (11.7,-2);
 
-    \node [draw, loosely dashed, thick, minimum width=7cm, minimum height=5cm] (translation cache) at (16,-1.5) {};
+    \node [draw, dashed, thick, minimum width=7cm, minimum height=5cm] (translation cache) at (16,-1.5) {};
     \node [above= 0.2cm of translation cache] {Кэш трансляции};
 
     \node [draw, minimum width=2cm, minimum height=2cm] at (0,-10) {QEMU};
@@ -265,7 +265,7 @@
     \draw [->] (1.45,-9) -- (4.5,-9);
     \draw [->] (4.5,-11) -- (1.45,-11);
 
-    \node [draw, loosely dashed, thick, minimum width=4cm, minimum height=3cm] (prologue epilogue) at (peCENTER) {};
+    \node [draw, dashed, thick, minimum width=4cm, minimum height=3cm] (prologue epilogue) at (peCENTER) {};
     \node [above=0.2cm of prologue epilogue] {Передача контроля эмулятора};
 
     \draw [->] (prologue) -- (12,-9) -- (12, 0) -- (14.45, 0);
