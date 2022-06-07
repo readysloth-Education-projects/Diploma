@@ -229,7 +229,7 @@
     ]
         \node  [rectangle,
                 base,
-                loosely dashed,
+                dashed,
                 minimum width=6cm,
                 minimum height=15cm] (compile rect) at (0,-10) {};
 
@@ -245,23 +245,26 @@
         \node  [subroutine]   (python)         [below = 2.2cm of qemu inh boil]  {\small Генерация python-интерфейса\\для логики устройства};
         \node  [subroutine]   (buildsystem)    [below = 2.2cm of python]         {\small Встраивание устройства\\в сборку QEMU};
 
-        \node  [io] (source)         [left  = 8cm of parse]            {\small Исходный код устройства};
-        \node  [io] (qemu folder)    [left  = 8cm of buildsystem]      {\small Сборочная папка QEMU};
+        \node  [] (source)         [left = 2cm of parse]            {\small Исходный код устройства \Huge ]};
+        \node  [] (qemu folder)    [left = 2cm of buildsystem]      {\small Сборочная папка QEMU \Huge ]};
         \node  [subroutine] (compile)       [below = 3cm of buildsystem]      {\small Сборка QEMU};
-        \node  [io] (binary)         [left  = 8cm of compile]        {\small QEMU со встроенным устройством};
+        \node  [] (binary)         [left = 2cm of compile]        {\small QEMU со встроенным устройством \Huge ]};
 
         \node  [cloud] (end) [below = 2cm of compile] {\small Конец};
 
         \draw [->] (begin)          -- (parse);
-        \draw [->] (source)         -- (parse);
+        \draw [-, dashed, line width=0.5mm]
+                   (source)         -- (parse);
         \draw [->] (parse)          -- (qemu inh);
         \draw [->] (qemu inh)       -- (qemu inh inter);
         \draw [->] (qemu inh inter) -- (qemu inh boil);
         \draw [->] (qemu inh boil)  -- (python);
         \draw [->] (python)         -- (buildsystem);
-        \draw [->] (qemu folder)    -- (buildsystem);
+        \draw [-, dashed, line width=0.5mm]
+                   (qemu folder)    -- (buildsystem);
         \draw [->] (buildsystem)    -- (compile);
-        \draw [->] (compile)        -- (binary);
+        \draw [-, dashed, line width=0.5mm]
+                   (compile)        -- (binary);
         \draw [->] (compile)        -- (end);
 
 

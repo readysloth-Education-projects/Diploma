@@ -229,7 +229,7 @@
     ]
         \node  [rectangle,
                 base,
-                loosely dashed,
+                dashed,
                 minimum width=14cm,
                 minimum height=10cm] (compile rect) at (4,-7) {};
 
@@ -246,25 +246,28 @@
         \node  [subroutine]   (python)         [below = 1.5cm of qemu inh boil]  {\small Генерация python-интерфейса\\для логики устройства};
         \node  [subroutine]   (buildsystem)    [below = 1.5cm of python]         {\small Встраивание устройства\\в сборку QEMU};
 
-        \node  [io, text width=3cm]  (source) [right = 6cm of parse] {\small Исходный код устройства};
+        \node  [text width=5cm] (source) [right = 3cm of parse] {\Huge [ \small Исходный код устройства};
 
-        \node  [io, text width=3cm] (qemu folder)     [left  = 8cm of buildsystem] {\small Сборочная \\ папка QEMU};
+        \node  [text width=4.1cm] (qemu folder)     [left = 2cm of buildsystem] {\small Сборочная папка QEMU \Huge ]};
         \node  [subroutine] (compile) [below = 2cm of buildsystem] {\small Сборка QEMU};
-        \node  [io, text width=3cm] (binary)          [left = 8cm of compile]      {\small QEMU со \\ встроенным устройством};
+        \node  [text width=6cm] (binary)          [left = 2cm of compile]      {\small QEMU со встроенным устройством \Huge ]};
 
         \node  [cloud] (end) [below = 2cm of compile] {\small Конец};
 
 
         \draw [->] (begin)          -- (parse);
-        \draw [->] (source)         -- (parse);
+        \draw [-, shorten >= 0.5cm, dashed, line width=0.5mm]
+                   (source)         -- (parse);
         \draw [->] (parse)          -- (qemu inh);
         \draw [->] (qemu inh)       -- (qemu inh inter);
         \draw [->] (qemu inh inter.south) -- (0, -7.5) -- (4, -7.5) -- (4, -4.5) -- (8, -4.5) -- (qemu inh boil.north);
         \draw [->] (qemu inh boil)  -- (python);
         \draw [->] (python)         -- (buildsystem);
-        \draw [->] (qemu folder)    -- (buildsystem);
+        \draw [-, dashed, line width=0.5mm]
+                   ([xshift=-0.2cm]buildsystem.west) -- ([xshift=-0.2cm]qemu folder.east);
         \draw [->] (buildsystem)    -- (compile);
-        \draw [->] (compile)        -- (binary);
+        \draw [-, dashed, line width=0.5mm]
+                   ([xshift=-0.25cm]compile.west) -- ([xshift=-0.25cm]binary.east);
         \draw [->] (compile)        -- (end);
 
 
