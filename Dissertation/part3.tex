@@ -102,53 +102,18 @@ Python-устройством.
         Python устройство \\
     \hline
         Время разработки в человеко-часах &
-        $100$ &
-        $50$ &
+        $112$ &
+        $52$ &
         $35$ &
         $10$ \\
     \hline
         Время сжатия (сек.)&
-        $3.915$  (\cref{fig:hist-handmade-c-dev}) &
-        $18.548$ (\cref{fig:hist-handmade-py-dev}) &
-        $1.871$  (\cref{fig:hist-lib-c-dev}) &
-        $2.786$  (\cref{fig:hist-lib-py-dev}) \\
+        $3.9$   &
+        $18.5$  &
+        $1.8$   &
+        $2.7$   \\
     \hline
 \end{longtable}
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-handmade-c-dev.png}
-    \end{adjustbox}
-    \caption{Время сжатия разработанным с нуля C-устройством.}\label{fig:hist-handmade-c-dev}
-\end{figure}
-
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-handmade-py-dev.png}
-    \end{adjustbox}
-    \caption{Время сжатия разработанным с нуля Python-устройством.}\label{fig:hist-handmade-py-dev}
-\end{figure}
-
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-lib-c-dev.png}
-    \end{adjustbox}
-    \caption{Время сжатия C-устройством, использующим библиотеку сжатия.}\label{fig:hist-lib-c-dev}
-\end{figure}
-
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-lib-py-dev.png}
-    \end{adjustbox}
-    \caption{Время сжатия Python-устройством, использующим библиотеку сжатия.}\label{fig:hist-lib-py-dev}
-\end{figure}
 
 \textbf{Вывод:} при создании устройства на C, очевидна разница
 в скорости разработки -- имплементация устройства с нуля
@@ -228,28 +193,10 @@ Python-устройством.
         $14$ ($+4$) \\
     \hline
         Время сжатия (сек.)&
-        $2.341$ ($+0.47$) (\cref{fig:hist-lib-c-network}) &
-        $3.533$ ($+0.75$) (\cref{fig:hist-lib-py-network}) \\
+        $2.3$ ($+0.5$)  &
+        $3.5$ ($+0.8$)  \\
     \hline
 \end{longtable}
-
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-lib-c-network.png}
-    \end{adjustbox}
-    \caption{Время сжатия C-устройством по сети.}\label{fig:hist-lib-c-network}
-\end{figure}
-
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-lib-py-network.png}
-    \end{adjustbox}
-    \caption{Время сжатия Python-устройством по сети.}\label{fig:hist-lib-py-network}
-\end{figure}
 
 \textbf{Вывод:} данный эксперимент показывает, что добавление новых возможностей,
 уже реализованных сторонними библиотеками, для C-устройства занимает больше времени,
@@ -272,27 +219,10 @@ Python-устройством.
         $10$ ($-2$) \\
     \hline
         Быстродействие &
-        $2.031$ ($+0.16$) (\cref{fig:hist-exec-c-dev}) &
-        $3.246$ ($+0.46$) (\cref{fig:hist-exec-py-dev}) \\
+        $2.0$ ($+0.2$)  &
+        $3.2$ ($+0.4$)  \\
     \hline
 \end{longtable}
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-exec-c-dev.png}
-    \end{adjustbox}
-    \caption{Время сжатия C-устройством через подпроцесс.}\label{fig:hist-exec-c-dev}
-\end{figure}
-
-
-\begin{figure}[!htbp]
-    \centering
-    \begin{adjustbox}{max totalsize={0.8\textwidth}{\textheight}}
-        \includegraphics{images/hist-exec-py-dev.png}
-    \end{adjustbox}
-    \caption{Время сжатия Python-устройством через подпроцесс.}\label{fig:hist-exec-py-dev}
-\end{figure}
 
 \textbf{Вывод:} данный эксперимент является достаточно специфичным, так как отражает процесс
 решения узкого класса задач. В то же время, решение является лучшим по соотношению
