@@ -182,6 +182,10 @@
 
     \newcommand{\eqrefs}[1]{(\labelcref{#1})}
     \newcommand{\refs}[1]{\labelcref{#1}}
+
+
+    \crefname{lstlisting}{листинг}{листинги}
+    \Crefname{lstlisting}{Листинг}{Листинги}
 \fi
 
 \ifnumequal{\value{draft}}{1}{% Черновик
@@ -259,3 +263,4 @@
 
 \usepackage[nounderscore]{syntax}
 \usepackage{lipsum}
+\usepackage{csvsimple}
